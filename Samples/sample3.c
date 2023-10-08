@@ -2,9 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-    int sum = a + b;
-    printf("The sum is: %d\n", sum);
+    int num1 = 10;
+    int num2 = 5;
+
+    int sum = num1 + num2;
+
+    printf("The sum of %d and %d is: %d\n", num1, num2, sum);
+
     return 0;
 }
+
+
+
