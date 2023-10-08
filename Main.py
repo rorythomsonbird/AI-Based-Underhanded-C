@@ -1,3 +1,3 @@
 import GPTAPI
 import MalwareCheck
-MalwareCheck.filetostring("testfile.txt")
+MalwareCheck.check("testfile.txt")
