@@ -1,3 +1,3 @@
-import GPTAPI as GPTAPI
-
-GPTAPI.main()
+import GPTAPI
+import MalwareCheck
+MalwareCheck.filetostring("testfile.txt")
