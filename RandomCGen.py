@@ -8,7 +8,7 @@ def gencode(count):
     import os
 
 # folder path
-    dir_path = r'C:\Users\roryt\Desktop\Code\PROJECT\Samples'
+    dir_path = r'Samples'
     fcount = 0
     for path in os.listdir(dir_path):
         
