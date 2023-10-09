@@ -1,13 +1,13 @@
 import GPTAPI
 import re
 import os
+from distutils.ccompiler import new_compiler
 def gencode(count):
     samples = GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets with no explanations about what the code is. code should have good readability and should be simple. ")
     samplelist = samples.split("```c")
     print(samplelist[0])
-    import os
+    
 
-# folder path
     dir_path = r'Samples'
     fcount = 0
     for path in os.listdir(dir_path):
@@ -21,4 +21,6 @@ def gencode(count):
         file.writelines(samplelist[i])
     print("finished")
         
-        
+def compilecode(file):
+    compiler = new_compiler()
+    compiler.compile(file)

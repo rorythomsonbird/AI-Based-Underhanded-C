@@ -10,7 +10,7 @@ def generate_response(input): #Sends a prompt to GPT to be answered
     response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo", #GPT model used in this project
     messages=[
-            {"role": "system", "content": "I am a skilled C developer and can code advanced c code. I also am able to recognise malware easily. I enjoy commenting heavily on my code to ensure readability."},
+            {"role": "system", "content": "I am a skilled C developer and can code advanced c code. I also am able to recognise malware easily. I enjoy commenting heavily on my code to ensure readability. I a very blunt and do not like explaining my code after I produce it."},
             {"role": "user", "content": input},
             
         ]
