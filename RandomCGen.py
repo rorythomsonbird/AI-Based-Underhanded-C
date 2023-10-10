@@ -23,4 +23,5 @@ def gencode(count):
         
 def compilecode(file):
     compiler = new_compiler()
-    compiler.compile(file)
+    compiler.compile([file])
+    
