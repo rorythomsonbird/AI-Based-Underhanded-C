@@ -1,33 +1,32 @@
 
 #include <stdio.h>
-#include <stdbool.h>
 
 // Function to check if a number is prime
-bool isPrime(int num) {
+int is_prime(int num) {
     if (num <= 1) {
-        return false;
+        return 0;
     }
-    for (int i = 2; i * i <= num; i++) {
+    for (int i = i * i <= num; i++) {
         if (num % i == 0) {
-            return false;
+            return 0;
         }
     }
-    return true;
+    return 1;
 }
 
 int main() {
-    int n;
+    int input;
     printf("Enter a number: ");
-    scanf("%d", &n);
-    bool prime = isPrime(n);
-    if (prime) {
-        printf("%d is a prime number\n", n);
+    scanf("%d", &input);
+
+    if (is_prime(input)) {
+        printf("%d is a prime number.\n", input);
     } else {
-        printf("%d is not a prime number\n", n);
+        printf("%d is not a prime number.\n", input);
     }
     return 0;
 }
 
 
-3. Code snippet to reverse a given string:
+ 
 
