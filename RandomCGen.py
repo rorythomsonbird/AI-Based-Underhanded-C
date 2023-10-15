@@ -45,5 +45,8 @@ def gencode(count, type): #generates code
         
 def compilecode(file): #compiles code
     compiler = new_compiler()
-    compiler.compile([file])
+    try:
+        compiler.compile([file])
+    except Exception:
+        print("Could not compile "+file+ " please compile manually.")
     
