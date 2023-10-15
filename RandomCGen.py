@@ -3,10 +3,11 @@ import re
 import os
 from distutils.ccompiler import new_compiler
 
-def gencode(count):
+def gencode(count, type):
     #elevate.elevate()
     print("Generating code....")
-    samples = GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets with no explanations about what the code is. code should have good readability and should be simple. ")
+    samples = GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets that "+ type+". With no explanations about what the code is. code should have good readability and should be simple. ")
+    print(samples)
     print("Done!")
     print("Dividing code samples into single samples....")
     samplelist = samples.split("```c")
