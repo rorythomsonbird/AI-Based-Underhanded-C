@@ -33,7 +33,10 @@ def gencode(count, type): #generates code
         for j in range(len(tempsamplelist)): #add newline characters (they were removed in the split)
             tempsamplelist[j] = tempsamplelist[j] + "\n"
         samplelist[i] = tempsamplelist
-        file.writelines(samplelist[i]) #write lines to file
+        if i == count:
+            file.writelines(samplelist[i]+["\n}"]) #write lines to file (fixes error where last } dissapears every time)
+        else:
+            file.writelines(samplelist[i]) #write lines to file
         file.close()
         print("Sample "+str(fcount+i)+ " done!")
         print("Compiling sample "+str(fcount+i)+"....")
