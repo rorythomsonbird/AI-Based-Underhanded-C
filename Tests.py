@@ -1,6 +1,7 @@
 import GPTAPI
 import MalwareCheck
 import RandomCGen
+import os
 def apitest():
     print("GPTAPI TESTS")
 
@@ -18,4 +19,29 @@ def apitest():
         print("TEST 2 SUCCESS")
     else:
         print("TEST 2 FAIL")
+
+def cgentest():
+    print("RANDOMCGEN TESTS")
+
+    #Test1, file count should grow
+    dir_path = r'Samples'
+    fcount = 0
+    for path in os.listdir(dir_path): #count current numbers of files in directory
+        
+        fcount += 1
+    #blockPrint()
+    RandomCGen.gencode(1,"")
+    #enablePrint()
+    newfcount = 0
+    for path in os.listdir(dir_path): #count current numbers of files in directory
+        newfcount += 1
+    if newfcount>fcount:
+        print("TEST 1 SUCCESS")
+    else:
+        print("TEST 1 FAIL")
+
+
+
+
 apitest()
+cgentest()
