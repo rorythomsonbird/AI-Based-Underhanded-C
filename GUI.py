@@ -33,12 +33,20 @@ inserttypeinp.place(x=10, y=160)
 #titles for each section
 nonmallab = tkinter.Label(frame, text = "Generate code!")
 nonmallab.config(font=("Courier", 20))
-nonmallab.place(x=60,y=20)
+nonmallab.place(x=80,y=20)
 mallab = tkinter.Label(frame, text="Make it malicious!")
 mallab.place(x=460,y=20)
 mallab.config(font=("Courier", 20))
+
+#gencode button
 button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt)
 button.place(x=100,y= 480)
+
+#list storing files
+files = ("This","Will","Be", "Full", "Of", "Generated", "Files","...","Time","To","Check","If","There","Is","A","Scrollbar") #note there is not, but can be scrolled with arrowkeys
+filelist = tkinter.Variable(value=files)
+listbox = tkinter.Listbox(frame, height= 10, listvariable=filelist)
+listbox.place(x=80, y= 200)
 
 
 
