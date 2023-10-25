@@ -12,20 +12,34 @@ def sendprompt():
 frame = tkinter.Frame(gui, width=800,height=500)
 frame.pack_propagate(0)
 frame.pack()
-insertnumlab = tkinter.Label(frame,text="Enter number of generated files:")
+canvas = tkinter.Canvas(frame, width=800,height=500)
+canvas.create_line(400, 0, 400, 500, width=5)
+canvas.pack()
+
+#input number of generated files
+insertnumlab = tkinter.Label(frame,text="Enter number of generated files:") 
 insertnumlab.config(font=("Courier", 8))
 insertnumlab.place(x=5,y=100)
 insertnuminp = tkinter.Text(frame, height= 1, width=20)
 insertnuminp.place(x=10, y=120)
 
+#input type of malicious files
 inserttypelab = tkinter.Label(frame,text="Enter type of generated files:")
 inserttypelab.config(font=("Courier", 8))
 inserttypelab.place(x=5,y=140)
 inserttypeinp = tkinter.Text(frame, height= 1, width=20)
 inserttypeinp.place(x=10, y=160)
 
+#titles for each section
+nonmallab = tkinter.Label(frame, text = "Generate code!")
+nonmallab.config(font=("Courier", 20))
+nonmallab.place(x=60,y=20)
+mallab = tkinter.Label(frame, text="Make it malicious!")
+mallab.place(x=460,y=20)
+mallab.config(font=("Courier", 20))
 button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt)
-button.place(x=300,y= 480)
+button.place(x=100,y= 480)
+
 
 
 
