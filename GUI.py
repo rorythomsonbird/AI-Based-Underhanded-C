@@ -4,18 +4,26 @@ gui = tkinter.Tk()
 gui.title("Malware Generator")
 
 def sendprompt(): 
-    input = insertinp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
-    if input != "":
-        RandomCGen.gencode(int(input), "")
+    inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
+    inputtype = inserttypeinp.get("1.0",'end-1c')
+    if inputnum != "":
+        RandomCGen.gencode(int(inputnum), inputtype)
 
 frame = tkinter.Frame(gui, width=800,height=500)
 frame.pack_propagate(0)
 frame.pack()
-insertlab = tkinter.Label(frame,text="Enter number of generated files:")
-insertlab.config(font=("Courier", 8))
-insertlab.place(x=5,y=100)
-insertinp = tkinter.Text(frame, height= 1, width=20)
-insertinp.place(x=10, y=120)
+insertnumlab = tkinter.Label(frame,text="Enter number of generated files:")
+insertnumlab.config(font=("Courier", 8))
+insertnumlab.place(x=5,y=100)
+insertnuminp = tkinter.Text(frame, height= 1, width=20)
+insertnuminp.place(x=10, y=120)
+
+inserttypelab = tkinter.Label(frame,text="Enter type of generated files:")
+inserttypelab.config(font=("Courier", 8))
+inserttypelab.place(x=5,y=140)
+inserttypeinp = tkinter.Text(frame, height= 1, width=20)
+inserttypeinp.place(x=10, y=160)
+
 button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt)
 button.place(x=300,y= 480)
 
