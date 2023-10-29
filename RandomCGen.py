@@ -3,6 +3,7 @@ import re
 import os
 from distutils.ccompiler import new_compiler
 
+genfiles = list()
 def gencode(count, type): #generates code
     print("Generating code....")
     samples = GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets  "+ type+". With no explanations about what the code is. code should have good readability and should be simple. ") #generate code snippets
@@ -36,6 +37,7 @@ def gencode(count, type): #generates code
         
         file.writelines(samplelist[i]) #write lines to file
         file.close()
+        genfiles.append("sample"+str(fcount+i)+".c")
         
     
     print("All files written!")

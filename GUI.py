@@ -16,7 +16,8 @@ def refreshlist(listbox,files,allfiles):
     if allfiles == 1:
         for path in os.listdir("Samples"): 
             files.append(path)
-    
+    else:
+        files = RandomCGen.genfiles
     listbox.delete(0,tkinter.END)
     print(files)
     for item in files:
@@ -65,9 +66,9 @@ genbutton = tkinter.Button(frame, text = "Generate!",width = 25, command=sendpro
 genbutton.place(x=100,y= 480)
 
 #list storing files
-allfiles = 1 #for testing purposes. This will be 0 normally. Sets whether all files in folder shown or just newly generated 
+allfiles = 0 #sets if all files shown or just newly generated 
 
-
+genfiles = list()
 files = list("hello")
 listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
 listbox.place(x=50, y= 220)
