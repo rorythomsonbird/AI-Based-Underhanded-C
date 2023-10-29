@@ -1,33 +1,29 @@
 
 #include <stdio.h>
-
-void encryptFile(char* inputFile, char* outputFile, int key) {
-    FILE* input = fopen(inputFile, "r");
-    FILE* output = fopen(outputFile, "w");
-
-    if (input == NULL || output == NULL) {
-        printf("Error opening file.\n");
-        return;
-    }
-
-    int ch;
-    while ((ch = fgetc(input)) != EOF) {
-        ch = ch ^ key;
-        fputc(ch, output);
-    }
-
-    printf("File encrypted successfully.\n");
-
-    fclose(input);
-    fclose(output);
-}
+#include <stdlib.h>
 
 int main() {
-    char inputFile[] = "input.txt";
-    char outputFile[] = "output.txt";
-    int key = 123;
+    FILE *fp1, *fp2;
+    char ch;
+    int key = 5;
 
-    encryptFile(inputFile, outputFile, key);
+    fp1 = fopen("encrypted.txt", "r");
+    fp2 = fopen("decrypted.txt", "w");
+
+    if (fp1 == NULL || fp2 == NULL) {
+        printf("File open error!\n");
+        exit(1);
+    }
+
+    while ((ch = fgetc(fp1)) != EOF) {
+        ch = ch - key;
+        fputc(ch, fp2);
+    }
+
+    printf("File decrypted successfully.\n");
+
+    fclose(fp1);
+    fclose(fp2);
 
     return 0;
 }

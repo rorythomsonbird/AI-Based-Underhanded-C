@@ -11,6 +11,13 @@ def sendprompt():
     if inputnum != "":
         RandomCGen.gencode(int(inputnum), inputtype)
 
+def refreshlist(files):
+    files.clear()
+    if allfiles == 1:
+        for path in os.listdir("Samples"): 
+            files.append(path)
+    files = tuple(files)
+
 frame = tkinter.Frame(gui, width=800,height=500)
 frame.pack_propagate(0)
 frame.pack()
@@ -45,11 +52,11 @@ button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt
 button.place(x=100,y= 480)
 
 #list storing files
-allfiles = list()
-for path in os.listdir("Samples"): 
-        allfiles.append(path)
-allfiles = tuple(allfiles)
-filelist = tkinter.Variable(value=allfiles)
+allfiles = 1 #for testing purposes. This will be 0 normally. Sets whether all files in folder shown or just newly generated 
+files = list()
+refreshlist(files)
+
+filelist = tkinter.Variable(value=files)
 listbox = tkinter.Listbox(frame, height= 10, listvariable=filelist)
 listbox.place(x=50, y= 220)
 
