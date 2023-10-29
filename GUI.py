@@ -26,6 +26,11 @@ def compile(listbox):
         else:
             showinfo("Info", "Could not compile. please compile manually.")
 
+def read(listbox):
+    for i in listbox.curselection():
+        readfile = open("Samples/"+listbox.get(i))
+        showinfo(listbox.get(i),readfile.readlines())
+
     
     
 
@@ -106,6 +111,10 @@ newfbutton.place(x=50,y= 195)
 #compile button
 compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,command=lambda:compile(listbox))
 compilebutton.place(x=250,y= 385)
+
+#read file button
+readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:read(listbox))
+readbutton.place(x=250,y= 360)
 
 
 
