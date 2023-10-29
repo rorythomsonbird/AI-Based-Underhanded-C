@@ -47,6 +47,7 @@ def compilecode(file): #compiles code
     compiler = new_compiler()
     try:
         compiler.compile([file])
+        return 1
     except Exception:
-        print("Could not compile "+file+ " please compile manually.")
+        return 0
     

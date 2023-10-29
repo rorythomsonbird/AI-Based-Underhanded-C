@@ -20,10 +20,14 @@ def sendprompt():
 
 def compile(listbox):
     for i in listbox.curselection():
-        RandomCGen.compilecode("Samples/"+listbox.get(i))
-    showinfo("Info", "Compiling code...")
+        showinfo("Info", "Compiling "+listbox.get(i)+"...")
+        if RandomCGen.compilecode("Samples/"+listbox.get(i)) == 1:
+            showinfo("Info", "Compiled!")
+        else:
+            showinfo("Info", "Could not compile. please compile manually.")
+
     
-    showinfo("Info", "Compiled!")
+    
 
 def refreshlist(listbox,files,allfiles):
     files.clear()
