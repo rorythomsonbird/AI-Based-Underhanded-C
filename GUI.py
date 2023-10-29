@@ -15,6 +15,15 @@ def sendprompt():
         
         RandomCGen.gencode(int(inputnum), inputtype)
         showinfo("Info", "Code generated!")
+    else:
+        showinfo("Warning", "Please enter a number of generated files")
+
+def compile(listbox):
+    for i in listbox.curselection():
+        RandomCGen.compilecode("Samples/"+listbox.get(i))
+    showinfo("Info", "Compiling code...")
+    
+    showinfo("Info", "Compiled!")
 
 def refreshlist(listbox,files,allfiles):
     files.clear()
@@ -65,8 +74,8 @@ mallab.place(x=460,y=20)
 mallab.config(font=("Courier", 20))
 
 #gencode button
-genbutton = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt)
-genbutton.place(x=100,y= 480)
+genbutton = tkinter.Button(frame, text = "Generate!",width = 10, command=sendprompt)
+genbutton.place(x=250,y= 160)
 
 #list storing files
 allfiles = 0 #sets if all files shown or just newly generated 
@@ -80,7 +89,7 @@ refreshlist(listbox,files,allfiles)
 
 #refresh file list button
 refbutton = tkinter.Button(frame, text = "Refresh",width = 16, command=lambda: refreshlist(listbox,files,allfiles))
-refbutton.place(x=50,y= 380)
+refbutton.place(x=50,y= 385)
 
 #all files button
 allfbutton = tkinter.Button(frame, text = "All",width = 6, command=lambda: allset(listbox,files,allfiles))
@@ -89,6 +98,10 @@ allfbutton.place(x=120,y= 195)
 #new files button
 newfbutton = tkinter.Button(frame, text = "New",width = 6, command=lambda: newset(listbox,files,allfiles))
 newfbutton.place(x=50,y= 195)
+
+#compile button
+compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,command=lambda:compile(listbox))
+compilebutton.place(x=250,y= 385)
 
 
 
