@@ -1,6 +1,7 @@
 import tkinter
 import RandomCGen
 import os
+from tkinter.messagebox import showinfo
 
 gui = tkinter.Tk()
 gui.title("Malware Generator")
@@ -9,7 +10,11 @@ def sendprompt():
     inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
     inputtype = inserttypeinp.get("1.0",'end-1c')
     if inputnum != "":
+        
+        showinfo("Info", "Generating code...")
+        
         RandomCGen.gencode(int(inputnum), inputtype)
+        showinfo("Info", "Code generated!")
 
 def refreshlist(listbox,files,allfiles):
     files.clear()
@@ -19,9 +24,7 @@ def refreshlist(listbox,files,allfiles):
     else:
         files = RandomCGen.genfiles
     listbox.delete(0,tkinter.END)
-    print(files)
     for item in files:
-        print(item)
         listbox.insert(tkinter.END,item)
 
 def allset(listbox,files,allfiles):
@@ -69,7 +72,7 @@ genbutton.place(x=100,y= 480)
 allfiles = 0 #sets if all files shown or just newly generated 
 
 genfiles = list()
-files = list("hello")
+files = list()
 listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
 listbox.place(x=50, y= 220)
 
