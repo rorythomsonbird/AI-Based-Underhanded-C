@@ -1,20 +1,16 @@
 
 #include <stdio.h>
 
-int factorial(int n) {
-    if (n <= 1) {
-        return 1;
-    } else {
-        return n * factorial(n - 1);
-    }
-}
-
 int main() {
-    int number = 5;
-    int result = factorial(number);
-
-    printf("The factorial of %d is: %d\n", number, result);
-
+    int mileage = 50000;
+    int maintenanceThreshold = 60000;
+    
+    if (mileage >= maintenanceThreshold) {
+        printf("Maintenance required.\n");
+    } else {
+        printf("No maintenance required yet.\n");
+    }
+    
     return 0;
 }
 

@@ -36,10 +36,7 @@ def gencode(count, type): #generates code
         
         file.writelines(samplelist[i]) #write lines to file
         file.close()
-        print("Sample "+str(fcount+i)+ " done!")
-        print("Compiling sample "+str(fcount+i)+"....")
-        compilecode("Samples/sample"+str(fcount+i)+".c")
-        print("Compiled!")
+        
     
     print("All files written!")
     

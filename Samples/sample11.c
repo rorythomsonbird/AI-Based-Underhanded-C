@@ -1,21 +1,18 @@
 
 #include <stdio.h>
 
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+int calculateDistance(int speed, int time) {
+    return speed * time;
 }
 
 int main() {
-    int x = 10;
-    int y = 20;
-
-    printf("Before swap: x = %d, y = %d\n", x, y);
-    swap(&x, &y);
-    printf("After swap: x = %d, y = %d\n", x, y);
-
+    int carSpeed = 60;
+    int travelTime = 2;
+    
+    int distance = calculateDistance(carSpeed, travelTime);
+    
+    printf("The car traveled %d km.\n", distance);
+    
     return 0;
 }
 
-}

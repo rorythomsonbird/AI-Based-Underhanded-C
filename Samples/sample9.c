@@ -2,13 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    int i;
-
-    for (i = 0; i < 10; i++) {
-        printf("%d ", i);
+    int fuel = 75;
+    
+    if (fuel < 50) {
+        printf("Low fuel warning!\n");
+    } else {
+        printf("Fuel level is good.\n");
     }
-    printf("\n");
-
+    
     return 0;
 }
 

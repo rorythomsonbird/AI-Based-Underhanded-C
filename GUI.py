@@ -43,10 +43,13 @@ button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt
 button.place(x=100,y= 480)
 
 #list storing files
-files = ("This","Will","Be", "Full", "Of", "Generated", "Files","...","Time","To","Check","If","There","Is","A","Scrollbar") #note there is not, but can be scrolled with arrowkeys
+
+allfiles = () #
 filelist = tkinter.Variable(value=files)
 listbox = tkinter.Listbox(frame, height= 10, listvariable=filelist)
 listbox.place(x=80, y= 200)
+scrollbar = tkinter.Scrollbar(listbox, orient="vertical")
+scrollbar.pack(side="right", fill="y")
 
 
 
