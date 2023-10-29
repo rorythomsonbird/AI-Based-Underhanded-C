@@ -11,12 +11,25 @@ def sendprompt():
     if inputnum != "":
         RandomCGen.gencode(int(inputnum), inputtype)
 
-def refreshlist(files):
+def refreshlist(listbox,files,allfiles):
     files.clear()
     if allfiles == 1:
         for path in os.listdir("Samples"): 
             files.append(path)
-    files = tuple(files)
+    
+    listbox.delete(0,tkinter.END)
+    print(files)
+    for item in files:
+        print(item)
+        listbox.insert(tkinter.END,item)
+
+def allset(listbox,files,allfiles):
+    allfiles = 1
+    refreshlist(listbox,files,allfiles)
+
+def newset(listbox,files,allfiles):
+    allfiles = 0
+    refreshlist(listbox,files,allfiles)
 
 frame = tkinter.Frame(gui, width=800,height=500)
 frame.pack_propagate(0)
@@ -48,21 +61,30 @@ mallab.place(x=460,y=20)
 mallab.config(font=("Courier", 20))
 
 #gencode button
-button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt)
-button.place(x=100,y= 480)
+genbutton = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt)
+genbutton.place(x=100,y= 480)
 
 #list storing files
 allfiles = 1 #for testing purposes. This will be 0 normally. Sets whether all files in folder shown or just newly generated 
-files = list()
-refreshlist(files)
 
-filelist = tkinter.Variable(value=files)
-listbox = tkinter.Listbox(frame, height= 10, listvariable=filelist)
+
+files = list("hello")
+listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
 listbox.place(x=50, y= 220)
 
-#refresh file list
-button = tkinter.Button(frame, text = "Refresh",width = 16)
-button.place(x=50,y= 380)
+refreshlist(listbox,files,allfiles)
+
+#refresh file list button
+refbutton = tkinter.Button(frame, text = "Refresh",width = 16, command=lambda: refreshlist(listbox,files,allfiles))
+refbutton.place(x=50,y= 380)
+
+#all files button
+allfbutton = tkinter.Button(frame, text = "All",width = 6, command=lambda: allset(listbox,files,allfiles))
+allfbutton.place(x=120,y= 195)
+
+#new files button
+newfbutton = tkinter.Button(frame, text = "New",width = 6, command=lambda: newset(listbox,files,allfiles))
+newfbutton.place(x=50,y= 195)
 
 
 
