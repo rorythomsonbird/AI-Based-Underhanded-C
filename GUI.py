@@ -45,15 +45,17 @@ button = tkinter.Button(frame, text = "Generate!",width = 25, command=sendprompt
 button.place(x=100,y= 480)
 
 #list storing files
-
 allfiles = list()
 for path in os.listdir("Samples"): 
         allfiles.append(path)
 allfiles = tuple(allfiles)
 filelist = tkinter.Variable(value=allfiles)
 listbox = tkinter.Listbox(frame, height= 10, listvariable=filelist)
-listbox.place(x=80, y= 200)
+listbox.place(x=50, y= 220)
 
+#refresh file list
+button = tkinter.Button(frame, text = "Refresh",width = 16)
+button.place(x=50,y= 380)
 
 
 
