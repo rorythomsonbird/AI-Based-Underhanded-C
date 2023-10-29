@@ -1,5 +1,7 @@
 import tkinter
 import RandomCGen
+import os
+
 gui = tkinter.Tk()
 gui.title("Malware Generator")
 
@@ -44,12 +46,13 @@ button.place(x=100,y= 480)
 
 #list storing files
 
-allfiles = () #
-filelist = tkinter.Variable(value=files)
+allfiles = list()
+for path in os.listdir("Samples"): 
+        allfiles.append(path)
+allfiles = tuple(allfiles)
+filelist = tkinter.Variable(value=allfiles)
 listbox = tkinter.Listbox(frame, height= 10, listvariable=filelist)
 listbox.place(x=80, y= 200)
-scrollbar = tkinter.Scrollbar(listbox, orient="vertical")
-scrollbar.pack(side="right", fill="y")
 
 
 
