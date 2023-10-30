@@ -2,6 +2,7 @@ import tkinter
 import RandomCGen
 import os
 from tkinter.messagebox import showinfo
+from tkinter.messagebox import showerror
 
 gui = tkinter.Tk()
 gui.title("Malware Generator")
@@ -16,7 +17,7 @@ def sendprompt():
         RandomCGen.gencode(int(inputnum), inputtype)
         showinfo("Info", "Code generated!")
     else:
-        showinfo("Warning", "Please enter a number of generated files")
+        showerror("Warning", "Please enter a number of generated files")
 
 def compile(listbox):
     for i in listbox.curselection():
@@ -24,7 +25,7 @@ def compile(listbox):
         if RandomCGen.compilecode("Samples/"+listbox.get(i)) == 1:
             showinfo("Info", "Compiled!")
         else:
-            showinfo("Info", "Could not compile. please compile manually.")
+            showerror("Warning", "Could not compile. please compile manually.")
 
 def read(listbox):
     for i in listbox.curselection():
@@ -62,25 +63,25 @@ canvas.pack()
 
 #input number of generated files
 insertnumlab = tkinter.Label(frame,text="Enter number of generated files:") 
-insertnumlab.config(font=("Courier", 8))
+insertnumlab.config(font=("Sans", 8))
 insertnumlab.place(x=5,y=100)
 insertnuminp = tkinter.Text(frame, height= 1, width=20)
 insertnuminp.place(x=10, y=120)
 
 #input type of malicious files
 inserttypelab = tkinter.Label(frame,text="Enter type of generated files:")
-inserttypelab.config(font=("Courier", 8))
+inserttypelab.config(font=("Sans", 8))
 inserttypelab.place(x=5,y=140)
 inserttypeinp = tkinter.Text(frame, height= 1, width=20)
 inserttypeinp.place(x=10, y=160)
 
 #titles for each section
 nonmallab = tkinter.Label(frame, text = "Generate code!")
-nonmallab.config(font=("Courier", 20))
-nonmallab.place(x=80,y=20)
+nonmallab.config(font=("Sans", 20))
+nonmallab.place(x=90,y=20)
 mallab = tkinter.Label(frame, text="Make it malicious!")
-mallab.place(x=460,y=20)
-mallab.config(font=("Courier", 20))
+mallab.place(x=480,y=20)
+mallab.config(font=("Sans", 20))
 
 #gencode button
 genbutton = tkinter.Button(frame, text = "Generate!",width = 10, command=sendprompt)
@@ -107,6 +108,9 @@ allfbutton.place(x=120,y= 195)
 #new files button
 newfbutton = tkinter.Button(frame, text = "New",width = 6, command=lambda: newset(listbox,files,allfiles))
 newfbutton.place(x=50,y= 195)
+listboxlab = tkinter.Label(frame, text = "default new")
+listboxlab.config(font=("Sans", 7))
+listboxlab.place(x=180,y=210)
 
 #compile button
 compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,command=lambda:compile(listbox))

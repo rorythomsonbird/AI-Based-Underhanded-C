@@ -51,3 +51,19 @@ def compilecode(file): #compiles code
     except Exception:
         return 0
     
+def debug(file):
+    debfile = open("Samples/"+file)
+    currcode = debfile.read()
+    debfile.close()
+    newcode = GPTAPI.generate_response("PLEASE DEBUG THIS CODE: "+currcode)
+    newdebfile = open("Samples/"+file,"w")
+    processed = newcode.split("```")
+    print(processed)
+    print(processed[1][0])
+    processed[1] = processed[1][1:]
+    newdebfile.write(processed[1])
+    newdebfile.close()
+    
+    
+        
+    
