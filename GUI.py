@@ -30,7 +30,7 @@ def compile(listbox):
 def read(listbox):
     for i in listbox.curselection():
         readfile = open("Samples/"+listbox.get(i))
-        showinfo(listbox.get(i),readfile.readlines())
+        showinfo(listbox.get(i),readfile.read())
 
     
     
