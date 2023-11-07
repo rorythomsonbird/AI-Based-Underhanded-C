@@ -1,11 +1,13 @@
-
 #include <stdio.h>
 
 int main() {
     int num1, num2, sum;
     
     printf("Enter two numbers: ");
-    scanf("%d%d", &num1, &num2);
+    if (scanf("%d%d", &num1, &num2) != 2) {
+        printf("Invalid input. Please enter two integers.\n");
+        return 1;
+    }
     
     sum = num1 + num2;
     
@@ -13,4 +15,3 @@ int main() {
     
     return 0;
 }
-

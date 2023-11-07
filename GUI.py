@@ -27,10 +27,22 @@ def compile(listbox):
         else:
             showerror("Warning", "Could not compile. please compile manually.")
 
+
+
 def read(listbox):
     for i in listbox.curselection():
         readfile = open("Samples/"+listbox.get(i))
-        showinfo(listbox.get(i),readfile.read())
+
+        popup = tkinter.Toplevel()
+        popup.wm_title(listbox.get(i))
+        code = tkinter.Label(popup, text=readfile.read())
+        code.grid(row=0, column=0)
+        donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy)
+        donebutton.grid(row=5,column=0)
+        debugbutton = tkinter.Button(popup,text="Debug",command=lambda:RandomCGen.debug(listbox.get(i)))
+        debugbutton.grid(row=4,column=0)
+
+        readfile.close()
 
     
     
