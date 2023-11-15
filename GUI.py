@@ -4,135 +4,149 @@ import os
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
 
-gui = tkinter.Tk()
-gui.title("Malware Generator")
-
-def sendprompt(): 
-    inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
-    inputtype = inserttypeinp.get("1.0",'end-1c')
-    if inputnum != "":
+class GUI:
+    
+    @classmethod
+    def sendprompt(cls,randomgen,insertnuminp,inserttypeinp): 
+        inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
+        inputtype = inserttypeinp.get("1.0",'end-1c')
+        if inputnum != "":
         
-        showinfo("Info", "Generating code...")
+            showinfo("Info", "Generating code...")
         
-        RandomCGen.gencode(int(inputnum), inputtype)
-        showinfo("Info", "Code generated!")
-    else:
-        showerror("Warning", "Please enter a number of generated files")
-
-def compile(listbox):
-    for i in listbox.curselection():
-        showinfo("Info", "Compiling "+listbox.get(i)+"...")
-        if RandomCGen.compilecode("Samples/"+listbox.get(i)) == 1:
-            showinfo("Info", "Compiled!")
+            randomgen.gencode(int(inputnum), inputtype)
+            showinfo("Info", "Code generated!")
         else:
-            showerror("Warning", "Could not compile. please compile manually.")
+            showerror("Warning", "Please enter a number of generated files")
+    @classmethod
+    def compile(cls,randomgen,listbox):
+        for i in listbox.curselection():
+            showinfo("Info", "Compiling "+listbox.get(i)+"...")
+            if randomgen.compilecode("Samples/"+listbox.get(i)) == 1:
+                showinfo("Info", "Compiled!")
+            else:
+                showerror("Warning", "Could not compile. please compile manually.")
 
+    @classmethod
+    def initialize(cls):
+        cls.gui = tkinter.Tk()
+        cls.gui.title("Malware Generator")
 
+    @classmethod
+    def read(cls,randomgen,listbox):
+        for i in listbox.curselection():
+            readfile = open("Samples/"+listbox.get(i))
 
-def read(listbox):
-    for i in listbox.curselection():
-        readfile = open("Samples/"+listbox.get(i))
+            popup = tkinter.Toplevel()
+            popup.wm_title(listbox.get(i))
+            code = tkinter.Label(popup, text=readfile.read())
+            code.grid(row=0, column=0)
+            donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy)
+            donebutton.grid(row=5,column=0)
+            debugbutton = tkinter.Button(popup,text="Debug",command=lambda:randomgen.debug(listbox.get(i)))
+            debugbutton.grid(row=4,column=0)
 
-        popup = tkinter.Toplevel()
-        popup.wm_title(listbox.get(i))
-        code = tkinter.Label(popup, text=readfile.read())
-        code.grid(row=0, column=0)
-        donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy)
-        donebutton.grid(row=5,column=0)
-        debugbutton = tkinter.Button(popup,text="Debug",command=lambda:RandomCGen.debug(listbox.get(i)))
-        debugbutton.grid(row=4,column=0)
-
-        readfile.close()
+            readfile.close()
 
     
     
+    @classmethod
+    def refreshlist(cls,randomgen,listbox,files,allfiles):
+        files.clear()
+        if allfiles == 1:
+            for path in os.listdir("Samples"): 
+                files.append(path)
+        else:
+            files = randomgen.genfiles
+        listbox.delete(0,tkinter.END)
+        for item in files:
+            listbox.insert(tkinter.END,item)
+    @classmethod
+    def allset(cls,randomgen,listbox,files,allfiles):
+        allfiles = 1
+        cls.refreshlist(randomgen,listbox,files,allfiles)
+    @classmethod
+    def newset(cls,randomgen,listbox,files,allfiles):
+        allfiles = 0
+        cls.refreshlist(randomgen,listbox,files,allfiles)
 
-def refreshlist(listbox,files,allfiles):
-    files.clear()
-    if allfiles == 1:
-        for path in os.listdir("Samples"): 
-            files.append(path)
-    else:
-        files = RandomCGen.genfiles
-    listbox.delete(0,tkinter.END)
-    for item in files:
-        listbox.insert(tkinter.END,item)
+    
 
-def allset(listbox,files,allfiles):
-    allfiles = 1
-    refreshlist(listbox,files,allfiles)
+    @classmethod
+    def run(cls):
+        cls.initialize()
+        randomgen = RandomCGen.RandomCGen([])
+        frame = tkinter.Frame(cls.gui, width=800,height=500)
+        frame.pack_propagate(0)
+        frame.pack()
+        canvas = tkinter.Canvas(frame, width=800,height=500)
+        canvas.create_line(400, 0, 400, 500, width=5)
+        canvas.pack()
+        #input number of generated files
+        insertnumlab = tkinter.Label(frame,text="Enter number of generated files:") 
+        insertnumlab.config(font=("Sans", 8))
+        insertnumlab.place(x=5,y=100)
+        insertnuminp = tkinter.Text(frame, height= 1, width=20)
+        insertnuminp.place(x=10, y=120)
 
-def newset(listbox,files,allfiles):
-    allfiles = 0
-    refreshlist(listbox,files,allfiles)
+        #input type of malicious files
+        inserttypelab = tkinter.Label(frame,text="Enter type of generated files:")
+        inserttypelab.config(font=("Sans", 8))
+        inserttypelab.place(x=5,y=140)
+        inserttypeinp = tkinter.Text(frame, height= 1, width=20)
+        inserttypeinp.place(x=10, y=160)
 
-frame = tkinter.Frame(gui, width=800,height=500)
-frame.pack_propagate(0)
-frame.pack()
-canvas = tkinter.Canvas(frame, width=800,height=500)
-canvas.create_line(400, 0, 400, 500, width=5)
-canvas.pack()
+        #titles for each section
+        nonmallab = tkinter.Label(frame, text = "Generate code!")
+        nonmallab.config(font=("Sans", 20))
+        nonmallab.place(x=90,y=20)
+        mallab = tkinter.Label(frame, text="Make it malicious!")
+        mallab.place(x=480,y=20)
+        mallab.config(font=("Sans", 20))
 
-#input number of generated files
-insertnumlab = tkinter.Label(frame,text="Enter number of generated files:") 
-insertnumlab.config(font=("Sans", 8))
-insertnumlab.place(x=5,y=100)
-insertnuminp = tkinter.Text(frame, height= 1, width=20)
-insertnuminp.place(x=10, y=120)
+        #gencode button
+        genbutton = tkinter.Button(frame, text = "Generate!",width = 10, command=lambda:cls.sendprompt(randomgen,insertnuminp,inserttypeinp))
+        genbutton.place(x=250,y= 160)
 
-#input type of malicious files
-inserttypelab = tkinter.Label(frame,text="Enter type of generated files:")
-inserttypelab.config(font=("Sans", 8))
-inserttypelab.place(x=5,y=140)
-inserttypeinp = tkinter.Text(frame, height= 1, width=20)
-inserttypeinp.place(x=10, y=160)
+        #list storing files
+        allfiles = 0 #sets if all files shown or just newly generated 
 
-#titles for each section
-nonmallab = tkinter.Label(frame, text = "Generate code!")
-nonmallab.config(font=("Sans", 20))
-nonmallab.place(x=90,y=20)
-mallab = tkinter.Label(frame, text="Make it malicious!")
-mallab.place(x=480,y=20)
-mallab.config(font=("Sans", 20))
+        genfiles = list()
+        files = list()
+        listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
+        listbox.place(x=50, y= 220)
 
-#gencode button
-genbutton = tkinter.Button(frame, text = "Generate!",width = 10, command=sendprompt)
-genbutton.place(x=250,y= 160)
+        cls.refreshlist(randomgen,listbox,files,allfiles)
 
-#list storing files
-allfiles = 0 #sets if all files shown or just newly generated 
+        #refresh file list button
+        refbutton = tkinter.Button(frame, text = "Refresh",width = 16, command=lambda: cls.refreshlist(randomgen,listbox,files,allfiles))
+        refbutton.place(x=50,y= 385)
 
-genfiles = list()
-files = list()
-listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
-listbox.place(x=50, y= 220)
+        #all files button
+        allfbutton = tkinter.Button(frame, text = "All",width = 6, command=lambda: cls.allset(randomgen,listbox,files,allfiles))
+        allfbutton.place(x=120,y= 195)
 
-refreshlist(listbox,files,allfiles)
+        #new files button
+        newfbutton = tkinter.Button(frame, text = "New",width = 6, command=lambda: cls.newset(randomgen,listbox,files,allfiles))
+        newfbutton.place(x=50,y= 195)
+        listboxlab = tkinter.Label(frame, text = "default new")
+        listboxlab.config(font=("Sans", 7))
+        listboxlab.place(x=180,y=210)
 
-#refresh file list button
-refbutton = tkinter.Button(frame, text = "Refresh",width = 16, command=lambda: refreshlist(listbox,files,allfiles))
-refbutton.place(x=50,y= 385)
+        #compile button
+        compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,command=lambda:cls.compile(randomgen,listbox))
+        compilebutton.place(x=250,y= 385)
 
-#all files button
-allfbutton = tkinter.Button(frame, text = "All",width = 6, command=lambda: allset(listbox,files,allfiles))
-allfbutton.place(x=120,y= 195)
+        #read file button
+        readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,listbox))
+        readbutton.place(x=250,y= 360)
 
-#new files button
-newfbutton = tkinter.Button(frame, text = "New",width = 6, command=lambda: newset(listbox,files,allfiles))
-newfbutton.place(x=50,y= 195)
-listboxlab = tkinter.Label(frame, text = "default new")
-listboxlab.config(font=("Sans", 7))
-listboxlab.place(x=180,y=210)
 
-#compile button
-compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,command=lambda:compile(listbox))
-compilebutton.place(x=250,y= 385)
+        cls.gui.mainloop()
 
-#read file button
-readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:read(listbox))
-readbutton.place(x=250,y= 360)
+    
 
 
 
-
-gui.mainloop()
+if __name__ == "__main__":
+    GUI.run()

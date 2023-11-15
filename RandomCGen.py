@@ -3,66 +3,75 @@ import re
 import os
 from distutils.ccompiler import new_compiler
 
-genfiles = list()
-def gencode(count, type): #generates code
-    print("Generating code....")
-    samples = GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets  "+ type+". With no explanations about what the code is. code should have good readability and should be simple. ") #generate code snippets
+class RandomCGen(object):
+    genfiles = list()
+    def __init__(self, genfiles):
+        self.genfiles = genfiles
+        
+
+    @classmethod    
+    def gencode(cls,count, type): #generates code
+        print("Generating code....")
+        samples = GPTAPI.GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets  "+ type+". With no explanations about what the code is. code should have good readability and should be simple. ") #generate code snippets
     
-    print("Done!")
-    print("Dividing code samples into single samples....")
-    samplelist = samples.split("```c") #split given code samples
-    print("Done!")
+        print("Done!")
+        print("Dividing code samples into single samples....")
+        samplelist = samples.split("```c") #split given code samples
+        print("Done!")
     
 
-    dir_path = r'Samples' #set where the files will be made
-    fcount = 0
-    print("Writing samples to files....")
-    for path in os.listdir(dir_path): #count current numbers of files in directory
+        dir_path = r'Samples' #set where the files will be made
+        fcount = 0
+        print("Writing samples to files....")
+        for path in os.listdir(dir_path): #count current numbers of files in directory
         
-        fcount += 1
+            fcount += 1
 
-    for i in range(1,count+1):
-        samplelist[i] = re.sub('```', '', samplelist[i]) #remove unneeded ``` characters
+        for i in range(1,count+1):
+            samplelist[i] = re.sub('```', '', samplelist[i]) #remove unneeded ``` characters
 
         
         
-        file = open("Samples/sample"+str(fcount+i)+".c","w") #open new file with original sample name
-        tempsamplelist = samplelist[i].split("\n")
-        del(tempsamplelist[len(tempsamplelist)-1]) #remove last 3 lines of code (either empty lines or comments by API)
-        del(tempsamplelist[len(tempsamplelist)-1])
-        del(tempsamplelist[len(tempsamplelist)-1])
-        for j in range(len(tempsamplelist)): #add newline characters (they were removed in the split)
-            tempsamplelist[j] = tempsamplelist[j] + "\n"
-        samplelist[i] = tempsamplelist
+            file = open("Samples/sample"+str(fcount+i)+".c","w") #open new file with original sample name
+            tempsamplelist = samplelist[i].split("\n")
+            del(tempsamplelist[len(tempsamplelist)-1]) #remove last 3 lines of code (either empty lines or comments by API)
+            del(tempsamplelist[len(tempsamplelist)-1])
+            del(tempsamplelist[len(tempsamplelist)-1])
+            for j in range(len(tempsamplelist)): #add newline characters (they were removed in the split)
+                tempsamplelist[j] = tempsamplelist[j] + "\n"
+            samplelist[i] = tempsamplelist
         
-        file.writelines(samplelist[i]) #write lines to file
-        file.close()
-        genfiles.append("sample"+str(fcount+i)+".c")
+            file.writelines(samplelist[i]) #write lines to file
+            file.close()
+            cls.genfiles.append("sample"+str(fcount+i)+".c")
+        
+
+        print("All files written!")
+    
+    @classmethod    
+    def compilecode(cls,file): #compiles code
+        compiler = new_compiler()
+        try:
+            compiler.compile([file])
+            return 1
+        except Exception:
+            return 0
         
     
-    print("All files written!")
     
-        
-def compilecode(file): #compiles code
-    compiler = new_compiler()
-    try:
-        compiler.compile([file])
-        return 1
-    except Exception:
-        return 0
-    
-def debug(file):
-    debfile = open("Samples/"+file)
-    currcode = debfile.read()
-    debfile.close()
-    newcode = GPTAPI.generate_response("PLEASE DEBUG THIS CODE: "+currcode)
-    newdebfile = open("Samples/"+file,"w")
-    processed = newcode.split("```")
-    print(processed)
-    print(processed[1][0])
-    processed[1] = processed[1][1:]
-    newdebfile.write(processed[1])
-    newdebfile.close()
+    @classmethod    
+    def debug(cls,file):
+        debfile = open("Samples/"+file)
+        currcode = debfile.read()
+        debfile.close()
+        newcode = GPTAPI.GPTAPI.generate_response("PLEASE DEBUG THIS CODE: "+currcode)
+        newdebfile = open("Samples/"+file,"w")
+        processed = newcode.split("```")
+        print(processed)
+        print(processed[1][0])
+        processed[1] = processed[1][1:]
+        newdebfile.write(processed[1])
+        newdebfile.close()
     
     
         
