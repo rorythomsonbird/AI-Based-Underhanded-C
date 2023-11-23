@@ -6,18 +6,29 @@ from tkinter.messagebox import showerror
 
 class GUI:
     
+    
+
     @classmethod
     def sendprompt(cls,randomgen,insertnuminp,inserttypeinp): 
         inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
         inputtype = inserttypeinp.get("1.0",'end-1c')
-        if inputnum != "":
+        goodinp = False
         
-            showinfo("Info", "Generating code...")
         
-            randomgen.gencode(int(inputnum), inputtype)
+        try:
+            number = int(inputnum)
+            goodinp = True
+        except Exception:
+            showerror("Warning", "Please enter a valid number of generated files")
+        if inputnum == "":
+            goodinp =False
+        if goodinp == True:
+        
+            showinfo("Info", "Generating code... \nPress OK and wait for next popup")
+        
+            randomgen.gencode(number, inputtype)
             showinfo("Info", "Code generated!")
-        else:
-            showerror("Warning", "Please enter a number of generated files")
+        
     @classmethod
     def compile(cls,randomgen,listbox):
         for i in listbox.curselection():
@@ -29,6 +40,7 @@ class GUI:
 
     @classmethod
     def initialize(cls):
+        
         cls.gui = tkinter.Tk()
         cls.gui.title("Malware Generator")
 
@@ -52,13 +64,16 @@ class GUI:
     
     @classmethod
     def refreshlist(cls,randomgen,listbox,files,allfiles):
+        
         files.clear()
         if allfiles == 1:
             for path in os.listdir("Samples"): 
                 files.append(path)
         else:
-            files = randomgen.genfiles
+            files = RandomCGen.genfiles
         listbox.delete(0,tkinter.END)
+        print("FFFFFFFFFFFFFFFFFFFFF")
+        print(RandomCGen.genfiles)
         for item in files:
             listbox.insert(tkinter.END,item)
     @classmethod
@@ -75,7 +90,7 @@ class GUI:
     @classmethod
     def run(cls):
         cls.initialize()
-        randomgen = RandomCGen.RandomCGen([])
+        randomgen = RandomCGen.RandomCGen()
         frame = tkinter.Frame(cls.gui, width=800,height=500)
         frame.pack_propagate(0)
         frame.pack()

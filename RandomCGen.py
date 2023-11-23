@@ -1,13 +1,15 @@
 import GPTAPI
 import re
 import os
+import GUI
 from distutils.ccompiler import new_compiler
-
+genfiles = list()
 class RandomCGen(object):
-    genfiles = list()
-    def __init__(self, genfiles):
-        self.genfiles = genfiles
-        
+    
+    
+    def __init__(self):
+        self = self
+    
 
     @classmethod    
     def gencode(cls,count, type): #generates code
@@ -43,9 +45,12 @@ class RandomCGen(object):
         
             file.writelines(samplelist[i]) #write lines to file
             file.close()
-            cls.genfiles.append("sample"+str(fcount+i)+".c")
-        
+            genfiles.append("sample"+str(fcount+i)+".c")
 
+            
+        
+        print("Bitches be crazy")
+        print(genfiles)
         print("All files written!")
     
     @classmethod    
