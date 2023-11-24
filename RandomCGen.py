@@ -28,31 +28,30 @@ class RandomCGen(object):
         for path in os.listdir(dir_path): #count current numbers of files in directory
         
             fcount += 1
+        try:
+            for i in range(1,count+1):
+                samplelist[i] = re.sub('```', '', samplelist[i]) #remove unneeded ``` characters
 
-        for i in range(1,count+1):
-            samplelist[i] = re.sub('```', '', samplelist[i]) #remove unneeded ``` characters
-
         
         
-            file = open("Samples/sample"+str(fcount+i)+".c","w") #open new file with original sample name
-            tempsamplelist = samplelist[i].split("\n")
-            del(tempsamplelist[len(tempsamplelist)-1]) #remove last 3 lines of code (either empty lines or comments by API)
-            del(tempsamplelist[len(tempsamplelist)-1])
-            del(tempsamplelist[len(tempsamplelist)-1])
-            for j in range(len(tempsamplelist)): #add newline characters (they were removed in the split)
-                tempsamplelist[j] = tempsamplelist[j] + "\n"
-            samplelist[i] = tempsamplelist
+                file = open("Samples/sample"+str(fcount+i)+".c","w") #open new file with original sample name
+                tempsamplelist = samplelist[i].split("\n")
+                del(tempsamplelist[len(tempsamplelist)-1]) #remove last 3 lines of code (either empty lines or comments by API)
+                del(tempsamplelist[len(tempsamplelist)-1])
+                del(tempsamplelist[len(tempsamplelist)-1])
+                for j in range(len(tempsamplelist)): #add newline characters (they were removed in the split)
+                    tempsamplelist[j] = tempsamplelist[j] + "\n"
+                samplelist[i] = tempsamplelist
         
-            file.writelines(samplelist[i]) #write lines to file
-            file.close()
-            genfiles.append("sample"+str(fcount+i)+".c")
+                file.writelines(samplelist[i]) #write lines to file
+                file.close()
+                genfiles.append("sample"+str(fcount+i)+".c")
 
             
         
-        print("Bitches be crazy")
-        print(genfiles)
-        print("All files written!")
-    
+            print("All files written!")
+        except Exception:
+            print("Error, please retry")
     @classmethod    
     def compilecode(cls,file): #compiles code
         compiler = new_compiler()
