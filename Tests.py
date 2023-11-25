@@ -3,9 +3,11 @@ from MalwareCheck import MalwareCheck
 import RandomCGen
 import os
 
-
+apifaillist = list()
+cgenfaillist = list()
+mcfaillist = list()
 class Tests:
-
+    
     def apitest():
         print("GPTAPI TESTS")
 
@@ -15,6 +17,7 @@ class Tests:
             print("TEST 1 SUCCESS")
         else:
             print("TEST 1 FAIL")
+            apifaillist.append("1 ")
 
 
         #Test 2 - code response test, API response should include the beginning of a c snippet
@@ -23,6 +26,7 @@ class Tests:
             print("TEST 2 SUCCESS")
         else:
             print("TEST 2 FAIL")
+            apifaillist.append("2 ")
 
     def cgentest():
         print("RANDOMCGEN TESTS")
@@ -42,6 +46,7 @@ class Tests:
             print("TEST 1 SUCCESS")
         else:
             print("TEST 1 FAIL")
+            cgenfaillist.append("1 ")
 
 
 
@@ -60,6 +65,7 @@ class Tests:
             print("TEST 2 SUCCESS")
         else:
             print("TEST 2 FAIL")
+            cgenfaillist.append("2 ")
 
 
 
@@ -76,6 +82,7 @@ class Tests:
             print("TEST 3 SUCCESS")
         else:
             print("TEST 3 FAIL")
+            cgenfaillist.append("3 ")
 
         #Test 4, file count should grow (new object file created)
         randomgen.compilecode(dir_path+"/"+lastfile)
@@ -88,6 +95,7 @@ class Tests:
             print("TEST 4 SUCCESS")
         else:
             print("TEST 4 FAIL")
+            cgenfaillist.append("4 ")
 
         
     def malwaretest():
@@ -103,6 +111,7 @@ class Tests:
             print("TEST 1 SUCCESS")
         else:
             print("TEST 1 FAIL")
+            mcfaillist.append("1 ")
 
         #Test 2, filetostr should not return a different type 
         fcount = 0
@@ -114,21 +123,51 @@ class Tests:
             print("TEST 2 SUCCESS")
         else:
             print("TEST 2 FAIL")
+            mcfaillist.append("2 ")
 
         #Test 3, check should see no malware and return no
-        if "No" in MalwareCheck.check("Samples/sample1.c"):
+        if "No" in MalwareCheck.check("Samples/sample2.c"):
             print("TEST 3 SUCCESS")
         else:
             print("TEST 3 FAIL")
+            mcfaillist.append("3 ")
 
         #Test 4, check should detect the malware and return yes
         if "Yes" in MalwareCheck.check("Samples/malware.txt"): #Malware gathered from https://github.com/vxunderground/MalwareSourceCode/blob/abe78ef790245055f8a28fd84b3f4790bb36e302/Libs/DDoS/VirTool.DDoS.ACK.c#L4
             print("TEST 4 SUCCESS")
         else:
             print("TEST 4 FAIL")
+            mcfaillist.append("4 ")
+
+        #Test 5, checksamples should output a list same size as number of samples and should contain yes or no
+        samplecount = 0
+        for path in os.listdir("Samples"):
+            if '.obj' not in path:
+                samplecount+=1
+        checklist = MalwareCheck.checksamples()
+        fail = False
+        checkcount = 0
+        while fail == False and checkcount < len(checklist):
+            
+            if "Yes" in checklist[checkcount] or "No" in checklist[checkcount]:
+                fail = False
+            else:
+                fail = True
+            checkcount +=1
+        
+        if checkcount == samplecount and fail == False:
+            print("TEST 5 SUCCESS")
+        else:
+            print("TEST 5 FAIL")
+            mcfaillist.append("5 ")
+    
     apitest()
     cgentest()
     malwaretest()
+    print("FAILED TESTS:")
+    print("API:"+''.join(apifaillist))
+    print("RandomCGen:"+''.join(cgenfaillist))
+    print("MalwareCheck:"+''.join(mcfaillist))
 
 
 

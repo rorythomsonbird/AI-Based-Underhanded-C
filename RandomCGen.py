@@ -68,10 +68,9 @@ class RandomCGen(object):
         debfile = open("Samples/"+file)
         currcode = debfile.read()
         debfile.close()
-        newcode = GPTAPI.GPTAPI.generate_response("PLEASE DEBUG THIS CODE: "+currcode)
+        newcode = GPTAPI.GPTAPI.generate_response("PLEASE DEBUG THIS CODE, ONLY OUTPUT CODE: "+currcode)
         newdebfile = open("Samples/"+file,"w")
         processed = newcode.split("```")
-        print(processed)
         processed[1] = processed[1][1:]
         newdebfile.write(processed[1])
         newdebfile.close()
