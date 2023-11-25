@@ -72,7 +72,6 @@ class RandomCGen(object):
         newdebfile = open("Samples/"+file,"w")
         processed = newcode.split("```")
         print(processed)
-        print(processed[1][0])
         processed[1] = processed[1][1:]
         newdebfile.write(processed[1])
         newdebfile.close()

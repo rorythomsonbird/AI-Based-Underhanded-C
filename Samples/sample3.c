@@ -1,21 +1,14 @@
 
 #include <stdio.h>
 
-int factorial(int num) {
-    if (num == 0 || num == 1) {
-        return 1;
-    } else {
-        return num * factorial(num - 1);
-    }
-}
-
 int main() {
-    int num;
-    
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    
-    printf("The factorial of %d is %d\n", num, factorial(num));
+    int num = 10;
+
+    if (num % 2 == 0) {
+        printf("%d is even\n", num);
+    } else {
+        printf("%d is odd\n", num);
+    }
 
     return 0;
 }

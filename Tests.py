@@ -2,7 +2,10 @@ from GPTAPI import GPTAPI
 from MalwareCheck import MalwareCheck
 import RandomCGen
 import os
+
+
 class Tests:
+
     def apitest():
         print("GPTAPI TESTS")
 
@@ -30,9 +33,8 @@ class Tests:
         for path in os.listdir(dir_path): #count current numbers of files in directory
         
             fcount += 1
-        #blockPrint()
+
         randomgen.gencode(1,"")
-       
         newfcount = 0
         for path in os.listdir(dir_path): #count current numbers of files in directory 
             newfcount += 1
@@ -49,7 +51,6 @@ class Tests:
         
             fcount += 1
         randomgen.gencode(2,"")
-       
         newfcount = 0
         for path in os.listdir(dir_path): 
             newfcount += 1
@@ -66,6 +67,7 @@ class Tests:
         file = open(dir_path+"/"+lastfile,errors="ignore")
         origfile = file.read()
         file.close()
+        
         randomgen.debug(lastfile)
         file = open(dir_path+"/"+lastfile)
         newfile = file.read()
@@ -77,11 +79,11 @@ class Tests:
 
         #Test 4, file count should grow (new object file created)
         randomgen.compilecode(dir_path+"/"+lastfile)
+        
         fcount = 0
         for path in os.listdir(dir_path): 
         
             fcount += 1
-
         if fcount == newfcount+1:
             print("TEST 4 SUCCESS")
         else:
@@ -113,7 +115,20 @@ class Tests:
         else:
             print("TEST 2 FAIL")
 
+        #Test 3, check should see no malware and return no
+        if "No" in MalwareCheck.check("Samples/sample1.c"):
+            print("TEST 3 SUCCESS")
+        else:
+            print("TEST 3 FAIL")
 
+        #Test 4, check should detect the malware and return yes
+        if "Yes" in MalwareCheck.check("Samples/malware.txt"): #Malware gathered from https://github.com/vxunderground/MalwareSourceCode/blob/abe78ef790245055f8a28fd84b3f4790bb36e302/Libs/DDoS/VirTool.DDoS.ACK.c#L4
+            print("TEST 4 SUCCESS")
+        else:
+            print("TEST 4 FAIL")
     apitest()
     cgentest()
     malwaretest()
+
+
+
