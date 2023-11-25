@@ -60,7 +60,21 @@ class Tests:
             print("TEST 2 FAIL")
 
 
-        #Test 3, file count should grow (new object file created)
+
+        #Test 3, file should change (debugged)
+        file = open(dir_path+"/"+lastfile)
+        origfile = file.read()
+        file.close()
+        randomgen.debug(lastfile)
+        file = open(dir_path+"/"+lastfile)
+        newfile = file.read()
+        file.close()
+        if origfile != newfile:
+            print("TEST 3 SUCCESS")
+        else:
+            print("TEST 3 FAIL")
+
+        #Test 4, file count should grow (new object file created)
         randomgen.compilecode(dir_path+"/"+lastfile)
         fcount = 0
         for path in os.listdir(dir_path): 
@@ -68,10 +82,11 @@ class Tests:
             fcount += 1
 
         if fcount == newfcount+1:
-            print("TEST 3 SUCCESS")
+            print("TEST 4 SUCCESS")
         else:
-            print("TEST 3 FAIL")
+            print("TEST 4 FAIL")
 
+        
 
 
     apitest()
