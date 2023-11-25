@@ -1,5 +1,5 @@
 from GPTAPI import GPTAPI 
-import MalwareCheck
+from MalwareCheck import MalwareCheck
 import RandomCGen
 import os
 class Tests:
@@ -53,7 +53,8 @@ class Tests:
         newfcount = 0
         for path in os.listdir(dir_path): 
             newfcount += 1
-            lastfile = path
+            if ".c" in path:
+                lastfile = path
         if newfcount==fcount+2:
             print("TEST 2 SUCCESS")
         else:
@@ -62,7 +63,7 @@ class Tests:
 
 
         #Test 3, file should change (debugged)
-        file = open(dir_path+"/"+lastfile)
+        file = open(dir_path+"/"+lastfile,errors="ignore")
         origfile = file.read()
         file.close()
         randomgen.debug(lastfile)
@@ -87,7 +88,32 @@ class Tests:
             print("TEST 4 FAIL")
 
         
+    def malwaretest():
+        print("MALWARECHECK TESTS")
+        dir_path = r'Samples'
+        #Test 1, filetostr should return a string 
+        fcount = 0
+        for path in os.listdir(dir_path): 
+            if ".c" in path:
+                fcount += 1
+                lastfile = path
+        if isinstance(MalwareCheck.filetostring(dir_path+"/"+lastfile),str):
+            print("TEST 1 SUCCESS")
+        else:
+            print("TEST 1 FAIL")
+
+        #Test 2, filetostr should not return a different type 
+        fcount = 0
+        for path in os.listdir(dir_path): 
+            if ".c" in path:
+                fcount += 1
+                lastfile = path
+        if isinstance(MalwareCheck.filetostring(dir_path+"/"+lastfile),int) == False:
+            print("TEST 2 SUCCESS")
+        else:
+            print("TEST 2 FAIL")
 
 
     apitest()
     cgentest()
+    malwaretest()

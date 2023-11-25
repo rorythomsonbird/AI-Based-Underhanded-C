@@ -2,9 +2,16 @@
 #include <stdio.h>
 
 int main() {
-    int num1 = 5;
-    int num2 = 10;
-    int sum = num1 + num2;
+    int num;
     
-    printf("The sum of %d and %d is %d\n", num1, num2, sum);
+    printf("Enter a number: ");
+    scanf("%d", &num);
     
+    if (num % 2 == 0) {
+        printf("%d is even.", num);
+    } else {
+        printf("%d is odd.", num);
+    }
+    
+    return 0;
+}
