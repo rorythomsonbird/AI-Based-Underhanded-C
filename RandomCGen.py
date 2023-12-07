@@ -29,6 +29,7 @@ class RandomCGen(object):
         
             fcount += 1
         try:
+            
             for i in range(1,count+1):
                 samplelist[i] = re.sub('```', '', samplelist[i]) #remove unneeded ``` characters
 
@@ -50,6 +51,7 @@ class RandomCGen(object):
             
         
             print("All files written!")
+            return genfiles
         except Exception:
             print("Error, please retry")
     @classmethod    
@@ -68,12 +70,18 @@ class RandomCGen(object):
         debfile = open("Samples/"+file)
         currcode = debfile.read()
         debfile.close()
-        newcode = GPTAPI.GPTAPI.generate_response("PLEASE DEBUG THIS CODE, ONLY OUTPUT CODE: "+currcode)
+        
+        newcode = GPTAPI.GPTAPI.generate_response("PLEASE DEBUG THIS CODE, ONLY OUTPUT CODE. If the code is already correct then just return the code: "+currcode )
+        
         newdebfile = open("Samples/"+file,"w")
-        processed = newcode.split("```")
-        processed[1] = processed[1][1:]
-        newdebfile.write(processed[1])
-        newdebfile.close()
+        try:
+            processed = newcode.split("```")
+            processed[1] = processed[1][1:]
+            newdebfile.write(processed[1])
+            newdebfile.close()
+        except Exception:
+            newdebfile.write(currcode)
+            newdebfile.close()
     
     
         

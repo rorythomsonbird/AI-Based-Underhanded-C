@@ -53,7 +53,7 @@ class GUI:
             popup.wm_title(listbox.get(i))
             code = tkinter.Label(popup, text=readfile.read())
             code.grid(row=0, column=0)
-            donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy)
+            donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
             donebutton.grid(row=5,column=0)
             debugbutton = tkinter.Button(popup,text="Debug",command=lambda:randomgen.debug(listbox.get(i)))
             debugbutton.grid(row=4,column=0)
