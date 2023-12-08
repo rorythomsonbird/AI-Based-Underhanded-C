@@ -1,6 +1,11 @@
-Enter the following commands into the command line:
-pip install openai
-pip install tk
-pip install distutils
+Firstly ensure python is installed.
 
-After these modules are installed, run from GUI for the user interface or main for commandline view (GUI is recommended)
+Enter the following commands into the command line:
+pip install openai==0.28
+pip install tk
+pip install setuptools
+
+If the unlikely error that may appear on some machines of "Cannot find 'Samples' path" occurs then all mentions of the path "Samples" will need to be replaced with the full directory path.
+
+
+After these modules are installed, run from GUI for the user interface or main for commandline view (GUI is recommended).
