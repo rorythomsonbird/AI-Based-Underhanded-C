@@ -70,3 +70,11 @@ I also continued working on the GUI
 30/10/2023
 Added debug ability and continued working on GUI
 
+
+
+
+
+15/12/2023
+I have successfully broken GPTs ethical restrictions. This was accomplished by asking GPT which of the programs is most vulnerable to underhanded code.
+Once this was answered I asked if it was sure and then I asked GPT for an example and received an underhanded code snippet. Success!!
+
