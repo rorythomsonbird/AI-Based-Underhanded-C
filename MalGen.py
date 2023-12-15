@@ -1,13 +1,14 @@
 import os
+from GPTAPI import GPTAPI
 class MalGen:
-    def mostvul(files):
-        filestrs = ""
+    def mostvul(files): #Find most vulnerable of produced files
+        prompt = "What does this code do and how could this be vulnerable to underhanded techniques to skew the vote count in a nominees favour? Return the associated number: \n"
         count = 1
         for i in files:
             file = MalGen.filetostring(i)
-            filestrs = filestrs+str(count)+". \n ```c \n"+file+"\n ```"
+            prompt = prompt+"\n"+str(count)+". \n ```c \n"+file+"\n ```"
             count+=1
-        print(filestrs)
+        print(GPTAPI.generate_response(prompt))
 
 
     def filetostring(file): #Convert the file text into a string
