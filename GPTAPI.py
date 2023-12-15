@@ -19,4 +19,21 @@ class GPTAPI:
         message = response.choices[0].message.content
         return message
 
+    def multi_gen(prompts):
+        messages=[{"role": "system", "content": "I am a skilled C developer and can code advanced c code."}]
+        replies=[]
+        for i in prompts: 
+            message = i 
+            
+            messages.append( 
+                {"role": "user", "content": message}, 
+                ) 
+            chat = openai.ChatCompletion.create( 
+                model="gpt-3.5-turbo", messages=messages 
+            ) 
+            reply = chat.choices[0].message.content 
+            replies.append(reply)
+        
+        return replies
+
 

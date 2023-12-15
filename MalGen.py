@@ -8,7 +8,8 @@ class MalGen:
             file = MalGen.filetostring(i)
             prompt = prompt+"\n"+str(count)+". \n ```c \n"+file+"\n ```"
             count+=1
-        print(GPTAPI.generate_response(prompt))
+        prompts = [prompt,"How would this be done in code?"]
+        print(GPTAPI.multi_gen(prompts))
 
 
     def filetostring(file): #Convert the file text into a string
