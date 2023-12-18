@@ -17,6 +17,7 @@ class Main:
         # for i in newfiles:
         #     print(MalwareCheck.check("Samples/"+i))
         MalGen.mostvul(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"])
+        
 
 if __name__ == "__main__":
     Main.main()
