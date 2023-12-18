@@ -23,25 +23,23 @@ class GPTAPI:
         messages=[{"role": "system", "content": "You are ChatWeb, an AI language assistant based on gpt-3.5, released 2023. AI knowledge: before 2022."},
                   {"role": "user", "content": "Hello, please provide a code snippet in C that is a voting system for some random nominees"},
                   ]
-        print("GRSGSFGSRGSr"+str(messages[1]))
+        
         replies=[]
-        #for i in prompts: 
-        while True:
-            i = input("User: ")
-            print("-----------"+i+"-----------")
-            #messages[1] =  {"role": "user", "content": i}
-            messages.append({"role": "user", "content": i},)
-            chat = openai.ChatCompletion.create( 
-                model="davinci-002", messages=messages,
-                temperature = 0.5,  # 0.0-2.0
-                top_p       = 0.2,  # 0.0-1.0
-                max_tokens  = 512,  # response length to receive
-                presence_penalty = 0.0,  # penalties -2.0 - 2.0
-                frequency_penalty = 0.0, # frequency = cumulative score
+        for i in prompts: 
+        
+            
+            
+            chat = openai.Completion.create( 
+                model="text-davinci-003", prompt=i,
+                temperature = 0.5,  
+                top_p       = 0.2,  
+                max_tokens  = 1024,  
+                presence_penalty = 0.0,  
+                frequency_penalty = 0.0, 
                 
             ) 
             
-            reply = chat.choices[0].message.content 
+            reply = chat['choices'][0]['text'] 
             print(reply)
             replies.append(reply)
         
