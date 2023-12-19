@@ -10,6 +10,10 @@ def api():
     textbox_id = 'chat-input-textarea'  #ID for prompt textbox
     button_class = 'absolute z-50 rounded-md p-1 text-gray-500 right-1 disabled:opacity-40 enabled:hover:text-gray-400 disabled:hover:bg-transparent md:right-2'  #Send prompt button class
 
+    #Communicate with site
+    session = requests.Session()
+    response = session.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
 if __name__ == '__main__':
     
 
