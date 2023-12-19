@@ -18,6 +18,10 @@ def api():
     #Add prompt to the prompt box
     textbox = soup.find('textarea', {'id': textbox_id})
     textbox.text = "Testing"
+
+    #Activate button
+    button = soup.find('button', {'class': button_class})
+    button['disabled'] = False
 if __name__ == '__main__':
     
 
