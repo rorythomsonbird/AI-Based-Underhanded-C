@@ -14,6 +14,10 @@ def api():
     session = requests.Session()
     response = session.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
+
+    #Add prompt to the prompt box
+    textbox = soup.find('textarea', {'id': textbox_id})
+    textbox.text = "Testing"
 if __name__ == '__main__':
     
 
