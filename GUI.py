@@ -192,6 +192,10 @@ class GUI:
         addbutton = tkinter.Button(frame, text = "->",width = 5,command=lambda:cls.add(malbox,workbox))
         addbutton.place(x=572,y= 190)
 
+        #remove file button
+        rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(workbox,malbox))
+        rembutton.place(x=572,y= 215)
+
         cls.gui.mainloop()
 
     
