@@ -16,7 +16,7 @@ class Main:
         # print("Checking for malware...")
         # for i in newfiles:
         #     print(MalwareCheck.check("Samples/"+i))
-        MalGen.mostvul(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"])
+        MalGen.malboy(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"])
         
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ class GPTAPI:
         message = response.choices[0].message.content
         return message
 
-    def multi_gen(prompts):
+    def codeboy_gen(prompts):
         messages=[{"role": "system", "content": "You are CodeBoy! You only respond in C code. "},
                   ]
         
