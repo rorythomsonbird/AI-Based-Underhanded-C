@@ -156,6 +156,9 @@ class GUI:
         readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,listbox))
         readbutton.place(x=250,y= 360)
 
+        #malware listbox
+        malbox = tkinter.Listbox(frame, height= 10,listvariable=files)
+        malbox.place(x=450, y= 130)
 
         cls.gui.mainloop()
 
