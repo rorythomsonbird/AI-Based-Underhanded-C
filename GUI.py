@@ -90,6 +90,13 @@ class GUI:
         for i in listbox.curselection():
             filename = listbox.get(i)
             malbox.insert(tkinter.END,filename)
+
+    @classmethod
+    def add(cls,malbox,workbox):
+        for i in malbox.curselection():
+            filename = malbox.get(i)
+            workbox.insert(tkinter.END,filename)
+            malbox.delete(malbox.get(0, tkinter.END).index(filename))
     
 
     @classmethod
@@ -180,6 +187,10 @@ class GUI:
         #transfer file button
         transbutton = tkinter.Button(frame, text = "Make malicious",width = 15,command=lambda:cls.transfer(malbox,listbox))
         transbutton.place(x=250,y= 411)
+
+        #add file button
+        addbutton = tkinter.Button(frame, text = "->",width = 5,command=lambda:cls.add(malbox,workbox))
+        addbutton.place(x=572,y= 190)
 
         cls.gui.mainloop()
 
