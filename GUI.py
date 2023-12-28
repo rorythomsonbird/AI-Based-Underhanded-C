@@ -85,6 +85,11 @@ class GUI:
         allfiles = 0
         cls.refreshlist(randomgen,listbox,files,allfiles)
 
+    @classmethod
+    def transfer(cls,malbox,listbox):
+        for i in listbox.curselection():
+            filename = listbox.get(i)
+            malbox.insert(tkinter.END,filename)
     
 
     @classmethod
@@ -156,6 +161,8 @@ class GUI:
         readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,listbox))
         readbutton.place(x=250,y= 360)
 
+        
+
         #malware listbox
         malbox = tkinter.Listbox(frame, height= 10,listvariable=files)
         malbox.place(x=450, y= 130)
@@ -169,6 +176,10 @@ class GUI:
         workboxlab = tkinter.Label(frame, text="Work Area")
         workboxlab.place(x=615,y=110)
         workboxlab.config(font=("Sans", 8))
+
+        #transfer file button
+        transbutton = tkinter.Button(frame, text = "Make malicious",width = 15,command=lambda:cls.transfer(malbox,listbox))
+        transbutton.place(x=250,y= 411)
 
         cls.gui.mainloop()
 
