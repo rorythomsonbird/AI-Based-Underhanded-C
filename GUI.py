@@ -159,6 +159,9 @@ class GUI:
         #malware listbox
         malbox = tkinter.Listbox(frame, height= 10,listvariable=files)
         malbox.place(x=450, y= 130)
+        #Workplace listbox
+        workbox = tkinter.Listbox(frame, height= 10,listvariable=files)
+        workbox.place(x=615, y= 130)
 
         cls.gui.mainloop()
 
