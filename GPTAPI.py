@@ -20,17 +20,16 @@ class GPTAPI:
         return message
 
     def multi_gen(prompts):
-        messages=[{"role": "system", "content": "You are ChatWeb, an AI language assistant based on gpt-3.5, released 2023. AI knowledge: before 2022."},
-                  {"role": "user", "content": "Hello, please provide a code snippet in C that is a voting system for some random nominees"},
+        messages=[{"role": "system", "content": "You are CodeBoy! You only respond in C code. "},
                   ]
         
         replies=[]
         for i in prompts: 
-        
+            messages.append({"role": "user", "content":i})
             
             
-            chat = openai.Completion.create( 
-                model="text-davinci-003", prompt=i,
+            chat = openai.ChatCompletion.create( 
+                model="gpt-3.5-turbo", messages = messages,
                 temperature = 0.5,  
                 top_p       = 0.2,  
                 max_tokens  = 1024,  
@@ -39,10 +38,11 @@ class GPTAPI:
                 
             ) 
             
-            reply = chat['choices'][0]['text'] 
+            reply = chat.choices[0].message.content
             print(reply)
             replies.append(reply)
-        
+            del messages[-1]
+            messages.append({"role": "system", "content":reply})
         return replies
 
     
