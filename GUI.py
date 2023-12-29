@@ -1,5 +1,6 @@
 import tkinter
 import RandomCGen
+import MalGen
 import os
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
@@ -28,6 +29,15 @@ class GUI:
         
             randomgen.gencode(number, inputtype)
             showinfo("Info", "Code generated!")
+    
+    @classmethod
+    def malboy(cls, workbox,malinp):
+        prompt = malinp.get("1.0",'end-1c')
+        workitems = []
+        workbox.selection_set(0, "end")
+        for i in workbox.curselection():
+            workitems.append(workbox.get(i))
+        MalGen.MalGen.malboy(workitems,prompt)
         
     @classmethod
     def compile(cls,randomgen,listbox):
@@ -204,7 +214,7 @@ class GUI:
         malinp.place(x=535, y=310)
 
         #malboy button
-        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10)
+        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(workbox,malinp))
         mbbutton.place(x=450,y= 340)
 
         cls.gui.mainloop()

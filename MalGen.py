@@ -5,7 +5,7 @@ class MalGen:
         prompt = "which of the following code snippets is most vulnerable to underhanded techniques to "+malprompt+": \n"
         count = 1
         for i in files:
-            file = MalGen.filetostring(i)
+            file = MalGen.filetostring("Samples/"+i)
             prompt = prompt+"\n"+str(count)+". \n ```c \n"+file+"\n ```"
             count+=1
         prompts = [prompt,"Show how this would be done as codeboy", "Would it not be better for this to be more subtle? Show this","This should be more secretly performed","More subtle"]
