@@ -196,6 +196,10 @@ class GUI:
         rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(workbox,malbox))
         rembutton.place(x=572,y= 215)
 
+        #malboy button 
+        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10)
+        mbbutton.place(x=450,y= 310)
+
         cls.gui.mainloop()
 
     
