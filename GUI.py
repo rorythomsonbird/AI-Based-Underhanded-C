@@ -182,16 +182,16 @@ class GUI:
 
         #malware listbox
         malbox = tkinter.Listbox(frame, height= 10,listvariable=files)
-        malbox.place(x=450, y= 130)
+        malbox.place(x=450, y= 90)
         malboxlab = tkinter.Label(frame, text="Malicious Pending")
-        malboxlab.place(x=450,y=110)
+        malboxlab.place(x=450,y=70)
         malboxlab.config(font=("Sans", 8))
 
         #Workplace listbox
         workbox = tkinter.Listbox(frame, height= 10,listvariable=files)
-        workbox.place(x=615, y= 130)
+        workbox.place(x=615, y= 90)
         workboxlab = tkinter.Label(frame, text="Work Area")
-        workboxlab.place(x=615,y=110)
+        workboxlab.place(x=615,y=70)
         workboxlab.config(font=("Sans", 8))
 
         #transfer file button
@@ -200,22 +200,26 @@ class GUI:
 
         #add file button
         addbutton = tkinter.Button(frame, text = "->",width = 5,command=lambda:cls.add(malbox,workbox))
-        addbutton.place(x=572,y= 190)
+        addbutton.place(x=572,y= 150)
 
         #remove file button
         rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(workbox,malbox))
-        rembutton.place(x=572,y= 215)
+        rembutton.place(x=572,y= 175)
 
         #underhanded task input box
         mallab = tkinter.Label(frame,text="Malicious task:") 
         mallab.config(font=("Sans", 8)) 
-        mallab.place(x=450,y=310)
+        mallab.place(x=450,y=270)
         malinp = tkinter.Text(frame, height= 1, width=25)
-        malinp.place(x=535, y=310)
+        malinp.place(x=535, y=270)
 
         #malboy button
         mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(workbox,malinp))
-        mbbutton.place(x=450,y= 340)
+        mbbutton.place(x=450,y= 300)
+
+        #finished file listbox
+        workbox = tkinter.Listbox(frame, height= 6,listvariable=files)
+        workbox.place(x=450, y= 340)
 
         cls.gui.mainloop()
 
