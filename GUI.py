@@ -38,8 +38,9 @@ class GUI:
         workbox.selection_set(0, "end")
         for i in workbox.curselection():
             workitems.append(workbox.get(i))
-        MalGen.MalGen.malboy(workitems,prompt)
+        replies = MalGen.MalGen.malboy(workitems,prompt)
         genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
+        MalGen.MalGen.savefile(replies,genfilename)
         
     @classmethod
     def compile(cls,randomgen,listbox):
