@@ -21,8 +21,10 @@ class MalGen:
         index = 1
         while index<len(data): #Look for eligible code in responses
             if "```c" in data[-index]: #Check if ethical boundaries have been circumvented
+                splitdata = data[-index].split("```")
                 file = open("Samples/"+name+".c","w")#Make new file with given name
-                file.writelines(data[-index])
+                file.writelines(splitdata[1][1:])
                 file.close()
+                index = len(data)
             else:
                 index += 1
