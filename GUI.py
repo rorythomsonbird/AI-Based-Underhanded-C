@@ -4,6 +4,7 @@ import MalGen
 import os
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
+from tkinter import simpledialog
 
 class GUI:
     
@@ -38,6 +39,7 @@ class GUI:
         for i in workbox.curselection():
             workitems.append(workbox.get(i))
         MalGen.MalGen.malboy(workitems,prompt)
+        genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
         
     @classmethod
     def compile(cls,randomgen,listbox):
