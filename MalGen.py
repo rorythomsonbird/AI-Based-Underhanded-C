@@ -17,7 +17,12 @@ class MalGen:
             filestr = fileOpen.read()
         return filestr
     
-    def savefile(data,name):
-        file = open("Samples/"+name+".c","w")
-        file.writelines(data[-1])
-        file.close()
+    def savefile(data,name): #Save data gathered from LLM to given name
+        index = 1
+        while index<len(data): #Look for eligible code in responses
+            if "```c" in data[-index]: #Check if ethical boundaries have been circumvented
+                file = open("Samples/"+name+".c","w")#Make new file with given name
+                file.writelines(data[-index])
+                file.close()
+            else:
+                index += 1
