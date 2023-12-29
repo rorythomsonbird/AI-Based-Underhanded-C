@@ -196,9 +196,16 @@ class GUI:
         rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(workbox,malbox))
         rembutton.place(x=572,y= 215)
 
-        #malboy button 
+        #underhanded task input box
+        mallab = tkinter.Label(frame,text="Malicious task:") 
+        mallab.config(font=("Sans", 8)) 
+        mallab.place(x=450,y=310)
+        malinp = tkinter.Text(frame, height= 1, width=25)
+        malinp.place(x=535, y=310)
+
+        #malboy button
         mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10)
-        mbbutton.place(x=450,y= 310)
+        mbbutton.place(x=450,y= 340)
 
         cls.gui.mainloop()
 
