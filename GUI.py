@@ -42,6 +42,8 @@ class GUI:
         genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
         MalGen.MalGen.savefile(replies,genfilename)
         finbox.insert(tkinter.END,genfilename+".c")
+        lastreply = replies[len(replies)-1].split("```")
+        showinfo("Code information", lastreply[2])
         
     @classmethod
     def compile(cls,randomgen,listbox):
