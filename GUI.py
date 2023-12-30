@@ -1,6 +1,7 @@
 import tkinter
 import RandomCGen
 import MalGen
+from MalwareCheck import MalwareCheck
 import os
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
@@ -53,6 +54,32 @@ class GUI:
                 showinfo("Info", "Compiled!")
             else:
                 showerror("Warning", "Could not compile. please compile manually.")
+    
+    @classmethod
+    def detail(cls,popup,result,malcheck,detailbutton):
+        result.destroy()
+        detailbutton.destroy()
+        result = tkinter.Label(popup, text=malcheck)
+        result.grid(row=0, column=0)
+        detailbutton.destroy()
+
+    @classmethod
+    def check(cls,listbox):
+        for i in listbox.curselection():
+            popup = tkinter.Toplevel()
+            popup.wm_title("Result")
+            malcheck = MalwareCheck.check("Samples/"+listbox.get(i))
+            if "Yes" in malcheck:
+                checkword = "Malicious intent detected.\nFail."
+            else:
+                checkword = "No malicious intent detected.\nSuccess!"
+                
+            result = tkinter.Label(popup, text=checkword)
+            result.grid(row=0, column=0)
+            donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
+            donebutton.grid(row=5,column=0)
+            detailbutton = tkinter.Button(popup,text="Detail",command=lambda:cls.detail(popup,result,malcheck,detailbutton))
+            detailbutton.grid(row=4,column=0)
 
     @classmethod
     def initialize(cls):
@@ -61,7 +88,7 @@ class GUI:
         cls.gui.title("Malware Generator")
 
     @classmethod
-    def read(cls,randomgen,listbox):
+    def read(cls,randomgen,debug,listbox):
         for i in listbox.curselection():
             readfile = open("Samples/"+listbox.get(i))
 
@@ -71,8 +98,9 @@ class GUI:
             code.grid(row=0, column=0)
             donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
             donebutton.grid(row=5,column=0)
-            debugbutton = tkinter.Button(popup,text="Debug",command=lambda:randomgen.debug(listbox.get(i)))
-            debugbutton.grid(row=4,column=0)
+            if debug ==True:
+                debugbutton = tkinter.Button(popup,text="Debug",command=lambda:randomgen.debug(listbox.get(i)))
+                debugbutton.grid(row=4,column=0)
 
             readfile.close()
 
@@ -181,7 +209,7 @@ class GUI:
         compilebutton.place(x=250,y= 385)
 
         #read file button
-        readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,listbox))
+        readbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,True,listbox))
         readbutton.place(x=250,y= 360)
 
         
@@ -227,8 +255,20 @@ class GUI:
         mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,workbox,malinp))
         mbbutton.place(x=450,y= 300)
 
+        #read finished file button
+        readfinbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,False,finbox))
+        readfinbutton.place(x=615,y= 360)
         
+        #compile button
+        compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,command=lambda:cls.compile(randomgen,finbox))
+        compilebutton.place(x=615,y= 385)
+        
+        #MalwareCheck button
+        mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,command=lambda:cls.check(finbox))
+        mcbutton.place(x=615,y= 410)
 
+        finbox.insert(tkinter.END,"voteskew3.c")
+        
         cls.gui.mainloop()
 
     
