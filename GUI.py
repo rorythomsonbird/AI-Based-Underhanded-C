@@ -32,7 +32,7 @@ class GUI:
             showinfo("Info", "Code generated!")
     
     @classmethod
-    def malboy(cls, workbox,malinp):
+    def malboy(cls, finbox, workbox,malinp):
         prompt = malinp.get("1.0",'end-1c')
         workitems = []
         workbox.selection_set(0, "end")
@@ -41,6 +41,7 @@ class GUI:
         replies = MalGen.MalGen.malboy(workitems,prompt)
         genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
         MalGen.MalGen.savefile(replies,genfilename)
+        finbox.insert(tkinter.END,genfilename+".c")
         
     @classmethod
     def compile(cls,randomgen,listbox):
@@ -216,13 +217,15 @@ class GUI:
         malinp = tkinter.Text(frame, height= 1, width=25)
         malinp.place(x=535, y=270)
 
+        #finished file listbox
+        finbox = tkinter.Listbox(frame, height= 6,listvariable=files)
+        finbox.place(x=450, y= 340)
+
         #malboy button
-        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(workbox,malinp))
+        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,workbox,malinp))
         mbbutton.place(x=450,y= 300)
 
-        #finished file listbox
-        workbox = tkinter.Listbox(frame, height= 6,listvariable=files)
-        workbox.place(x=450, y= 340)
+        
 
         cls.gui.mainloop()
 
