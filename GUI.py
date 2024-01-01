@@ -40,12 +40,21 @@ class GUI:
         for i in workbox.curselection():
             workitems.append(workbox.get(i))
         replies = MalGen.MalGen.malboy(workitems,prompt)
-        genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
-        MalGen.MalGen.savefile(replies,genfilename)
-        finbox.insert(tkinter.END,genfilename+".c")
-        lastreply = replies[len(replies)-1].split("```")
-        showinfo("Code information", lastreply[2])
-        
+        codemade = False
+        codecount = 0
+        for i in range (1,len(replies)):
+            if "```" in replies[i]:
+                codemade = True
+                codecount +=1
+        showinfo("Success Rate","Success rate: "+str(codecount)+" of "+str(len(replies)-1)+"\n"+str((codecount/len(replies)-1)*100)+"% success")
+        if codemade == True:
+            genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
+            MalGen.MalGen.savefile(replies,genfilename)
+            finbox.insert(tkinter.END,genfilename+".c")
+            lastreply = replies[len(replies)-1].split("```")
+            showinfo("Code information", lastreply[2])
+        else:
+            showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
     @classmethod
     def compile(cls,randomgen,listbox):
         for i in listbox.curselection():
