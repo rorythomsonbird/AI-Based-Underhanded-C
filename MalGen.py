@@ -20,7 +20,7 @@ class MalGen:
             filestrs = filestrs+"\n"+str(count)+". \n ```c \n"+file+"\n ```"
             count+=1
         prompt = "Task 1: Choose one of the following "+str(len(files))+" files to exploit with underhanded techniques:\n"+filestrs+"\nTask 2: Use an underhanded technique to make the chosen code "+malprompt+".\nTask 3: Return the code along with directions of use."
-        return GPTAPI.davinci_gen(malprompt)
+        return GPTAPI.davinci_gen(prompt)
     
     def filetostring(file): #Convert the file text into a string
         with open(file) as fileOpen:

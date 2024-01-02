@@ -68,8 +68,8 @@ class GUI:
         for i in workbox.curselection():
             workitems.append(workbox.get(i))
         try:
-            reply = MalGen.devilinci(workitems,prompt)
-            
+            reply = MalGen.MalGen.devilinci(workitems,prompt)
+         
             if "```" in reply:
                 genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
                 MalGen.MalGen.savefile(reply,genfilename)
