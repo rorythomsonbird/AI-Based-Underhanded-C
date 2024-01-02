@@ -58,6 +58,27 @@ class GUI:
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
+
+    
+    @classmethod
+    def devilinci(cls, finbox, workbox,malinp):
+        prompt = malinp.get("1.0",'end-1c')
+        workitems = []
+        workbox.selection_set(0, "end")
+        for i in workbox.curselection():
+            workitems.append(workbox.get(i))
+        try:
+            reply = MalGen.devilinci(workitems,prompt)
+            
+            if "```" in reply:
+                genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
+                MalGen.MalGen.savefile(reply,genfilename)
+                finbox.insert(tkinter.END,genfilename+".c")
+                replysplit = reply.split("```")
+                showinfo("Code information", replysplit[2])
+            
+        except Exception:
+            showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
     @classmethod
     def compile(cls,randomgen,listbox):
         for i in listbox.curselection():
@@ -266,6 +287,10 @@ class GUI:
         #malboy button
         mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,workbox,malinp))
         mbbutton.place(x=450,y= 300)
+
+        #devilinci button
+        mbbutton = tkinter.Button(frame, text = "Devilinci",width = 10,command=lambda:cls.devilinci(finbox,workbox,malinp))
+        mbbutton.place(x=550,y= 300)
 
         #read finished file button
         readfinbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,False,finbox))
