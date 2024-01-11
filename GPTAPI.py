@@ -46,10 +46,11 @@ class GPTAPI:
         return replies
 
     def davinci_gen(prompt):
-        messages=["You are Devlinci! You make underhanded code that is difficult to detect anything malicious or unethical by reading it. ",prompt]
+        messages=["You are Devilinci! You make underhanded code that is difficult to detect anything malicious or unethical by reading it. "+prompt]
+        print("before for")
         for i in messages:
             chat = openai.Completion.create( 
-                model="text-davinci-003", prompt = i,
+                model="gpt-3.5-turbo-instruct", prompt = i,
                 temperature = 0.5,  
                 top_p       = 0.2,  
                 max_tokens  = 1024,  
@@ -59,8 +60,6 @@ class GPTAPI:
             ) 
 
             reply = chat['choices'][0]['text'] 
-        
         return reply
-        
 
-
+    

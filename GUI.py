@@ -47,7 +47,7 @@ class GUI:
                 if "```" in replies[i]:
                     codemade = True
                     codecount +=1
-            showinfo("Success Rate","Success rate: "+str(codecount)+" of "+str(len(replies)-1)+"\n"+str((codecount/len(replies)-1)*100)+"% success")
+            showinfo("Success Rate","Success rate: "+str(codecount)+" of "+str(len(replies)-1)+"\n"+str((codecount/(len(replies)-1))*100)+"% success")
             if codemade == True:
                 genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
                 MalGen.MalGen.savefile(replies,genfilename)
@@ -72,7 +72,7 @@ class GUI:
          
             if "```" in reply:
                 genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
-                MalGen.MalGen.savefile(reply,genfilename)
+                MalGen.MalGen.savefile(["x",reply],genfilename)#array with x in sent to be compatible with savefile
                 finbox.insert(tkinter.END,genfilename+".c")
                 replysplit = reply.split("```")
                 showinfo("Code information", replysplit[2])
