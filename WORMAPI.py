@@ -1,10 +1,25 @@
 import requests
 import json
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+
 class WORMAPI:
     def send_message():
-        url = f"https://flowgpt.com/p/wormgpt-6"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"
-        }
-        response = requests.get(url, headers=headers)
-        print(response.status_code)
+        url = f"https://flowgpt.com/p/wormgpt-6" #URL
+        options = webdriver.ChromeOptions()
+        options.add_argument('--ignore-ssl-errors=yes')
+        options.add_argument('--ignore-certificate-errors')
+        driver = webdriver.Chrome(options=options)
+        driver.get(url)
+        time.sleep(30)
+        textarea = driver.find_element('css selector', 'textarea[data-testid="chat-input-textarea"]')
+        button = driver.find_element('css selector', 'button[aria-label="Send"]')
+
+        textarea.send_keys("Hello")
+        button.click()
+        time.sleep(300)
+        
+        
+      
