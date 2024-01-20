@@ -3,6 +3,7 @@ from MalwareCheck import MalwareCheck
 from RandomCGen import RandomCGen 
 import os
 from MalGen import MalGen
+from WORMAPI import WORMAPI
 class Main:
     def main():
         # count = int(input("How many samples should be made?(integers only) ")) #input how many samples should be generated 
@@ -16,7 +17,8 @@ class Main:
         # print("Checking for malware...")
         # for i in newfiles:
         #     print(MalwareCheck.check("Samples/"+i))
-        MalGen.malboy(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"],"skew the vote in a nominee's favour")
+        #MalGen.malboy(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"],"skew the vote in a nominee's favour")
+        WORMAPI.send_message()
         
 
 if __name__ == "__main__":

@@ -149,8 +149,6 @@ class GUI:
         else:
             files = RandomCGen.genfiles
         listbox.delete(0,tkinter.END)
-        
-        print(RandomCGen.genfiles)
         for item in files:
             listbox.insert(tkinter.END,item)
     @classmethod
