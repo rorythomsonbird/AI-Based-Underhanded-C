@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import ttk
 import RandomCGen
 import MalGen
 from MalwareCheck import MalwareCheck
@@ -293,7 +294,13 @@ class GUI:
         mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,command=lambda:cls.check(finbox))
         mcbutton.place(x=615,y= 410)
 
-        
+        #malware combobox
+        malcombo = ttk.Combobox(frame, width = 20) 
+  
+ 
+        malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption', 'All') 
+        malcombo.place(x=550,y=160)
+
         cls.gui.mainloop()
 
     
