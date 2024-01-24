@@ -59,4 +59,5 @@ class MalGen:
                 imports = imports + imp + "\n"
             
         newfiletext = imports+filetext+"\n"+data
+        newfiletext = newfiletext.replace("int main() {", "int main() { \n    "+type[:-2]+"();")
         print(newfiletext)
