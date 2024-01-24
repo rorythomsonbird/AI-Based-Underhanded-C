@@ -116,6 +116,16 @@ class GUI:
             detailbutton.grid(row=4,column=0)
 
     @classmethod
+    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,malcombo):
+        if checkdevint == 1 and checkmalint == 1:
+            showerror("Warning", "Please only select a maximum of one LLM")
+        elif checkdevint == 0 and checkmalint == 1:
+            cls.malboy(finbox, malbox, malinp)
+            if malcombo
+
+
+
+    @classmethod
     def initialize(cls):
         
         cls.gui = tkinter.Tk()
@@ -296,11 +306,18 @@ class GUI:
 
         #malware combobox
         malcombo = ttk.Combobox(frame, width = 20) 
+        curr_mal = tkinter.StringVar()
         malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption', 'All') 
         malcombo.place(x=550,y=160)
 
+        checkmalint = tkinter.IntVar
+        checkdevint = tkinter.IntVar
+        checkmal = tkinter.Checkbutton(frame, text='Malboy',variable=checkmalint, onvalue=1, offvalue=0)
+        checkdev = tkinter.Checkbutton(frame, text='Devilinci',variable=checkdevint, onvalue=1, offvalue=0)
+        checkmal.place(x=550,y=130)
+        checkdev.place(x=675,y=130)
         #Go button
-        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3)
+        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,malcombo))
         gobutton.place(x=685,y=200)
 
         cls.gui.mainloop()
