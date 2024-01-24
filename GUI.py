@@ -296,10 +296,12 @@ class GUI:
 
         #malware combobox
         malcombo = ttk.Combobox(frame, width = 20) 
-  
- 
         malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption', 'All') 
         malcombo.place(x=550,y=160)
+
+        #Go button
+        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3)
+        gobutton.place(x=685,y=200)
 
         cls.gui.mainloop()
 
