@@ -49,5 +49,8 @@ class MalGen:
         malfile.close()
         with open("Samples/"+file) as currfile:
             filetext = currfile.read()
-        newfiletext = filetext+"\n"+malsnip
+        malsnipsplit = malsnip.split("//import")
+        imports = malsnipsplit[0]
+        data = malsnipsplit[1]
+        newfiletext = imports+filetext+"\n"+data
         print(newfiletext)

