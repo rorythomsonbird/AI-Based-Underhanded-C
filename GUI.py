@@ -302,7 +302,6 @@ class GUI:
         mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,command=lambda:cls.check(finbox))
         mcbutton.place(x=615,y= 410)
 
-        finbox.insert(tkinter.END,"voteskew3.c")
         
         cls.gui.mainloop()
 
