@@ -247,9 +247,9 @@ class GUI:
 
         #malware listbox
         malbox = tkinter.Listbox(frame, height= 10,listvariable=files)
-        malbox.place(x=450, y= 90)
+        malbox.place(x=420, y= 90)
         malboxlab = tkinter.Label(frame, text="Malicious Pending")
-        malboxlab.place(x=450,y=70)
+        malboxlab.place(x=420,y=70)
         malboxlab.config(font=("Sans", 8))
 
 
@@ -259,19 +259,19 @@ class GUI:
 
 
         #remove file button
-        rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(malbox,listbox))
-        rembutton.place(x=572,y= 175)
+        rembutton = tkinter.Button(frame, text = "Remove file",width = 15,command=lambda:cls.add(malbox,listbox))
+        rembutton.place(x=600,y= 90)
 
         #underhanded task input box
         mallab = tkinter.Label(frame,text="Malicious task:") 
         mallab.config(font=("Sans", 8)) 
-        mallab.place(x=450,y=270)
+        mallab.place(x=420,y=270)
         malinp = tkinter.Text(frame, height= 1, width=25)
         malinp.place(x=535, y=270)
 
         #finished file listbox
         finbox = tkinter.Listbox(frame, height= 6,listvariable=files)
-        finbox.place(x=450, y= 340)
+        finbox.place(x=420, y= 340)
 
         #malboy button
         mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,malbox,malinp))
