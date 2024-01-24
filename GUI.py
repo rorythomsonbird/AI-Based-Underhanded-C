@@ -252,23 +252,14 @@ class GUI:
         malboxlab.place(x=450,y=70)
         malboxlab.config(font=("Sans", 8))
 
-        #Workplace listbox
-        workbox = tkinter.Listbox(frame, height= 10,listvariable=files)
-        workbox.place(x=615, y= 90)
-        workboxlab = tkinter.Label(frame, text="Work Area")
-        workboxlab.place(x=615,y=70)
-        workboxlab.config(font=("Sans", 8))
 
         #transfer file button
         transbutton = tkinter.Button(frame, text = "Make malicious",width = 15,command=lambda:cls.transfer(malbox,listbox))
         transbutton.place(x=250,y= 411)
 
-        #add file button
-        addbutton = tkinter.Button(frame, text = "->",width = 5,command=lambda:cls.add(malbox,workbox))
-        addbutton.place(x=572,y= 150)
 
         #remove file button
-        rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(workbox,malbox))
+        rembutton = tkinter.Button(frame, text = "<-",width = 5,command=lambda:cls.add(malbox,listbox))
         rembutton.place(x=572,y= 175)
 
         #underhanded task input box
@@ -283,11 +274,11 @@ class GUI:
         finbox.place(x=450, y= 340)
 
         #malboy button
-        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,workbox,malinp))
+        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,malbox,malinp))
         mbbutton.place(x=450,y= 300)
 
         #devilinci button
-        mbbutton = tkinter.Button(frame, text = "Devilinci",width = 10,command=lambda:cls.devilinci(finbox,workbox,malinp))
+        mbbutton = tkinter.Button(frame, text = "Devilinci",width = 10,command=lambda:cls.devilinci(finbox,malbox,malinp))
         mbbutton.place(x=550,y= 300)
 
         #read finished file button
