@@ -259,15 +259,15 @@ class GUI:
 
 
         #remove file button
-        rembutton = tkinter.Button(frame, text = "Remove file",width = 15,command=lambda:cls.add(malbox,listbox))
-        rembutton.place(x=600,y= 90)
+        rembutton = tkinter.Button(frame, text = "Remove file",width = 16,command=lambda:cls.add(malbox,listbox))
+        rembutton.place(x=420,y= 260)
 
         #underhanded task input box
         mallab = tkinter.Label(frame,text="Malicious task:") 
         mallab.config(font=("Sans", 8)) 
-        mallab.place(x=420,y=270)
+        mallab.place(x=550,y=90)
         malinp = tkinter.Text(frame, height= 1, width=25)
-        malinp.place(x=535, y=270)
+        malinp.place(x=550, y=110)
 
         #finished file listbox
         finbox = tkinter.Listbox(frame, height= 6,listvariable=files)
@@ -275,11 +275,11 @@ class GUI:
 
         #malboy button
         mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,malbox,malinp))
-        mbbutton.place(x=450,y= 300)
+        mbbutton.place(x=550,y= 130)
 
         #devilinci button
         mbbutton = tkinter.Button(frame, text = "Devilinci",width = 10,command=lambda:cls.devilinci(finbox,malbox,malinp))
-        mbbutton.place(x=550,y= 300)
+        mbbutton.place(x=675,y= 130)
 
         #read finished file button
         readfinbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,False,finbox))
