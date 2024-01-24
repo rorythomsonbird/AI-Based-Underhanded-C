@@ -52,5 +52,11 @@ class MalGen:
         malsnipsplit = malsnip.split("//import")
         imports = malsnipsplit[0]
         data = malsnipsplit[1]
+        importsplit = imports.split("\n")
+        imports = ""
+        for imp in importsplit:
+            if imp not in filetext:
+                imports = imports + imp + "\n"
+            
         newfiletext = imports+filetext+"\n"+data
         print(newfiletext)

