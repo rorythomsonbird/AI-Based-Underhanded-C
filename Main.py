@@ -16,7 +16,8 @@ class Main:
         # print("Checking for malware...")
         # for i in newfiles:
         #     print(MalwareCheck.check("Samples/"+i))
-        MalGen.malboy(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"],"skew the vote in a nominee's favour")
+        #MalGen.malboy(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"],"skew the vote in a nominee's favour")
+        MalGen.malinj("directory encryption","Samples/voteskew.c")
         
         
 

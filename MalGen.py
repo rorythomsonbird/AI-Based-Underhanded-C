@@ -40,3 +40,9 @@ class MalGen:
                 index = len(data)
             else:
                 index += 1
+
+    def malinj(type,file):
+        with open("malsnips.txt") as malfile:
+            malfilestr = malfile.read()
+
+        print(malfilestr.split(type)[1].split("```")[1])

@@ -20,7 +20,7 @@ int klog() {
 }
 ```
 
-directory encyption:
+directory encryption:
 ```
 #include <stdio.h>
 #include <stdlib.h>
