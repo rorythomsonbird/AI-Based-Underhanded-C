@@ -47,8 +47,6 @@ class MalGen:
 
         malsnip = malfilestr.split(type)[1].split("```")[1]
         malfile.close()
-        
-        
         malsnipsplit = malsnip.split("//import")
         imports = malsnipsplit[0]
         data = malsnipsplit[1]

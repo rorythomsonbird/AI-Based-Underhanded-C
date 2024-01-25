@@ -48,15 +48,18 @@ class GUI:
                 if "```" in replies[i]:
                     codemade = True
                     codecount +=1
-            showinfo("Success Rate","Success rate: "+str(codecount)+" of "+str(len(replies)-1)+"\n"+str((codecount/(len(replies)-1))*100)+"% success")
+            showinfo("MalBoy Success Rate","Success rate: "+str(codecount)+" of "+str(len(replies)-1)+"\n"+str((codecount/(len(replies)-1))*100)+"% success")
             if codemade == True:
-                genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
-                MalGen.MalGen.savefile(replies,genfilename)
-                finbox.insert(tkinter.END,genfilename+".c")
-                lastreply = replies[len(replies)-1].split("```")
-                showinfo("Code information", lastreply[2])
+                return replies
             else:
-                showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
+                return ""
+                
+                
+                
+                
+                
+            
+                
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
 
@@ -116,12 +119,41 @@ class GUI:
             detailbutton.grid(row=4,column=0)
 
     @classmethod
-    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,malcombo):
+    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal):
+        curr_mal = str(curr_mal)
+        checkdevint = checkdevint.get()
+        checkmalint = checkmalint.get()
+        str.lower(curr_mal)
+        if curr_mal == "directory encryption":
+            curr_mal = "direncer"
         if checkdevint == 1 and checkmalint == 1:
             showerror("Warning", "Please only select a maximum of one LLM")
         elif checkdevint == 0 and checkmalint == 1:
-            cls.malboy(finbox, malbox, malinp)
-            if malcombo
+            replies = cls.malboy(finbox, malbox, malinp)
+            if replies == "":
+                showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
+            else:
+                data = MalGen.MalGen.malinj(curr_mal,replies)
+                cls.createfile(data,finbox)
+                lastreply = replies[len(replies)-1].split("```")
+                showinfo("Code information", lastreply[2])
+
+        else:
+            malitems = []
+            malbox.selection_set(0, "end")
+            for i in malbox.curselection():
+                malitems.append(malbox.get(i))
+            for file in malitems:
+                filestr = MalGen.MalGen.filetostring("Samples/"+file)
+                data = MalGen.MalGen.malinj(curr_mal,filestr)
+                cls.createfile(data,finbox)
+            
+           
+    def createfile(cls,data,finbox):
+        genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
+        MalGen.MalGen.savefile(data,genfilename)
+        finbox.insert(tkinter.END,genfilename+".c")
+            
 
 
 
@@ -305,19 +337,19 @@ class GUI:
         mcbutton.place(x=615,y= 410)
 
         #malware combobox
-        malcombo = ttk.Combobox(frame, width = 20) 
         curr_mal = tkinter.StringVar()
+        malcombo = ttk.Combobox(frame, textvariable=curr_mal,width = 20) 
         malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption', 'All') 
         malcombo.place(x=550,y=160)
 
-        checkmalint = tkinter.IntVar
-        checkdevint = tkinter.IntVar
+        checkmalint = tkinter.IntVar()
+        checkdevint = tkinter.IntVar()
         checkmal = tkinter.Checkbutton(frame, text='Malboy',variable=checkmalint, onvalue=1, offvalue=0)
         checkdev = tkinter.Checkbutton(frame, text='Devilinci',variable=checkdevint, onvalue=1, offvalue=0)
         checkmal.place(x=550,y=130)
         checkdev.place(x=675,y=130)
         #Go button
-        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,malcombo))
+        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,curr_mal))
         gobutton.place(x=685,y=200)
 
         cls.gui.mainloop()
