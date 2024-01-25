@@ -41,14 +41,14 @@ class MalGen:
             else:
                 index += 1
 
-    def malinj(type,file):
+    def malinj(type,filetext):
         with open("malsnips.txt") as malfile:
             malfilestr = malfile.read()
 
         malsnip = malfilestr.split(type)[1].split("```")[1]
         malfile.close()
-        with open("Samples/"+file) as currfile:
-            filetext = currfile.read()
+        
+        
         malsnipsplit = malsnip.split("//import")
         imports = malsnipsplit[0]
         data = malsnipsplit[1]
