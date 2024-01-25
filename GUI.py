@@ -120,10 +120,10 @@ class GUI:
 
     @classmethod
     def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal):
-        curr_mal = str(curr_mal)
+        curr_mal = curr_mal.get()
         checkdevint = checkdevint.get()
         checkmalint = checkmalint.get()
-        str.lower(curr_mal)
+        curr_mal = str.lower(curr_mal)
         if curr_mal == "directory encryption":
             curr_mal = "direncer"
         if checkdevint == 1 and checkmalint == 1:
@@ -134,11 +134,12 @@ class GUI:
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
             else:
                 data = MalGen.MalGen.malinj(curr_mal,replies)
-                cls.createfile(data,finbox)
+                cls.createfile(["x","```c"+data+"```"],finbox)
                 lastreply = replies[len(replies)-1].split("```")
                 showinfo("Code information", lastreply[2])
 
         else:
+            print(curr_mal)
             malitems = []
             malbox.selection_set(0, "end")
             for i in malbox.curselection():
@@ -146,14 +147,14 @@ class GUI:
             for file in malitems:
                 filestr = MalGen.MalGen.filetostring("Samples/"+file)
                 data = MalGen.MalGen.malinj(curr_mal,filestr)
-                cls.createfile(data,finbox)
+                cls.createfile(["x","```c"+data+"```"],finbox)
             
-           
+    @classmethod     
     def createfile(cls,data,finbox):
         genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
         MalGen.MalGen.savefile(data,genfilename)
         finbox.insert(tkinter.END,genfilename+".c")
-            
+        showinfo("File Status", genfilename+" saved!")
 
 
 
