@@ -130,12 +130,17 @@ class GUI:
             showerror("Warning", "Please only select a maximum of one LLM")
         elif checkdevint == 0 and checkmalint == 1:
             replies = cls.malboy(finbox, malbox, malinp)
+            lastreply = replies[len(replies)-1].split("```")
             if replies == "":
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
             else:
-                data = MalGen.MalGen.malinj(curr_mal,replies)
-                cls.createfile(["x","```c"+data+"```"],finbox)
-                lastreply = replies[len(replies)-1].split("```")
+                if curr_mal == "":
+                    data = "```c"+lastreply[1]+"```"
+                else:
+                    data = MalGen.MalGen.malinj(curr_mal,lastreply[1])
+                    data = "```c"+data+"```"
+                cls.createfile(["x",data],finbox)
+                
                 showinfo("Code information", lastreply[2])
 
         else:
