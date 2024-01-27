@@ -123,6 +123,8 @@ class GUI:
         curr_mal = str.lower(curr_mal)
         if curr_mal == "directory encryption":
             curr_mal = "direncer"
+        if curr_mal == "none":
+            curr_mal = ""
         if checkdevint == 1 and checkmalint == 1:
             showerror("Warning", "Please only select a maximum of one LLM")
         elif checkdevint == 0 and checkmalint == 1:
@@ -144,7 +146,7 @@ class GUI:
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
             else:
                 replysplit = reply.split("```")
-                if curr_mal == "" or curr_mal =="None":
+                if curr_mal == "":
                     data = replysplit[1]
                 else:
                     data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
@@ -347,7 +349,7 @@ class GUI:
         #malware combobox
         curr_mal = tkinter.StringVar()
         malcombo = ttk.Combobox(frame, textvariable=curr_mal,width = 20) 
-        malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption', 'All') 
+        malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption') 
         malcombo.place(x=550,y=160)
 
         checkmalint = tkinter.IntVar()
