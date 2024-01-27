@@ -185,21 +185,39 @@ class GUI:
         for i in listbox.curselection():
             readfile = open("Samples/"+listbox.get(i))
 
-            popup = tkinter.Toplevel()
-            popup.geometry("450x600")
-            popup.update()
+            popup = tkinter.Tk()
+            readframe = tkinter.Frame(popup, width=350,height=500)
+            
             popup.wm_title(listbox.get(i))
-            canvas = tkinter.Canvas(popup, bg="Black", width=popup.winfo_width(), height=popup.winfo_height())
-            canvas.pack()   
-            code = tkinter.Label(canvas, text=readfile.read())
-            code.grid(row=0, column=0)
+            text = tkinter.Text(
+                popup,
+                height=40,
+                width=75, 
+                font=(9)  
+            )
+            text.grid(row=0, column=0)
+            text.insert(tkinter.END,readfile.read())
+            readfile.close()
+            scrollbar = tkinter.Scrollbar(readframe,orient=tkinter.VERTICAL)
+            scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
+            text.config(yscrollcommand=scrollbar.set)
+            scrollbar.config(command=text.yview)
             donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
             donebutton.grid(row=5,column=0)
             if debug ==True:
-                debugbutton = tkinter.Button(popup,text="Debug",command=lambda:randomgen.debug(listbox.get(i)))
+                debugbutton = tkinter.Button(popup,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i)))
                 debugbutton.grid(row=4,column=0)
 
-            readfile.close()
+            popup.mainloop()
+
+    @classmethod
+    def debug(cls,text,randomgen,file):
+        debugged = randomgen.debug(file)
+        newdebfile = open("Samples/"+file,"w")
+        newdebfile.write(debugged)
+        text.delete('1.0',tkinter.END)
+        text.insert(tkinter.END,debugged)
+        newdebfile.close()
 
     
     
