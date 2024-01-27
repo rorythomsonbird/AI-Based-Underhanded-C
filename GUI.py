@@ -205,19 +205,23 @@ class GUI:
             donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
             donebutton.grid(row=5,column=0)
             if debug ==True:
-                debugbutton = tkinter.Button(popup,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i)))
+                debugbutton = tkinter.Button(popup,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
                 debugbutton.grid(row=4,column=0)
 
             popup.mainloop()
 
     @classmethod
-    def debug(cls,text,randomgen,file):
+    def debug(cls,text,randomgen,file,curr):
         debugged = randomgen.debug(file)
         newdebfile = open("Samples/"+file,"w")
         newdebfile.write(debugged)
         text.delete('1.0',tkinter.END)
         text.insert(tkinter.END,debugged)
         newdebfile.close()
+        if curr == debugged:
+            showinfo("Debug status","Everything looks compilable!")
+        else:
+            showinfo("Debug status","Code debugged.")
 
     
     
