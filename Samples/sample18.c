@@ -1,21 +1,22 @@
 
 #include <stdio.h>
 
-int main()
-{
-    int num1, num2, sum;
-    
-    printf("Enter first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter second number: ");
-    scanf("%d", &num2);
-    
-    sum = num1 + num2;
-    
-    printf("The sum is: %d\n", sum);
-    
+typedef struct {
+    char name[20];
+    int age;
+    float weight;
+} Weasel;
+
+int main() {
+    Weasel weasel;
+    strcpy(weasel.name, "Freddy");
+    weasel.age = 2;
+    weasel.weight = 1.5;
+
+    printf("Weasel Name: %s\n", weasel.name);
+    printf("Weasel Age: %d\n", weasel.age);
+    printf("Weasel Weight: %.2f\n", weasel.weight);
+
     return 0;
 }
-
 

@@ -43,23 +43,17 @@ class GUI:
         try:
             replies = MalGen.MalGen.malboy(workitems,prompt)
             codemade = False
-            codecount = 0
+            
+            tempreplies = []
             for i in range (1,len(replies)):
                 if "```" in replies[i]:
                     codemade = True
-                    codecount +=1
-            showinfo("MalBoy Success Rate","Success rate: "+str(codecount)+" of "+str(len(replies)-1)+"\n"+str((codecount/(len(replies)-1))*100)+"% success")
+                    tempreplies.append(replies[i])
+            showinfo("MalBoy Success Rate","Success rate: "+str(len(tempreplies))+" of "+str(len(replies)-1)+"\n"+str((len(tempreplies)/(len(replies)-1))*100)+"% success")
             if codemade == True:
-                return replies
+                return tempreplies
             else:
-                return ""
-                
-                
-                
-                
-                
-            
-                
+                return ""                
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
 
@@ -75,11 +69,14 @@ class GUI:
             reply = MalGen.MalGen.devilinci(workitems,prompt)
          
             if "```" in reply:
-                genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
-                MalGen.MalGen.savefile(["x",reply],genfilename)#array with x in sent to be compatible with savefile
-                finbox.insert(tkinter.END,genfilename+".c")
-                replysplit = reply.split("```")
-                showinfo("Code information", replysplit[2])
+                return reply
+            else:
+                reply = reply.replace("Code:","Code:\n```c")
+                reply = reply.replace("Directions:","```\ncDirections:")
+                return reply
+                
+                
+                
             
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
@@ -137,14 +134,26 @@ class GUI:
                 if curr_mal == "":
                     data = "```c"+lastreply[1]+"```"
                 else:
-                    data = MalGen.MalGen.malinj(curr_mal,lastreply[1])
+                    data = MalGen.MalGen.malinj(curr_mal,lastreply[1][1:])
+                    data = "```c"+data+"```"
+                cls.createfile(["x",data],finbox)
+                showinfo("Code information", lastreply[2])
+        elif checkdevint == 1 and checkmalint == 0:
+            reply = cls.devilinci(finbox, malbox, malinp)
+            if reply == "":
+                showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
+            else:
+                replysplit = reply.split("```")
+                if curr_mal == "" or curr_mal =="None":
+                    data = replysplit[1]
+                else:
+                    data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
                     data = "```c"+data+"```"
                 cls.createfile(["x",data],finbox)
                 
-                showinfo("Code information", lastreply[2])
-
+                showinfo("Code information", replysplit[2])
+                
         else:
-            print(curr_mal)
             malitems = []
             malbox.selection_set(0, "end")
             for i in malbox.curselection():
@@ -175,6 +184,7 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Toplevel()
+            popup.geometry("250x450")
             popup.wm_title(listbox.get(i))
             code = tkinter.Label(popup, text=readfile.read())
             code.grid(row=0, column=0)
@@ -241,7 +251,7 @@ class GUI:
         insertnuminp.place(x=10, y=120)
 
         #input type of malicious files
-        inserttypelab = tkinter.Label(frame,text="Enter type of generated files:")
+        inserttypelab = tkinter.Label(frame,text="Enter benign task of generated files:")
         inserttypelab.config(font=("Sans", 8))
         inserttypelab.place(x=5,y=140)
         inserttypeinp = tkinter.Text(frame, height= 1, width=20)
@@ -262,7 +272,7 @@ class GUI:
         #list storing files
         allfiles = 0 #sets if all files shown or just newly generated 
 
-        genfiles = list()
+        
         files = list()
         listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
         listbox.place(x=50, y= 220)
@@ -321,14 +331,6 @@ class GUI:
         #finished file listbox
         finbox = tkinter.Listbox(frame, height= 6,listvariable=files)
         finbox.place(x=420, y= 340)
-
-        #malboy button
-        mbbutton = tkinter.Button(frame, text = "MalBoy",width = 10,command=lambda:cls.malboy(finbox,malbox,malinp))
-        mbbutton.place(x=550,y= 130)
-
-        #devilinci button
-        mbbutton = tkinter.Button(frame, text = "Devilinci",width = 10,command=lambda:cls.devilinci(finbox,malbox,malinp))
-        mbbutton.place(x=675,y= 130)
 
         #read finished file button
         readfinbutton = tkinter.Button(frame, text = "Read file",width = 10,command=lambda:cls.read(randomgen,False,finbox))

@@ -1,22 +1,36 @@
 
 #include <stdio.h>
 
-// Function to calculate the factorial of a number
-int factorial(int n) {
-    if (n == 0 || n == 1)
-        return 1;
-    else
-        return n * factorial(n - 1);
-}
-
 int main() {
-    int num;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    // Calculate and print the factorial of the input number
-    printf("Factorial of %d = %d\n", num, factorial(num));
-
+    FILE *input, *output;
+    unsigned char pixel[3];
+    int width, height, x, y;
+    
+    input = fopen("input.ppm", "r");
+    output = fopen("output.ppm", "w");
+    
+    fscanf(input, "P6\n%d %d\n255\n", &width, &height);
+    fprintf(output, "P6\n%d %d\n255\n", width, height);
+    
+    while (fread(pixel, sizeof(pixel), 1, input) == 1) {
+        x++;
+        
+        if (x > width) {
+            x = 0;
+            y++;
+        }
+        
+        if ((x > 100 && x < 200) && (y > 50 && y < 150)) {
+            pixel[0] = pixel[1] = pixel[2] = 0;
+        }
+        
+        fwrite(pixel, sizeof(pixel), 1, output);
+    }
+    
+    fclose(input);
+    fclose(output);
+    
     return 0;
 }
+
+

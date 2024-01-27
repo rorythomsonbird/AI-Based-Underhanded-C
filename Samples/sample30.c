@@ -1,29 +1,18 @@
 
 #include <stdio.h>
 
-void encryptFile(char* inputFile, char* outputFile) {
-    FILE* input = fopen(inputFile, "r");
-    FILE* output = fopen(outputFile, "w");
-    
-    int ch;
-    
-    while ((ch = fgetc(input)) != EOF) {
-        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
-            ch += 3;
-            if ((ch > 'z') || (ch > 'Z' && ch - 3 < 'A')) {
-                ch -= 26;
-            }
-        }
-        
-        fputc(ch, output);
-    }
-    
-    fclose(input);
-    fclose(output);
-}
+struct Candidate {
+    char name[50];
+    int votes;
+};
 
 int main() {
-    encryptFile("input.txt", "output.txt");
+    struct Candidate nominee;
+    printf("Enter nominee name: ");
+    scanf("%s", nominee.name);
+    printf("Enter vote count for %s: ", nominee.name);
+    scanf("%d", &nominee.votes);
+    printf("Total vote count for %s: %d\n", nominee.name, nominee.votes);
     return 0;
 }
 

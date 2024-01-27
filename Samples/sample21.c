@@ -2,16 +2,20 @@
 #include <stdio.h>
 
 int main() {
-    int num = 10;
-
-    if (num > 0) {
-        printf("Number is positive\n");
-    } else if (num < 0) {
-        printf("Number is negative\n");
-    } else {
-        printf("Number is zero\n");
+    FILE *input, *output;
+    char ch;
+    
+    input = fopen("input.ppm", "r");
+    output = fopen("output.ppm", "w");
+    
+    while ((ch = fgetc(input)) != EOF) {
+        fputc(ch, output);
     }
-
+    
+    fclose(input);
+    fclose(output);
+    
     return 0;
 }
+
 

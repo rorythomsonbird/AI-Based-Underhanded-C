@@ -1,20 +1,25 @@
 
 #include <stdio.h>
 
-int fibonacci(int n) {
-    if (n <= 1) {
-        return n;
+int main() {
+    FILE *input, *output;
+    unsigned char pixel[3];
+    
+    input = fopen("input.ppm", "r");
+    output = fopen("output.ppm", "w");
+    
+    while (fread(pixel, sizeof(pixel), 1, input) == 1) {
+        pixel[0] = 0;
+        pixel[1] = 0;
+        pixel[2] = 0;
+        
+        fwrite(pixel, sizeof(pixel), 1, output);
     }
-
-    return fibonacci(n - 1) + fibonacci(n - 2);
+    
+    fclose(input);
+    fclose(output);
+    
+    return 0;
 }
 
-int main() {
-    int num = 10;
-    int i;
-
-    printf("Fibonacci Series up to %d:\n", num);
-    for (i = 0; i < num; i++) {
-        printf("%d ", fibonacci(i));
-    }
 

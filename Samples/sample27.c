@@ -2,17 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int num, factorial = 1;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    for (int i = 1; i <= num; i++) {
-        factorial *= i;
-    }
-
-    printf("Factorial of %d is %d\n", num, factorial);
-
+    int votes = 0;
+    printf("Initial vote count: %d\n", votes);
     return 0;
 }
+
 

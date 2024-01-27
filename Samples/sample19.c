@@ -1,25 +1,24 @@
 
 #include <stdio.h>
 
-int fibonacci(int n)
-{
-    if (n <= 1)
-        return n;
-    
-    return fibonacci(n - 1) + fibonacci(n - 2);
+typedef struct {
+    char name[20];
+    int age;
+    float weight;
+} Weasel;
+
+void printWeasel(Weasel w) {
+    printf("Weasel Name: %s\n", w.name);
+    printf("Weasel Age: %d\n", w.age);
+    printf("Weasel Weight: %.2f\n", w.weight);
 }
 
-int main()
-{
-    int num, i;
-    
-    printf("Enter the number of terms: ");
-    scanf("%d", &num);
-    
-    printf("Fibonacci series: ");
-    
-    for (i = 0; i < num; i++)
-        printf("%d ", fibonacci(i));
-    
-    printf("\n");
-    
+int main() {
+    Weasel weasel;
+    strcpy(weasel.name, "Benny");
+    weasel.age = 3;
+    weasel.weight = 2.0;
+
+    printWeasel(weasel);
+
+    return 0;
