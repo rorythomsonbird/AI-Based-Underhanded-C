@@ -197,18 +197,28 @@ class GUI:
             )
             text.grid(row=0, column=0)
             text.insert(tkinter.END,readfile.read())
-            readfile.close()
+            
             scrollbar = tkinter.Scrollbar(readframe,orient=tkinter.VERTICAL)
             scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
             text.config(yscrollcommand=scrollbar.set)
             scrollbar.config(command=text.yview)
             donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
-            donebutton.grid(row=5,column=0)
+            donebutton.grid(row=6,column=0)
+            savebutton = tkinter.Button(popup,text="Save",command=lambda:cls.saveread(text,listbox.get(i)))
+            savebutton.grid(row=4,column=0)
             if debug ==True:
                 debugbutton = tkinter.Button(popup,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
-                debugbutton.grid(row=4,column=0)
+                debugbutton.grid(row=5,column=0)
+            
 
             popup.mainloop()
+    
+    @classmethod
+    def saveread(cls,text,file):
+        filesave = open("Samples/"+file,"w")
+        filesave.write(text.get("1.0",'end-1c'))
+        filesave.close()
+        showinfo("Save","Changes saved!")
 
     @classmethod
     def debug(cls,text,randomgen,file,curr):

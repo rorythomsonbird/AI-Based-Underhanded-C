@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <string.h>
 
 typedef struct {
     char name[20];
@@ -19,4 +20,3 @@ int main() {
 
     return 0;
 }
-
