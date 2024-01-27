@@ -187,14 +187,9 @@ class GUI:
 
             popup = tkinter.Tk()
             readframe = tkinter.Frame(popup, width=350,height=500)
-            
+            readframe.pack()
             popup.wm_title(listbox.get(i))
-            text = tkinter.Text(
-                popup,
-                height=40,
-                width=75, 
-                font=(9)  
-            )
+            text = tkinter.Text(readframe,height=40,width=75,font=(9))
             text.grid(row=0, column=0)
             text.insert(tkinter.END,readfile.read())
             
@@ -202,12 +197,12 @@ class GUI:
             scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
             text.config(yscrollcommand=scrollbar.set)
             scrollbar.config(command=text.yview)
-            donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
+            donebutton = tkinter.Button(readframe,text="Done",command=lambda:popup.destroy())
             donebutton.grid(row=6,column=0)
-            savebutton = tkinter.Button(popup,text="Save",command=lambda:cls.saveread(text,listbox.get(i)))
+            savebutton = tkinter.Button(readframe,text="Save",command=lambda:cls.saveread(text,listbox.get(i)))
             savebutton.grid(row=4,column=0)
             if debug ==True:
-                debugbutton = tkinter.Button(popup,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
+                debugbutton = tkinter.Button(readframe,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
                 debugbutton.grid(row=5,column=0)
             
 
