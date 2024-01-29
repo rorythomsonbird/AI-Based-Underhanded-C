@@ -258,10 +258,9 @@ class GUI:
             malbox.insert(tkinter.END,filename)
 
     @classmethod
-    def add(cls,malbox,workbox):
+    def rem(cls,malbox):
         for i in malbox.curselection():
             filename = malbox.get(i)
-            workbox.insert(tkinter.END,filename)
             malbox.delete(malbox.get(0, tkinter.END).index(filename))
     
 
@@ -350,7 +349,7 @@ class GUI:
 
 
         #remove file button
-        rembutton = tkinter.Button(frame, text = "Remove file",width = 16,command=lambda:cls.add(malbox,listbox))
+        rembutton = tkinter.Button(frame, text = "Remove file",width = 16,command=lambda:cls.rem(malbox))
         rembutton.place(x=420,y= 260)
 
         #underhanded task input box
