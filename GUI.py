@@ -262,6 +262,14 @@ class GUI:
         for i in malbox.curselection():
             filename = malbox.get(i)
             malbox.delete(malbox.get(0, tkinter.END).index(filename))
+
+    @classmethod
+    def help(cls):
+        helpscreen = tkinter.Tk()
+        helpframe = tkinter.Frame(helpscreen, width=400,height=500)
+        helpframe.pack()
+        helpscreen.wm_title("Help")
+
     
 
     @classmethod
