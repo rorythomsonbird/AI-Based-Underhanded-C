@@ -269,7 +269,11 @@ class GUI:
         helpframe = tkinter.Frame(helpscreen, width=400,height=500)
         helpframe.pack()
         helpscreen.wm_title("Help")
-
+        helpinfo = MalGen.MalGen.filetostring("Help.txt")
+        helptext = tkinter.Label(helpframe, text = helpinfo)
+        helptext.config(justify="left",anchor="w",font=("Sans", 10))
+        helptext.place(x=45,y=70)
+        
     
 
     @classmethod
