@@ -148,6 +148,7 @@ class GUI:
                 replysplit = reply.split("```")
                 if curr_mal == "":
                     data = replysplit[1]
+                    data = "```"+data+"```"
                 else:
                     data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
                     data = "```c"+data+"```"
@@ -269,13 +270,32 @@ class GUI:
         helpframe = tkinter.Frame(helpscreen, width=400,height=500)
         helpframe.pack()
         helpscreen.wm_title("Help")
-        helptitle = tkinter.Label(helpframe, text = "Instructions")
+        
+        
+        
+        
+        
+        
+
+        canvas = tkinter.Canvas(helpframe, width=300, height=350)
+        canvas.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True)
+        helptitle = tkinter.Label(canvas, text = "Instructions")
         helptitle.config(font=("Sans", 20))
         helptitle.place(x=120,y=10)
+        
+        scrollbar = tkinter.Scrollbar(helpframe, command=canvas.yview)
+        scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
+
         helpinfo = MalGen.MalGen.filetostring("Help.txt")
-        helptext = tkinter.Label(helpframe, text = helpinfo)
+        helptext = tkinter.Label(canvas, text = helpinfo,width=400)
         helptext.config(justify="left",anchor="w",font=("Sans", 10))
         helptext.place(x=45,y=70)
+        canvas.create_window(0, 0, window=helptitle, anchor=tkinter.NW)
+        canvas.create_window(0, 70, window=helptext, anchor=tkinter.NW)
+
+        canvas.config(yscrollcommand=scrollbar.set)
+        
+        canvas.config(scrollregion=canvas.bbox("all"))
         
     
 
