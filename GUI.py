@@ -187,7 +187,7 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
-            readframe = tkinter.Frame(popup, width=350,height=500)
+            readframe = tkinter.Frame(popup, width=500,height=500)
             readframe.pack()
             popup.wm_title(listbox.get(i))
             text = tkinter.Text(readframe,height=40,width=75,font=(9))
@@ -218,14 +218,18 @@ class GUI:
 
     @classmethod
     def debug(cls,text,randomgen,file,curr):
-        debugged = randomgen.debug(file)
+        showinfo("Debug","Debugging... Please click ok to continue")
+        try:
+            debugged = randomgen.debug(file)
+        except Exception:
+            showerror("Error","Could not connect to GPTAPI, please check your connection and retry.")
         newdebfile = open("Samples/"+file,"w")
         newdebfile.write(debugged)
         text.delete('1.0',tkinter.END)
         text.insert(tkinter.END,debugged)
         newdebfile.close()
         if curr == debugged:
-            showinfo("Debug status","Everything looks compilable!")
+            showinfo("Debug status","Everything looks compilable! \nDebug unnecessary")
         else:
             showinfo("Debug status","Code debugged.")
 

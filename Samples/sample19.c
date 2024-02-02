@@ -22,3 +22,4 @@ int main() {
     printWeasel(weasel);
 
     return 0;
+}
