@@ -13,7 +13,7 @@ class GUI:
     
 
     @classmethod
-    def sendprompt(cls,randomgen,insertnuminp,inserttypeinp): 
+    def sendprompt(cls,randomgen,insertnuminp,inserttypeinp,listbox,files,allfiles): 
         inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character), end-1c means read to end of text then remove unwanted newline char
         inputtype = inserttypeinp.get("1.0",'end-1c')
         goodinp = False
@@ -32,6 +32,7 @@ class GUI:
         
             randomgen.gencode(number, inputtype)
             showinfo("Info", "Code generated!")
+            cls.newset(randomgen,listbox,files,allfiles)
     
     @classmethod
     def malboy(cls, finbox, workbox,malinp):
@@ -328,18 +329,16 @@ class GUI:
         mallab = tkinter.Label(frame, text="Make it malicious!")
         mallab.place(x=480,y=20)
         mallab.config(font=("Sans", 20))
-
-        #gencode button
-        genbutton = tkinter.Button(frame, text = "Generate!",width = 10, command=lambda:cls.sendprompt(randomgen,insertnuminp,inserttypeinp))
-        genbutton.place(x=250,y= 160)
-
+        
         #list storing files
         allfiles = 0 #sets if all files shown or just newly generated 
-
-        
         files = list()
         listbox = tkinter.Listbox(frame, height= 10,listvariable=files)
         listbox.place(x=50, y= 220)
+
+        #gencode button
+        genbutton = tkinter.Button(frame, text = "Generate!",width = 10, command=lambda:cls.sendprompt(randomgen,insertnuminp,inserttypeinp,listbox,files,allfiles))
+        genbutton.place(x=250,y= 160)
 
         cls.refreshlist(randomgen,listbox,files,allfiles)
 
