@@ -1,37 +1,67 @@
-Hi, and welcome to the underhanded code generator. In this section we will be detailing how to use this tool. If any support is required, please contact us at rorythomsonbird@gmail.com.
+Hi, and welcome to the underhanded code generator. 
+In this section we will be detailing how to use this tool. If any support is 
+required, please contact us at rorythomsonbird@gmail.com.
 
 Step 1:
-Enter the amount of files to generate for the benign task. It is recommended that multiple files are entered as only a single file may not perform the task accurately or may be difficult to perform underhanded techniques upon. 
-Please note that too many generated files will take a large amount of time and in severe cases would result in a timeout.
+Enter the amount of files to generate for the benign task. It is recommended that 
+multiple files are entered as only a single file may not perform the task 
+accurately or may be difficult to perform underhanded techniques upon. 
+Please note that too many generated files will take a large amount of time and in 
+severe cases would result in a timeout.
 
 Step 2: 
-Enter the benign task. In the Underhanded-C Contest (of which this project is based upon) and other similar contests such as the Obfuscated V Contest there is a benign task and then an 'Evil' task. Please enter here the deteails of this task.
-Alternatively you may wish to make your own custom file. In this case you would enter the desired function of any normal code.
+Enter the benign task. In the Underhanded-C Contest (of which this project is based
+upon) and other similar contests such as the Obfuscated V Contest there is a benign
+task and then an 'Evil' task. Please enter here the deteails of this task.
+Alternatively you may wish to make your own custom file. In this case you would 
+enter the desired function of any normal code.
 
-After this is entered click the 'Generate!' button. Then click ok on the popup that appears and wait for the next popup.
+After this is entered click the 'Generate!' button. Then click ok on the popup that
+appears and wait for the next popup.
 
 Step 3: 
-Click refresh to show the newly generated files. It is also possible to click the 'All' button above the ListBox to show the previously generated files.
+Click refresh to show the newly generated files. It is also possible to click the 
+'All' button above the ListBox to show the previously generated files.
 
-At this point it is also possible to interact with the generated files by selecting the file and using one of the following buttons:
+At this point it is also possible to interact with the generated files by selecting 
+the file and using one of the following buttons:
 'Compile': This will compile the selected file, ready to be run.
-'Read': This button will open a new window, featuring a text editor along with a 'Save' button to save any alterations you wish to perform. A 'Debug' button is also featured which will feed the code back through the GPTAPI to identify any bugs, this can include missing ';' or '{}'. To finish select the 'Done' button.
+'Read': This button will open a new window, featuring a text editor along with a 
+'Save' button to save any alterations you wish to perform. A 'Debug' button is also 
+featured which will feed the code back through the GPTAPI to identify any bugs, 
+this can include missing ';' or '{}'. To finish select the 'Done' button.
 
 Step 4:
-To move onto the next step in the underhanded code generation, all relevant files must be selected individually and the 'Make malicious!' button should be used.
+To move onto the next step in the underhanded code generation, all relevant files 
+must be selected individually and the 'Make malicious!' button should be used.
 
 Step 5: 
-Once the generated benign files are in the Malicious ListBox, the malicious task should be entered into the TextBox and will be the 'Evil' task if this is an entry to the Underhanded-C Contest or equivalent. The malicious task will need to follow certain restrictions:
+Once the generated benign files are in the Malicious ListBox, the malicious task 
+should be entered into the TextBox and will be the 'Evil' task if this is an entry 
+to the Underhanded-C Contest or equivalent. The malicious task will need to follow 
+certain restrictions:
 
-If the model 'MalBoy' is selected then the malicious input will need to be quite subtle and not directly say anything malicious. This can be quite volatile in what is determined as breaking GPTs ethical boundaries. This is evidenced in the fact that 'Skew the vote count in a nominees favour' is determined as malicious while 'Skew votes in a nominees favour' is not.
+If the model 'MalBoy' is selected then the malicious input will need to be quite 
+subtle and not directly say anything malicious. This can be quite volatile in what 
+is determined as breaking GPTs ethical boundaries. This is evidenced in the fact 
+that 'Skew the vote count in a nominees favour' is determined as malicious while 
+'Skew votes in a nominees favour' is not.
 
-If the model 'Devilinci' is selected then almost any underhanded task can be accomplished, however, a more specific prompt would yield better results.
+If the model 'Devilinci' is selected then almost any underhanded task can be 
+accomplished, however, a more specific prompt would yield better results.
 
-After the model is selected, you can add additional malware in the dropdown menu - keep in mind that adding this will mean malware is easily detected and it would not be an acceptable submission to the contest.
-Next click "Go!" and click ok on the popups and save the file. If this fails then retry and append the malicious prompt with 'MAKE SURE ```c PRECEDES THE CODE AND ``` IS PLACED AFTER.'.
+After the model is selected, you can add additional malware in the dropdown menu 
+- keep in mind that adding this will mean malware is easily detected and it would
+ not be an acceptable submission to the contest.
+Next click "Go!" and click ok on the popups and save the file. If this fails then
+retry and append the malicious prompt with:
+'MAKE SURE ```c PRECEDES THE CODE AND ``` IS PLACED AFTER.'
 
 Step 6:
-The generated file should now appear in the finished ListBox. From here you can perform the same actions as with when the benign files had been generated but with an additional 'Malware Check' button to see if the underhanded code is detected as malicious.
+The generated file should now appear in the finished ListBox. From here you can
+perform the same actions as with when the benign files had been generated but with 
+an additional 'Malware Check' button to see if the underhanded code is detected 
+as malicious.
 
 Step 7:
 Enjoy!

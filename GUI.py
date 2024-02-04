@@ -187,7 +187,7 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
-            readframe = tkinter.Frame(popup, width=500,height=500)
+            readframe = tkinter.Frame(popup, width=350,height=500)
             readframe.pack()
             popup.wm_title(listbox.get(i))
             text = tkinter.Text(readframe,height=40,width=75,font=(9))
@@ -222,7 +222,7 @@ class GUI:
         try:
             debugged = randomgen.debug(file)
         except Exception:
-            showerror("Error","Could not connect to GPTAPI, please check your connection and retry.")
+            showerror("Error","Could not connect to GPTAPI, please check your connection and")
         newdebfile = open("Samples/"+file,"w")
         newdebfile.write(debugged)
         text.delete('1.0',tkinter.END)
@@ -271,29 +271,23 @@ class GUI:
     @classmethod
     def help(cls):
         helpscreen = tkinter.Tk()
-        helpframe = tkinter.Frame(helpscreen, width=400,height=500)
+        helpframe = tkinter.Frame(helpscreen, width=500,height=500)
         helpframe.pack()
         helpscreen.wm_title("Help")
-        
-        
-        
-        
-        
-        
 
-        canvas = tkinter.Canvas(helpframe, width=300, height=350)
-        canvas.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True)
+        canvas = tkinter.Canvas(helpframe, width=400, height=500,borderwidth=30)
+        canvas.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True,ipadx=15, ipady=15)
         helptitle = tkinter.Label(canvas, text = "Instructions")
         helptitle.config(font=("Sans", 20))
         helptitle.place(x=120,y=10)
         
         scrollbar = tkinter.Scrollbar(helpframe, command=canvas.yview)
-        scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
+        scrollbar.pack(side=tkinter.LEFT, fill=tkinter.Y)
 
         helpinfo = MalGen.MalGen.filetostring("Help.txt")
-        helptext = tkinter.Label(canvas, text = helpinfo,width=400)
+        helptext = tkinter.Label(canvas, text = helpinfo,width=300)
         helptext.config(justify="left",anchor="w",font=("Sans", 10))
-        helptext.place(x=45,y=70)
+        helptext.place(x=40,y=70)
         canvas.create_window(0, 0, window=helptitle, anchor=tkinter.NW)
         canvas.create_window(0, 70, window=helptext, anchor=tkinter.NW)
 
