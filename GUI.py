@@ -192,23 +192,23 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
-            readframe = tkinter.Frame(popup, width=350,height=500)
+            readframe = tkinter.Frame(popup, bg=framecolour,width=350,height=500)
             readframe.pack()
             popup.wm_title(listbox.get(i))
-            text = tkinter.Text(readframe,height=40,width=75,font=(9))
+            text = tkinter.Text(readframe,bg=menucolour,height=40,width=75,font=(9))
             text.grid(row=0, column=0)
             text.insert(tkinter.END,readfile.read())
             
-            scrollbar = tkinter.Scrollbar(readframe,orient=tkinter.VERTICAL)
+            scrollbar = tkinter.Scrollbar(readframe,bg=menucolour,orient=tkinter.VERTICAL)
             scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
             text.config(yscrollcommand=scrollbar.set)
             scrollbar.config(command=text.yview)
-            donebutton = tkinter.Button(readframe,text="Done",command=lambda:popup.destroy())
+            donebutton = tkinter.Button(readframe,text="Done",bg=buttoncolour,command=lambda:popup.destroy())
             donebutton.grid(row=6,column=0)
-            savebutton = tkinter.Button(readframe,text="Save",command=lambda:cls.saveread(text,listbox.get(i)))
+            savebutton = tkinter.Button(readframe,text="Save",bg=buttoncolour,command=lambda:cls.saveread(text,listbox.get(i)))
             savebutton.grid(row=4,column=0)
             if debug ==True:
-                debugbutton = tkinter.Button(readframe,text="Debug",command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
+                debugbutton = tkinter.Button(readframe,text="Debug",bg=buttoncolour,command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
                 debugbutton.grid(row=5,column=0)
             
 
@@ -276,21 +276,21 @@ class GUI:
     @classmethod
     def help(cls):
         helpscreen = tkinter.Tk()
-        helpframe = tkinter.Frame(helpscreen, width=500,height=500)
+        helpframe = tkinter.Frame(helpscreen, bg=framecolour,width=500,height=500)
         helpframe.pack()
         helpscreen.wm_title("Help")
 
-        canvas = tkinter.Canvas(helpframe, width=400, height=500,borderwidth=30)
+        canvas = tkinter.Canvas(helpframe, bg=framecolour,width=420, height=500,borderwidth=30)
         canvas.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True,ipadx=15, ipady=15)
-        helptitle = tkinter.Label(canvas, text = "Instructions")
+        helptitle = tkinter.Label(canvas, anchor="w",bg=framecolour,height=2,width=20,text = "Instructions")
         helptitle.config(font=("Sans", 20))
         helptitle.place(x=120,y=10)
         
-        scrollbar = tkinter.Scrollbar(helpframe, command=canvas.yview)
+        scrollbar = tkinter.Scrollbar(helpframe, bg=menucolour,command=canvas.yview)
         scrollbar.pack(side=tkinter.LEFT, fill=tkinter.Y)
 
         helpinfo = MalGen.MalGen.filetostring("Help.txt")
-        helptext = tkinter.Label(canvas, text = helpinfo,width=300)
+        helptext = tkinter.Label(canvas, bg=framecolour,text = helpinfo,width=300)
         helptext.config(justify="left",anchor="w",font=("Sans", 10))
         helptext.place(x=40,y=70)
         canvas.create_window(0, 0, window=helptitle, anchor=tkinter.NW)

