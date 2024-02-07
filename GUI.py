@@ -185,6 +185,7 @@ class GUI:
         
         cls.gui = tkinter.Tk()
         cls.gui.title("Malware Generator")
+        cls.gui.resizable(False, False)
 
     @classmethod
     def read(cls,randomgen,debug,listbox):
@@ -310,7 +311,7 @@ class GUI:
         frame.pack_propagate(0)
         frame.pack()
         canvas = tkinter.Canvas(frame, bg=framecolour,width=800,height=500)
-        canvas.create_line(400, 0, 400, 500, width=5)
+        canvas.create_line(400, 0, 400, 500, width=2) #Create divider for the two separate GUI sides
         canvas.pack()
         #input number of generated files
         insertnumlab = tkinter.Label(frame,bg=framecolour,text="Enter number of generated files:") 
@@ -407,9 +408,11 @@ class GUI:
         compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,bg = buttoncolour,command=lambda:cls.compile(randomgen,finbox))
         compilebutton.place(x=615,y= 385)
         
-        #MalwareCheck button
+        #MalwareCheck buttons
         mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(finbox))
-        mcbutton.place(x=615,y= 410)
+        mcbutton.place(x=615,y= 410)    
+        mcbutton2 = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(finbox))
+        mcbutton2.place(x=250,y= 435)
 
         #malware combobox
         curr_mal = tkinter.StringVar()
