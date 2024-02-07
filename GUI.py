@@ -7,10 +7,10 @@ import os
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
 from tkinter import simpledialog
-titlecolour = '#B8860B'
-buttoncolour = '#DEB887'
-framecolour = '#F5F5DC'
-menucolour = '#FFFFF0'
+titlecolour = '#800000'
+buttoncolour = '#ab3b3b'
+framecolour = '#ebc6c6'
+menucolour = '#f2d9d9' 
 class GUI:
     
     
