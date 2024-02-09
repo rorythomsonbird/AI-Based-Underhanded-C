@@ -129,6 +129,7 @@ class GUI:
             curr_mal = "direncer"
         if curr_mal == "none":
             curr_mal = ""
+        showinfo("Info", "Beginning underhanded activities...\nPress OK and wait.")
         if checkdevint == 1 and checkmalint == 1:
             showerror("Warning", "Please only select a maximum of one LLM")
         elif checkdevint == 0 and checkmalint == 1:
@@ -297,8 +298,17 @@ class GUI:
         canvas.config(yscrollcommand=scrollbar.set)
         
         canvas.config(scrollregion=canvas.bbox("all"))
-        
     
+    @classmethod
+    def obfuscate(cls,finbox):
+        showinfo("Info","Obfuscating....\nPress OK to continue.")
+
+        for i in finbox.curselection():
+            try:
+                MalGen.MalGen.obfuscate(finbox.get(i))
+                showinfo("Info","Code has been obfuscated successfully.\nName: Obfuscated"+finbox.get(i))
+            except Exception:
+                showerror("Error","Error obfuscating, check connection.")
 
     @classmethod
     def run(cls):
@@ -427,6 +437,9 @@ class GUI:
         helpbutton = tkinter.Button(frame,text = "Help", width = 8,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.help())
         helpbutton.place(x=730,y=5)
 
+        #Obfuscate button
+        obfbutton = tkinter.Button(frame,text = "Obfuscate", width = 15,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.obfuscate(finbox))
+        obfbutton.place(x=615,y=435)
         cls.gui.mainloop()
 
     

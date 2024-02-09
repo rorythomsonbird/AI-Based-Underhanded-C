@@ -59,3 +59,8 @@ class MalGen:
         newfiletext = imports+filetext+"\n"+data
         newfiletext = newfiletext.replace("int main() {", "int main() { \n    "+type[:-2]+"();")
         return newfiletext
+    
+    def obfuscate(file):
+        filetext = MalGen.filetostring("Samples/"+file)
+        newcode = GPTAPI.davinci_gen("Find any code that could be considered malicious. Alter the code to make it appear benign while maintaining the malicious properties, describe the change when done. ADD ```c before the code and ``` after:\n"+filetext)
+        MalGen.savefile(newcode,"Obfuscated"+file)
