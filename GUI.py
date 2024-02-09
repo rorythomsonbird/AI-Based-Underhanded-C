@@ -78,11 +78,7 @@ class GUI:
             else:
                 reply = reply.replace("Code:","Code:\n```c")
                 reply = reply.replace("Directions:","```\ncDirections:")
-                return reply
-                
-                
-                
-            
+                return reply                                                            
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
     @classmethod
@@ -98,26 +94,29 @@ class GUI:
     def detail(cls,popup,result,malcheck,detailbutton):
         result.destroy()
         detailbutton.destroy()
-        result = tkinter.Label(popup, text=malcheck)
+        result = tkinter.Label(popup,bg=framecolour,text=malcheck)
         result.grid(row=0, column=0)
+        popup.update()
         detailbutton.destroy()
 
     @classmethod
     def check(cls,listbox):
         for i in listbox.curselection():
-            popup = tkinter.Toplevel()
-            popup.wm_title("Result")
+            popuptk = tkinter.Toplevel()
+            popup = tkinter.Frame(popuptk,height=300,width=300,bg=framecolour)
+            popup.pack()
+            popuptk.wm_title("Result")
             malcheck = MalwareCheck.check("Samples/"+listbox.get(i))
             if "Yes" in malcheck:
                 checkword = "Malicious intent detected.\nFail."
             else:
                 checkword = "No malicious intent detected.\nSuccess!"
                 
-            result = tkinter.Label(popup, text=checkword)
+            result = tkinter.Label(popup, bg=framecolour,width=30,height=10, text=checkword)
             result.grid(row=0, column=0)
-            donebutton = tkinter.Button(popup,text="Done",command=lambda:popup.destroy())
+            donebutton = tkinter.Button(popup,text="Done",bg=buttoncolour,command=lambda:popuptk.destroy())
             donebutton.grid(row=5,column=0)
-            detailbutton = tkinter.Button(popup,text="Detail",command=lambda:cls.detail(popup,result,malcheck,detailbutton))
+            detailbutton = tkinter.Button(popup,text="Detail",bg=buttoncolour,command=lambda:cls.detail(popup,result,malcheck,detailbutton))
             detailbutton.grid(row=4,column=0)
 
     @classmethod
@@ -177,8 +176,6 @@ class GUI:
         MalGen.MalGen.savefile(data,genfilename)
         finbox.insert(tkinter.END,genfilename+".c")
         showinfo("File Status", genfilename+" saved!")
-
-
 
     @classmethod
     def initialize(cls):
@@ -370,8 +367,6 @@ class GUI:
         readbutton = tkinter.Button(frame, text = "Read file",width = 10,bg = buttoncolour,command=lambda:cls.read(randomgen,True,listbox))
         readbutton.place(x=250,y= 360)
 
-        
-
         #malware listbox
         malbox = tkinter.Listbox(frame, bg=menucolour,height= 10,listvariable=files)
         malbox.place(x=420, y= 90)
@@ -379,11 +374,9 @@ class GUI:
         malboxlab.place(x=420,y=70)
         malboxlab.config(font=("Sans", 8))
 
-
         #transfer file button
         transbutton = tkinter.Button(frame, text = "Make malicious",width = 15,bg = buttoncolour,command=lambda:cls.transfer(malbox,listbox))
         transbutton.place(x=250,y= 411)
-
 
         #remove file button
         rembutton = tkinter.Button(frame, text = "Remove file",width = 16,bg = buttoncolour,command=lambda:cls.rem(malbox))
@@ -411,7 +404,7 @@ class GUI:
         #MalwareCheck buttons
         mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(finbox))
         mcbutton.place(x=615,y= 410)    
-        mcbutton2 = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(finbox))
+        mcbutton2 = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(listbox))
         mcbutton2.place(x=250,y= 435)
 
         #malware combobox

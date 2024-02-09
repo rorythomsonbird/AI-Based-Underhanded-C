@@ -19,4 +19,3 @@ int main() {
     printf("Weasel Weight: %.2f\n", weasel.weight);
 
     return 0;
-}
