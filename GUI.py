@@ -8,7 +8,7 @@ from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
 from tkinter import simpledialog
 titlecolour = '#800000'
-buttoncolour = '#ab3b3b'
+buttoncolour = '#6a0622'
 framecolour = '#ebc6c6'
 menucolour = '#f2d9d9' 
 class GUI:
@@ -339,32 +339,32 @@ class GUI:
         listbox.place(x=50, y= 220)
 
         #gencode button
-        genbutton = tkinter.Button(frame, text = "Generate!",width = 10,bg = buttoncolour,command=lambda:cls.sendprompt(randomgen,insertnuminp,inserttypeinp,listbox,files,allfiles))
+        genbutton = tkinter.Button(frame, text = "Generate!",width = 10,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.sendprompt(randomgen,insertnuminp,inserttypeinp,listbox,files,allfiles))
         genbutton.place(x=250,y= 160)
 
         cls.refreshlist(randomgen,listbox,files,allfiles)
 
         #refresh file list button
-        refbutton = tkinter.Button(frame, text = "Refresh",width = 16, bg = buttoncolour,command=lambda: cls.refreshlist(randomgen,listbox,files,allfiles))
+        refbutton = tkinter.Button(frame, text = "Refresh",width = 16, fg = '#ffffff',bg = buttoncolour,command=lambda: cls.refreshlist(randomgen,listbox,files,allfiles))
         refbutton.place(x=50,y= 385)
 
         #all files button
-        allfbutton = tkinter.Button(frame, text = "All",width = 6, bg = buttoncolour,command=lambda: cls.allset(randomgen,listbox,files,allfiles))
+        allfbutton = tkinter.Button(frame, text = "All",width = 6,fg = '#ffffff', bg = buttoncolour,command=lambda: cls.allset(randomgen,listbox,files,allfiles))
         allfbutton.place(x=120,y= 195)
 
         #new files button
-        newfbutton = tkinter.Button(frame, text = "New",width = 6, bg = buttoncolour,command=lambda: cls.newset(randomgen,listbox,files,allfiles))
+        newfbutton = tkinter.Button(frame, text = "New",width = 6,fg = '#ffffff', bg = buttoncolour,command=lambda: cls.newset(randomgen,listbox,files,allfiles))
         newfbutton.place(x=50,y= 195)
         listboxlab = tkinter.Label(frame,bg=framecolour, text = "default new")
         listboxlab.config(font=("Sans", 7))
         listboxlab.place(x=180,y=210)
 
         #compile button
-        compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,bg = buttoncolour,command=lambda:cls.compile(randomgen,listbox))
+        compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.compile(randomgen,listbox))
         compilebutton.place(x=250,y= 385)
 
         #read file button
-        readbutton = tkinter.Button(frame, text = "Read file",width = 10,bg = buttoncolour,command=lambda:cls.read(randomgen,True,listbox))
+        readbutton = tkinter.Button(frame, text = "Read file",width = 10,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.read(randomgen,True,listbox))
         readbutton.place(x=250,y= 360)
 
         #malware listbox
@@ -375,11 +375,11 @@ class GUI:
         malboxlab.config(font=("Sans", 8))
 
         #transfer file button
-        transbutton = tkinter.Button(frame, text = "Make malicious",width = 15,bg = buttoncolour,command=lambda:cls.transfer(malbox,listbox))
+        transbutton = tkinter.Button(frame, text = "Make malicious",width = 15,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.transfer(malbox,listbox))
         transbutton.place(x=250,y= 411)
 
         #remove file button
-        rembutton = tkinter.Button(frame, text = "Remove file",width = 16,bg = buttoncolour,command=lambda:cls.rem(malbox))
+        rembutton = tkinter.Button(frame, text = "Remove file",width = 16,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.rem(malbox))
         rembutton.place(x=420,y= 260)
 
         #underhanded task input box
@@ -394,17 +394,17 @@ class GUI:
         finbox.place(x=420, y= 340)
 
         #read finished file button
-        readfinbutton = tkinter.Button(frame, text = "Read file",width = 10,bg = buttoncolour,command=lambda:cls.read(randomgen,False,finbox))
+        readfinbutton = tkinter.Button(frame, text = "Read file",width = 10,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.read(randomgen,False,finbox))
         readfinbutton.place(x=615,y= 360)
         
         #compile button
-        compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,bg = buttoncolour,command=lambda:cls.compile(randomgen,finbox))
+        compilebutton = tkinter.Button(frame, text = "Compile!",width = 10,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.compile(randomgen,finbox))
         compilebutton.place(x=615,y= 385)
         
         #MalwareCheck buttons
-        mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(finbox))
+        mcbutton = tkinter.Button(frame, text = "Malware Check",width = 15,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.check(finbox))
         mcbutton.place(x=615,y= 410)    
-        mcbutton2 = tkinter.Button(frame, text = "Malware Check",width = 15,bg = buttoncolour,command=lambda:cls.check(listbox))
+        mcbutton2 = tkinter.Button(frame, text = "Malware Check",width = 15,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.check(listbox))
         mcbutton2.place(x=250,y= 435)
 
         #malware combobox
@@ -420,11 +420,11 @@ class GUI:
         checkdev.place(x=675,y=130)
 
         #Go button
-        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,bg = buttoncolour,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,curr_mal))
+        gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,curr_mal))
         gobutton.place(x=685,y=200)
 
         #Help button
-        helpbutton = tkinter.Button(frame,text = "Help", width = 8,bg = buttoncolour,command=lambda:cls.help())
+        helpbutton = tkinter.Button(frame,text = "Help", width = 8,fg = '#ffffff',bg = buttoncolour,command=lambda:cls.help())
         helpbutton.place(x=730,y=5)
 
         cls.gui.mainloop()
