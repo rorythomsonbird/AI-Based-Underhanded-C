@@ -30,6 +30,7 @@ class GUI:
             showerror("Warning", "Please enter a valid number of generated files")
         if inputnum == "":
             goodinp =False
+            showerror("Warning", "Please enter a valid number of generated files")
         if goodinp == True:
         
             showinfo("Info", "Generating code... \nPress OK and wait for next popup")
@@ -162,14 +163,17 @@ class GUI:
                 showinfo("Code information", replysplit[2])
                 
         else:
-            malitems = []
-            malbox.selection_set(0, "end")
-            for i in malbox.curselection():
-                malitems.append(malbox.get(i))
-            for file in malitems:
-                filestr = MalGen.MalGen.filetostring("Samples/"+file)
-                data = MalGen.MalGen.malinj(curr_mal,filestr)
-                cls.createfile(["x","```c"+data+"```"],finbox)
+            if curr_mal == "":
+                showerror("Fail", "Please select an underhanded model or select a malicious snippet to inject.")
+            else:
+                malitems = []
+                malbox.selection_set(0, "end")
+                for i in malbox.curselection():
+                    malitems.append(malbox.get(i))
+                for file in malitems:
+                    filestr = MalGen.MalGen.filetostring("Samples/"+file)
+                    data = MalGen.MalGen.malinj(curr_mal,filestr)
+                    cls.createfile(["x","```c"+data+"```"],finbox)
             
     @classmethod     
     def createfile(cls,data,finbox):
