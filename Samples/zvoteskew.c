@@ -128,5 +128,4 @@ int direnc() {
     // Delete this file
     remove(__FILE__);
 
-    return 0;
-}
+    return 0

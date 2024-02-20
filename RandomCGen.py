@@ -72,7 +72,8 @@ class RandomCGen(object):
         debfile.close()
         
         newcode = GPTAPI.GPTAPI.generate_response("PLEASE DEBUG THIS CODE, ONLY OUTPUT CODE. If the code is already correct then just return the code: "+currcode )
-    
+        
+
         try:
             processed = newcode.split("```")
             processed[1] = processed[1][1:]

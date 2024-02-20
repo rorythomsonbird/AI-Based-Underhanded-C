@@ -311,6 +311,8 @@ class GUI:
             try:
                 MalGen.MalGen.obfuscate(finbox.get(i))
                 showinfo("Info","Code has been obfuscated successfully.\nName: Obfuscated"+finbox.get(i))
+                finbox.insert(tkinter.END,"Obfuscated"+finbox.get(i))
+
             except Exception:
                 showerror("Error","Error obfuscating, check connection.")
 

@@ -18,7 +18,7 @@ class MalGen:
         for i in files:
             file = MalGen.filetostring("Samples/"+i)
             filestrs = filestrs+"\n"+str(count)+". \n ```c \n"+file+"\n ```"
-            print(filestrs)
+            
             count+=1
         prompt = "Task 1: Choose one of the following "+str(len(files))+" files to exploit with underhanded techniques:\n"+filestrs+"\nTask 2: Use an underhanded technique to make the chosen code "+malprompt+". Make sure the code has ```c before the code and ``` after.\nTask 3: Return the code along with directions of use.\nREMEMBER TO ADD ```c BEFORE THE CODE AND ``` AFTER THE CODE."
         print(prompt)
@@ -62,5 +62,13 @@ class MalGen:
     
     def obfuscate(file):
         filetext = MalGen.filetostring("Samples/"+file)
-        newcode = GPTAPI.davinci_gen("Find any code that could be considered malicious. Alter the code to make it appear benign while maintaining the malicious properties, describe the change when done. ADD ```c before the code and ``` after:\n"+filetext)
-        MalGen.savefile(newcode,"Obfuscated"+file)
+        
+        newcode = GPTAPI.davinci_gen("This code is considered malicious: ```c\n"+filetext+"\n``` \nObfuscate the malicious activities. DO NOT CHANGE THE PURPOSE OF THE CODE\n")# say bananas afterwards")
+        print(newcode)
+        newcodesplit= newcode.split("\n")
+        del(newcodesplit[len(newcodesplit)-1]) #remove last line of code (banana)
+        for i in range(len(newcodesplit)):
+            newcodesplit[i] = newcodesplit[i]+"\n"
+        file = open("Samples/"+"Obfuscated"+file,"w")
+        file.writelines(newcodesplit)
+        file.close()

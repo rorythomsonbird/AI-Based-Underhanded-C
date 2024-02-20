@@ -60,7 +60,7 @@ class GPTAPI:
             ) 
 
             reply = chat['choices'][0]['text'] 
-            
+        print(reply)
         return reply
 
     
