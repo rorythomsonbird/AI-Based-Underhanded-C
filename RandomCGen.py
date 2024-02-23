@@ -4,11 +4,14 @@ import os
 import GUI
 from distutils.ccompiler import new_compiler
 genfiles = list()
+
 class RandomCGen(object):
     
     
     def __init__(self):
         self = self
+        
+    error = 0  
     
 
     @classmethod    
@@ -53,6 +56,7 @@ class RandomCGen(object):
             print("All files written!")
             return genfiles
         except Exception:
+            cls.error = 1
             print("Error, please retry")
     @classmethod    
     def compilecode(cls,file): #compiles code
