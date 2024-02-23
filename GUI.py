@@ -214,14 +214,14 @@ class GUI:
             scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
             text.config(yscrollcommand=scrollbar.set)
             scrollbar.config(command=text.yview)
-            donebutton = tkinter.Button(readframe,text="Done",bg=buttoncolour,
+            donebutton = tkinter.Button(readframe,text="Done",fg = '#ffffff',bg=buttoncolour,
                                         command=lambda:popup.destroy())
             donebutton.grid(row=6,column=0)
-            savebutton = tkinter.Button(readframe,text="Save",bg=buttoncolour,
+            savebutton = tkinter.Button(readframe,text="Save",fg = '#ffffff',bg=buttoncolour,
                                         command=lambda:cls.saveread(text,listbox.get(i)))
             savebutton.grid(row=4,column=0)
             if debug ==True:
-                debugbutton = tkinter.Button(readframe,text="Debug",bg=buttoncolour,
+                debugbutton = tkinter.Button(readframe,text="Debug",fg = '#ffffff',bg=buttoncolour,
                                              command=lambda:cls.debug(text,randomgen,listbox.get(i),readfile.read()))
                 debugbutton.grid(row=5,column=0)
             
