@@ -99,13 +99,16 @@ class GUI:
                 showerror("Warning", "Could not compile. please compile manually.")
     
     @classmethod
-    def detail(cls,popup,result,malcheck,detailbutton):
+    def detail(cls,donebutton,popup,popuptk,result,malcheck,detailbutton):
         result.destroy()
         detailbutton.destroy()
-        result = tkinter.Label(popup,bg=framecolour,text=malcheck)
-        result.grid(row=0, column=0)
+        donebutton.destroy()
+        result = tkinter.Label(popup,wraplength=400,bg=framecolour,text=malcheck)
+        result.pack()
+        donebutton = tkinter.Button(popup,text="Done",fg = '#ffffff',bg=buttoncolour,command=lambda:popuptk.destroy())
+        donebutton.pack()
         popup.update()
-        detailbutton.destroy()
+        
 
     @classmethod
     def check(cls,listbox):
@@ -120,13 +123,13 @@ class GUI:
             else:
                 checkword = "No malicious intent detected.\nSuccess!"
                 
-            result = tkinter.Label(popup, bg=framecolour,width=30,height=10, text=checkword)
-            result.grid(row=0, column=0)
-            donebutton = tkinter.Button(popup,text="Done",bg=buttoncolour,command=lambda:popuptk.destroy())
-            donebutton.grid(row=5,column=0)
-            detailbutton = tkinter.Button(popup,text="Detail",bg=buttoncolour,command=
-                                          lambda:cls.detail(popup,result,malcheck,detailbutton))
-            detailbutton.grid(row=4,column=0)
+            result = tkinter.Label(popup, wraplength=100,bg=framecolour,width=30,height=10, text=checkword)
+            result.pack()
+            donebutton = tkinter.Button(popup,text="Done",fg = '#ffffff',bg=buttoncolour,command=lambda:popuptk.destroy())
+            donebutton.pack()
+            detailbutton = tkinter.Button(popup,text="Detail",fg = '#ffffff',bg=buttoncolour,command=
+                                          lambda:cls.detail(donebutton,popup,popuptk,result,malcheck,detailbutton))
+            detailbutton.pack()
 
     @classmethod
     def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal):
