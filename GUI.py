@@ -203,6 +203,7 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
+            popup.resizable(False, False)
             readframe = tkinter.Frame(popup, bg=framecolour,width=350,height=500)
             readframe.pack()
             popup.wm_title(listbox.get(i))
@@ -290,6 +291,7 @@ class GUI:
     @classmethod
     def help(cls):
         helpscreen = tkinter.Tk()
+        helpscreen.resizable(False, False)
         helpframe = tkinter.Frame(helpscreen, bg=framecolour,width=500,height=500)
         helpframe.pack()
         helpscreen.wm_title("Help")
