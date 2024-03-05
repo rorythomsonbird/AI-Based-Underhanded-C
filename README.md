@@ -9,6 +9,8 @@ pip install selenium
 pip install chromedriver-py
 pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
+Ensure that gcc is installed and prepared for use.
+
 If the unlikely error that may appear on some machines of "Cannot find 'Samples' path" occurs then all mentions of the path "Samples" will need to be replaced with the full directory path.
 
 
