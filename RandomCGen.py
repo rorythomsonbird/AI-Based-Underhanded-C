@@ -61,7 +61,14 @@ class RandomCGen(object):
     def compilecode(cls,file): #compiles code
         try:                  
             os.system("gcc "+file+" -o "+file[:-1]+"exe")
-            return 1
+            generated = False
+            for path in os.listdir("Samples"):
+                if "Samples/"+path == file[:-1]+"exe":
+                    generated=True
+            if generated == True:
+                return 1
+            else:
+                return 0
         except Exception:
             return 0
         
