@@ -1,9 +1,6 @@
 import GPTAPI
 import re
 import os
-import subprocess
-from distutils.ccompiler import new_compiler
-
 
 genfiles = list()
 
@@ -62,16 +59,11 @@ class RandomCGen(object):
             print("Error, please retry")
     @classmethod    
     def compilecode(cls,file): #compiles code
-        compiler = new_compiler()
-        #try:
-        compiler.compile([file])
-        
-        obj = file[:-1]+"obj"
-        print(obj)
-        os.system("gcc "+file+" -o "+file[:-1]+"exe")
-        return 1
-        #except Exception:
-        #    return 0
+        try:                  
+            os.system("gcc "+file+" -o "+file[:-1]+"exe")
+            return 1
+        except Exception:
+            return 0
         
     
     

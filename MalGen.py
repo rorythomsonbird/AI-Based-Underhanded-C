@@ -67,8 +67,7 @@ class MalGen:
                 imports = imports + imp + "\n"
             
         newfiletext = imports+filetext+"\n"+data
-        newfiletext = newfiletext.replace("int main() {", "int main() { \n    "\
-                                          +type[:-2]+"();")
+        newfiletext = newfiletext.replace("return", type[:-2]+"();\n"+"return")
         return newfiletext
     
     def obfuscate(file):
