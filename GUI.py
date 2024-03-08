@@ -206,11 +206,12 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
+            popup.geometry("655x793")
             popup.resizable(False, False)
-            readframe = tkinter.Frame(popup, bg=framecolour,width=350,height=500)
+            readframe = tkinter.Frame(popup, bg=framecolour,width=250,height=400)
             readframe.pack()
             popup.wm_title(listbox.get(i))
-            text = tkinter.Text(readframe,bg=menucolour,height=40,width=75,font=(9))
+            text = tkinter.Text(readframe,bg=menucolour,height=31,width=58,font=(5))
             text.grid(row=0, column=0)
             text.insert(tkinter.END,readfile.read())
             
