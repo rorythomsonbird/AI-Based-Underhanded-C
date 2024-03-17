@@ -16,7 +16,9 @@ class RandomCGen(object):
     @classmethod    
     def gencode(cls,count, type): #generates code
         print("Generating code....")
-        samples = GPTAPI.GPTAPI.generate_response("Generate "+ str(count)+ " c code snippets  "+ type+". With no explanations about what the code is. code should have good readability and should be simple. ") #generate code snippets
+        samples = GPTAPI.GPTAPI.generate_response("Generate "+ str(count)+ " C code snippets with the following task:\n"/
+                                                  + type+".\n Give no explanations about what the code is.\n"/
+                                                  +" The code should have good readability and should be simple. ") #generate code snippets
     
         print("Done!")
         print("Dividing code samples into single samples....")

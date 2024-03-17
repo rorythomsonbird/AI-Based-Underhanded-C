@@ -31,7 +31,6 @@ class MalGen:
         +malprompt+". Make sure the code has ```c before the code and ``` after."\
         +"\nTask 3: Return the code along with directions of use.\nREMEMBER TO ADD"\
         +" ```c BEFORE THE CODE AND ``` AFTER THE CODE."
-        print(prompt)
         return GPTAPI.davinci_gen(prompt)
     
     def filetostring(file): #Convert the file text into a string

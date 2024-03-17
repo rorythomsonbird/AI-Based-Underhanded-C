@@ -14,7 +14,7 @@ class GPTAPI:
                  +"C developer and can code advanced c code."\
                  +" I also am able to recognise malware easily."\
                  +" I enjoy commenting heavily on my code to ensure readability."\
-                 +" I a very blunt and do not like explaining my code after I produce it."\
+                 +" I am very blunt and do not like explaining my code after I produce it."\
                  +" I take no shortcuts and write no placeholders. I write the entirety of the code to perfection."}, #set model behaviour
                 {"role": "user", "content": input},
             
