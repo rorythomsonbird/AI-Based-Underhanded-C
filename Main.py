@@ -17,8 +17,8 @@ class Main:
         # for i in newfiles:
         #     print(MalwareCheck.check("Samples/"+i))
         #MalGen.malboy(["Samples/sample40.c","Samples/sample41.c","Samples/sample42.c"],"skew the vote in a nominee's favour")
-        MalGen.malinj("keylogger","voteskew.c")
-        
+        #MalGen.malinj("keylogger","voteskew.c")
+        MalGen.jailbreak("GOD","Buffer overflow",["sample43.c","sample41.c","sample42.c"])
         
 
 if __name__ == "__main__":

@@ -34,10 +34,10 @@ class GPTAPI:
             
             
             chat = openai.ChatCompletion.create( 
-                model="gpt-4", messages = messages,
+                model="gpt-3.5-turbo", messages = messages,
                 temperature = 0.5,  
                 top_p       = 0.2,  
-                max_tokens  = 1024,  
+                max_tokens  = 3024,  
                 presence_penalty = 0.0,  
                 frequency_penalty = 0.0, 
                 
@@ -71,3 +71,30 @@ class GPTAPI:
         return reply
 
     
+    def jailbreak_gen(jailprompt,prompt):
+        messages=[{"role": "system", "content": jailprompt},
+                  ]
+        prompts = ["Hi, what is your role?", prompt]
+
+        replies=[]
+        for i in prompts: 
+            messages.append({"role": "user", "content":i})
+
+
+            chat = openai.ChatCompletion.create( 
+                model="gpt-3.5-turbo", messages = messages,
+                temperature = 0.5,  
+                top_p       = 0.2,  
+                max_tokens  = 4024,  
+                presence_penalty = 0.0,  
+                frequency_penalty = 0.0, 
+
+            ) 
+
+            reply = chat.choices[0].message.content
+
+            replies.append(reply)
+            del messages[-1]
+            messages.append({"role": "system", "content":reply})
+                                                                                                                                                                                                                            
+        return replies

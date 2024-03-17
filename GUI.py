@@ -46,7 +46,7 @@ class GUI:
             cls.newset(randomgen,listbox,files,allfiles)
     
     @classmethod
-    def malboy(cls, finbox, workbox,malinp):
+    def malboy(cls, workbox,malinp):
         prompt = malinp.get("1.0",'end-1c')
         workitems = []
         workbox.selection_set(0, "end")
@@ -72,7 +72,7 @@ class GUI:
 
     
     @classmethod
-    def devilinci(cls, finbox, workbox,malinp):
+    def devilinci(cls, workbox,malinp):
         prompt = malinp.get("1.0",'end-1c')
         workitems = []
         workbox.selection_set(0, "end")
@@ -132,20 +132,40 @@ class GUI:
             detailbutton.pack()
 
     @classmethod
-    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal):
+    def jailbreakmod(cls,malbox,jailbreak,malinp):
+        prompt = malinp.get("1.0",'end-1c')
+        malitems = []
+        malbox.selection_set(0, "end")
+        for i in malbox.curselection():
+            malitems.append(malbox.get(i))
+        try:
+            reply = MalGen.MalGen.jailbreak(jailbreak, prompt, malitems)[-1] 
+            if "```" in reply:
+                return reply
+            else:
+                reply = reply.replace("Code:","Code:\n```c")
+                reply = reply.replace("Directions:","```\ncDirections:")
+                return reply                                                            
+        except Exception:
+            showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
+
+    @classmethod
+    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal,checkjailint,jailbreak):
         curr_mal = curr_mal.get()
+        jailbreak = jailbreak.get()
         checkdevint = checkdevint.get()
         checkmalint = checkmalint.get()
+        checkjailint = checkjailint.get()
         curr_mal = str.lower(curr_mal)
         if curr_mal == "directory encryption":
             curr_mal = "direncer"
         if curr_mal == "none":
             curr_mal = ""
         showinfo("Info", "Beginning underhanded activities...\nPress OK and wait.")
-        if checkdevint == 1 and checkmalint == 1:
+        if checkjailint+checkdevint+checkmalint > 1:
             showerror("Warning", "Please only select a maximum of one LLM")
-        elif checkdevint == 0 and checkmalint == 1:
-            replies = cls.malboy(finbox, malbox, malinp)
+        elif checkmalint == 1:
+            replies = cls.malboy(malbox, malinp)
             lastreply = replies[len(replies)-1].split("```")
             if replies == "":
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
@@ -157,22 +177,49 @@ class GUI:
                     data = "```c"+data+"```"
                 cls.createfile(["x",data],finbox)
                 showinfo("Code information", lastreply[2])
-        elif checkdevint == 1 and checkmalint == 0:
-            reply = cls.devilinci(finbox, malbox, malinp)
+        elif checkdevint == 1:
+            reply = cls.devilinci(malbox, malinp)
             if reply == "":
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
             else:
                 replysplit = reply.split("```")
                 if curr_mal == "":
-                    data = replysplit[1]
-                    data = "```"+data+"```"
+                    try:
+                        data = replysplit[1]
+                        data = "```"+data+"```"
+                    except:
+                        showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
                 else:
-                    data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
-                    data = "```c"+data+"```"
+                    try:
+                        data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
+                        data = "```c"+data+"```"
+                    except:
+                        showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
                 cls.createfile(["x",data],finbox)
-                
+                if replysplit[2] == "":
+                    replysplit[2] = "No instructions."
                 showinfo("Code information", replysplit[2])
-                
+        elif checkjailint==1:
+            if jailbreak == "":
+                showerror("Fail", "Please select a jailbreak model.")
+            else:
+                reply = cls.jailbreakmod(malbox,jailbreak,malinp)
+                if reply == "":
+                    showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
+                else:
+                    try:
+                        replysplit = reply.split("```")
+                        if curr_mal == "":
+                            data = replysplit[1]
+                            data = "```"+data+"```"
+                        else:
+                            data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
+                            data = "```c"+data+"```"
+                    
+    
+                        cls.createfile(["x",data],finbox)
+                    except:
+                        showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
         else:
             if curr_mal == "":
                 showerror("Fail", "Please select an underhanded model or select a malicious snippet to inject.")
@@ -465,14 +512,21 @@ class GUI:
         malcombo.place(x=550,y=160)
         checkmalint = tkinter.IntVar()
         checkdevint = tkinter.IntVar()
+        checkjailint = tkinter.IntVar()
         checkmal = tkinter.Checkbutton(frame, text='Malboy',bg=framecolour,variable=checkmalint, onvalue=1, offvalue=0)
         checkdev = tkinter.Checkbutton(frame, text='Devilinci',bg=framecolour,variable=checkdevint, onvalue=1, offvalue=0)
+        checkjail = tkinter.Checkbutton(frame,bg=framecolour,variable=checkjailint, onvalue=1, offvalue=0)
         checkmal.place(x=550,y=130)
-        checkdev.place(x=675,y=130)
+        checkdev.place(x=613,y=130)
+        checkjail.place(x=680,y=130)
+        jailbreak = tkinter.StringVar()
+        jailcombo = ttk.Combobox(frame, textvariable=jailbreak,width = 7)
+        jailcombo['values'] = ('GOD', 'EVIL', 'DEVELOPER')  
+        jailcombo.place(x=700,y=130)
 
         #Go button
         gobutton = tkinter.Button(frame,text = "Go!", width = 8, height = 3,fg = '#ffffff',
-                                  bg = buttoncolour,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,curr_mal))
+                                  bg = buttoncolour,command=lambda:cls.go(finbox,malbox,malinp,checkdevint,checkmalint,curr_mal,checkjailint,jailbreak))
         gobutton.place(x=685,y=200)
 
         #Help button
