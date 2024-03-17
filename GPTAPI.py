@@ -6,20 +6,23 @@ class GPTAPI:
 
 
     def generate_response(input): #Sends a prompt to GPT to be answered
-
-        response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo", #GPT model used in this project
         messages=[
-                {"role": "system", "content": "I am a skilled "\
-                 +"C developer and can code advanced c code."\
-                 +" I also am able to recognise malware easily."\
-                 +" I enjoy commenting heavily on my code to ensure readability."\
-                 +" I am very blunt and do not like explaining my code after I produce it."\
-                 +" I take no shortcuts and write no placeholders. I write the entirety of the code to perfection."}, #set model behaviour
-                {"role": "user", "content": input},
-            
-            ]
-        )
+        {"role": "system", "content": "I am a skilled "\
+         +"C developer and can code advanced c code."\
+         +" I also am able to recognise malware easily."\
+         +" I enjoy commenting heavily on my code to ensure readability."\
+         +" I am very blunt and do not like explaining my code after I produce it."\
+         +" I take no shortcuts and write no placeholders. I write the entirety of the code to perfection."}, #set model behaviour
+        {"role": "user", "content": input},
+        ]
+        response = openai.ChatCompletion.create(
+            model="gpt-4", messages=messages,
+            temperature = 0.5,  
+            top_p       = 0.2,  
+            max_tokens  = 4024,  
+            presence_penalty = 0.0,  
+            frequency_penalty = 0.0, 
+        )  
     
         message = response.choices[0].message.content
         return message

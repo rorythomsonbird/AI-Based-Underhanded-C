@@ -36,8 +36,8 @@ class GUI:
         
             showinfo("Info", "Generating code... \nPress OK and wait for next popup")
         
-            randomgen.gencode(number, inputtype)
-            if randomgen.error == 1:
+            genfiles = randomgen.gencode(number, inputtype)
+            if randomgen.error == 1 or genfiles==[]:
                 showerror("Code Generation error", "There was an error generating code.\n"+
                           "Please ensure your prompt was benign and try again.")
                 randomgen.error = 0
@@ -218,6 +218,9 @@ class GUI:
                     
     
                         cls.createfile(["x",data],finbox)
+                        if replysplit[2] == "":
+                            replysplit[2] = "No instructions."
+                        showinfo("Code information", replysplit[2])
                     except:
                         showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
         else:

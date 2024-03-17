@@ -16,8 +16,8 @@ class RandomCGen(object):
     @classmethod    
     def gencode(cls,count, type): #generates code
         print("Generating code....")
-        samples = GPTAPI.GPTAPI.generate_response("Generate "+ str(count)+ " C code snippets with the following task:\n"/
-                                                  + type+".\n Give no explanations about what the code is.\n"/
+        samples = GPTAPI.GPTAPI.generate_response("Generate "+ str(count)+ " C code snippets with the following task:\n"\
+                                                  + type+".\n Give no explanations about what the code is.\n"\
                                                   +" The code should have good readability and should be simple. ") #generate code snippets
     
         print("Done!")
@@ -59,6 +59,7 @@ class RandomCGen(object):
         except Exception:
             cls.error = 1
             print("Error, please retry")
+            return[]
     @classmethod    
     def compilecode(cls,file): #compiles code
         try:                  
