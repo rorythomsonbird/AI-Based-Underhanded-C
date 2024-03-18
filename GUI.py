@@ -115,6 +115,7 @@ class GUI:
         for i in listbox.curselection():
             popuptk = tkinter.Toplevel()
             popup = tkinter.Frame(popuptk,height=300,width=300,bg=framecolour)
+            popup.resizable(False, False)
             popup.pack()
             popuptk.wm_title("Result")
             malcheck = MalwareCheck.check("Samples/"+listbox.get(i))
