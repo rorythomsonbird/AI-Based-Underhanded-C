@@ -43,7 +43,7 @@ class GUI:
                 randomgen.error = 0
             else:
                 showinfo("Info", "Code generated!")
-            cls.newset(randomgen,listbox,files,allfiles)
+            cls.newset(listbox,files,allfiles)
     
     @classmethod
     def malboy(cls, workbox,malinp):
@@ -311,7 +311,7 @@ class GUI:
     
     
     @classmethod
-    def refreshlist(cls,randomgen,listbox,files,allfiles):
+    def refreshlist(cls,listbox,files,allfiles):
         
         files.clear()
         if allfiles == 1:
@@ -323,13 +323,13 @@ class GUI:
         for item in files:
             listbox.insert(tkinter.END,item)
     @classmethod
-    def allset(cls,randomgen,listbox,files,allfiles):
+    def allset(cls,listbox,files,allfiles):
         allfiles = 1
-        cls.refreshlist(randomgen,listbox,files,allfiles)
+        cls.refreshlist(listbox,files,allfiles)
     @classmethod
-    def newset(cls,randomgen,listbox,files,allfiles):
+    def newset(cls,listbox,files,allfiles):
         allfiles = 0
-        cls.refreshlist(randomgen,listbox,files,allfiles)
+        cls.refreshlist(listbox,files,allfiles)
 
     @classmethod
     def transfer(cls,malbox,listbox):
@@ -433,21 +433,21 @@ class GUI:
                                        allfiles))
         genbutton.place(x=250,y= 160)
 
-        cls.refreshlist(randomgen,listbox,files,allfiles)
+        cls.refreshlist(listbox,files,allfiles)
 
         #refresh file list button
         refbutton = tkinter.Button(frame, text = "Refresh",width = 16, fg = '#ffffff',
-                                   bg = buttoncolour,command=lambda: cls.refreshlist(randomgen,listbox,files,allfiles))
+                                   bg = buttoncolour,command=lambda: cls.refreshlist(listbox,files,allfiles))
         refbutton.place(x=50,y= 385)
 
         #all files button
         allfbutton = tkinter.Button(frame, text = "All",width = 6,fg = '#ffffff', 
-                                    bg = buttoncolour,command=lambda: cls.allset(randomgen,listbox,files,allfiles))
+                                    bg = buttoncolour,command=lambda: cls.allset(listbox,files,allfiles))
         allfbutton.place(x=120,y= 195)
 
         #new files button
         newfbutton = tkinter.Button(frame, text = "New",width = 6,fg = '#ffffff', bg = buttoncolour,
-                                    command=lambda: cls.newset(randomgen,listbox,files,allfiles))
+                                    command=lambda: cls.newset(listbox,files,allfiles))
         newfbutton.place(x=50,y= 195)
         listboxlab = tkinter.Label(frame,bg=framecolour, text = "default new")
         listboxlab.config(font=("Sans", 7))
