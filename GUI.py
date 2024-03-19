@@ -115,7 +115,7 @@ class GUI:
         for i in listbox.curselection():
             popuptk = tkinter.Toplevel()
             popup = tkinter.Frame(popuptk,height=300,width=300,bg=framecolour)
-            popup.resizable(False, False)
+            popuptk.resizable(False, False)
             popup.pack()
             popuptk.wm_title("Result")
             malcheck = MalwareCheck.check("Samples/"+listbox.get(i))
@@ -260,7 +260,7 @@ class GUI:
             popup.geometry("655x793")
             popup.resizable(False, False)
             readframe = tkinter.Frame(popup, bg=framecolour,width=250,height=400)
-            readframe.pack()
+            readframe.pack(fill=tkinter.BOTH, expand=True)
             popup.wm_title(listbox.get(i))
             text = tkinter.Text(readframe,bg=menucolour,height=31,width=58,font=(5))
             text.grid(row=0, column=0)
