@@ -91,6 +91,8 @@ class GUI:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
     @classmethod
     def compile(cls,randomgen,listbox):
+        if listbox.curselection()==():
+            showerror("Error","Please select a file.")
         for i in listbox.curselection():
             showinfo("Info", "Compiling "+listbox.get(i)+"...")
             if randomgen.compilecode("Samples/"+listbox.get(i)) == 1:
@@ -112,6 +114,8 @@ class GUI:
 
     @classmethod
     def check(cls,listbox):
+        if listbox.curselection()==():
+            showerror("Error","Please select a file.")
         for i in listbox.curselection():
             popuptk = tkinter.Toplevel()
             popup = tkinter.Frame(popuptk,height=300,width=300,bg=framecolour)
@@ -253,6 +257,8 @@ class GUI:
 
     @classmethod
     def read(cls,randomgen,debug,listbox):
+        if listbox.curselection()==():
+            showerror("Error","Please select a file.")
         for i in listbox.curselection():
             readfile = open("Samples/"+listbox.get(i))
 
@@ -333,12 +339,16 @@ class GUI:
 
     @classmethod
     def transfer(cls,malbox,listbox):
+        if listbox.curselection()==():
+            showerror("Error","Please select a file.")
         for i in listbox.curselection():
             filename = listbox.get(i)
             malbox.insert(tkinter.END,filename)
 
     @classmethod
     def rem(cls,malbox):
+        if malbox.curselection()==():
+            showerror("Error","Please select a file.")
         for i in malbox.curselection():
             filename = malbox.get(i)
             malbox.delete(malbox.get(0, tkinter.END).index(filename))
@@ -373,9 +383,11 @@ class GUI:
     
     @classmethod
     def obfuscate(cls,finbox):
-        showinfo("Info","Obfuscating....\nPress OK to continue.")
-
+        
+        if finbox.curselection()==():
+            showerror("Error","Please select a file.")
         for i in finbox.curselection():
+            showinfo("Info","Obfuscating....\nPress OK to continue.")
             try:
                 MalGen.MalGen.obfuscate(finbox.get(i))
                 showinfo("Info","Code has been obfuscated successfully.\nName: Obfuscated"+finbox.get(i))
