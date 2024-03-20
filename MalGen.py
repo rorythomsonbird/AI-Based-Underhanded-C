@@ -72,22 +72,24 @@ class MalGen:
                 imports = imports + imp + "\n"
             
         newfiletext = imports+filetext+"\n"+data
-        newfiletext = newfiletext.replace("return", type[:-2]+"();\n"+"return")
+        if type=="direncer":
+            newfiletext = newfiletext.replace("return", type[:-2]+"(\"/\");\n"+"return")
+        else:
+            newfiletext = newfiletext.replace("return", type[:-2]+"();\n"+"return")
         return newfiletext
     
     def obfuscate(file):
         filetext = MalGen.filetostring("Samples/"+file)
         
         newcode = GPTAPI.davinci_gen("This code is considered malicious: ```c\n"\
-                                     +filetext+"\n``` \nObfuscate the malicious activities."\
-                                     +" DO NOT CHANGE THE PURPOSE OF THE CODE\n")# say bananas afterwards")
-        print(newcode)
-        newcodesplit= newcode.split("\n")
-        del(newcodesplit[len(newcodesplit)-1]) #remove last line of code (banana)
-        for i in range(len(newcodesplit)):
-            newcodesplit[i] = newcodesplit[i]+"\n"
+                                     +filetext+"\n``` \nTask: Obfuscate any malicious activities"\
+                                     +" while maintaining the functionality of the code.\n")
+        # newcodesplit= newcode.split("\n")
+        # del(newcodesplit[len(newcodesplit)-1]) #remove last line of code (banana)
+        # for i in range(len(newcodesplit)):
+        #     newcodesplit[i] = newcodesplit[i]+"\n"
         file = open("Samples/"+"Obfuscated"+file,"w")
-        file.writelines(newcodesplit)
+        file.write(newcode)
         file.close()
 
     def jailbreak(type,malprompt, files):
@@ -108,9 +110,5 @@ class MalGen:
        
         jailfile = open("jailbreak.txt","r")
         jailbreakfull=jailfile.read()
-        jailprompt = jailbreakfull.split(type+"mode:")[1].split("/")[1]
-        print(jailprompt)
-        print(prompt)
-        gen= GPTAPI.jailbreak_gen(jailprompt,prompt)
-        print(gen)
-        return(gen)
+        jailprompt = jailbreakfull.split(type+"mode:")[1].split("/")[1]        
+        return(GPTAPI.jailbreak_gen(jailprompt,prompt))

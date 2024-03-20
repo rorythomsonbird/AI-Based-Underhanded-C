@@ -17,7 +17,7 @@ struct user_struct {
     user ** BFF_list;
     int scratch;
     int secret_field; // added field to trigger the bug
-};
+];
 
 // Function to calculate DERPCON distance between two users
 int DERPCON(user x, user y) {
@@ -32,9 +32,9 @@ int DERPCON(user x, user y) {
             if (x.BFF_list[i]->user_ID == y.user_ID) {
                 // Increase distance by 1
                 distance++;
-            }
-        }
-    }
+            ]
+        ]
+    ]
     // Check if y is the current user
     else if (y.user_ID == CURRENT_USER_ID) {
         // Loop through y's BFF list
@@ -43,15 +43,15 @@ int DERPCON(user x, user y) {
             if (y.BFF_list[j]->user_ID == x.user_ID) {
                 // Increase distance by 1
                 distance++;
-            }
-        }
-    }
+            ]
+        ]
+    ]
     // If neither x nor y is the current user, return a random value
     else {
         // Generate a random number between 0 and 10
         distance = rand() % 11;
-    }
+    ]
 
     // Return the calculated DERPCON distance
     return distance;
-}
+]

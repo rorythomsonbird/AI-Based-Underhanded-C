@@ -15,20 +15,18 @@ class RandomCGen(object):
 
     @classmethod    
     def gencode(cls,count, type): #generates code
-        print("Generating code....")
+
         samples = GPTAPI.GPTAPI.generate_response("Generate "+ str(count)+ " C code snippets with the following task:\n"\
                                                   + type+".\n Give no explanations about what the code is.\n"\
                                                   +" The code should have good readability and should be simple. ") #generate code snippets
     
-        print("Done!")
-        print("Dividing code samples into single samples....")
+        
         samplelist = samples.split("```c") #split given code samples
-        print("Done!")
+        
     
 
         dir_path = r'Samples' #set where the files will be made
         fcount = 0
-        print("Writing samples to files....")
         for path in os.listdir(dir_path): #count current numbers of files in directory
         
             fcount += 1
@@ -53,12 +51,9 @@ class RandomCGen(object):
                 genfiles.append("sample"+str(fcount+i)+".c")
 
             
-        
-            print("All files written!")
             return genfiles
         except Exception:
             cls.error = 1
-            print("Error, please retry")
             return[]
     @classmethod    
     def compilecode(cls,file): #compiles code

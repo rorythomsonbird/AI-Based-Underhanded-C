@@ -16,7 +16,7 @@ class GPTAPI:
         {"role": "user", "content": input},
         ]
         response = openai.ChatCompletion.create(
-            model="gpt-4", messages=messages,
+            model="gpt-3.5-turbo", messages=messages,
             temperature = 0.5,  
             top_p       = 0.2,  
             max_tokens  = 4024,  
@@ -70,7 +70,7 @@ class GPTAPI:
             ) 
 
             reply = chat['choices'][0]['text'] 
-        print(reply)
+        
         return reply
 
     
