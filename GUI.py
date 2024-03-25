@@ -263,7 +263,7 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
-            popup.geometry("655x793")
+            popup.geometry("540x650")
             popup.resizable(False, False)
             readframe = tkinter.Frame(popup, bg=framecolour,width=250,height=400)
             readframe.pack(fill=tkinter.BOTH, expand=True)
@@ -271,7 +271,7 @@ class GUI:
             text = tkinter.Text(readframe,bg=menucolour,height=31,width=58,font=(5))
             text.grid(row=0, column=0)
             text.insert(tkinter.END,readfile.read())
-            
+             
             scrollbar = tkinter.Scrollbar(readframe,bg=menucolour,orient=tkinter.VERTICAL)
             scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
             text.config(yscrollcommand=scrollbar.set)

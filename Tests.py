@@ -240,13 +240,13 @@ class Tests:
     cgentest()
     malgentest()
     malwarechecktest()
-
+    percentsuccess = ((22-len(apifaillist)+len(cgenfaillist)+len(mgfaillist)+len(mcfaillist))/22)*100
     print("\nFAILED TESTS:")
     print("API:"+''.join(apifaillist))
     print("RandomCGen:"+''.join(cgenfaillist))
     print("MalGen:"+''.join(mgfaillist))
     print("MalwareCheck:"+''.join(mcfaillist))
-    
+    print(str(percentsuccess)+"% success")
 
 
 
