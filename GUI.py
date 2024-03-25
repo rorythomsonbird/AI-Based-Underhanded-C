@@ -263,7 +263,7 @@ class GUI:
             readfile = open("Samples/"+listbox.get(i))
 
             popup = tkinter.Tk()
-            popup.geometry("540x650")
+            popup.geometry("655x793")
             popup.resizable(False, False)
             readframe = tkinter.Frame(popup, bg=framecolour,width=250,height=400)
             readframe.pack(fill=tkinter.BOTH, expand=True)
