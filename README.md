@@ -17,4 +17,4 @@ If the unlikely error that may appear on some machines of "Cannot find 'Samples'
 
 This program should be run from a Windows machine for optimal use. The program should run on every platform but may appear poor, visually.
 
-After these modules are installed, run from GUI for the user interface or main for commandline view (GUI is recommended).
+After these modules are installed, run from GUI.py
