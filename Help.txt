@@ -48,7 +48,9 @@ that 'Skew the vote count in a nominees favour' is determined as malicious while
 'Skew votes in a nominees favour' is not.
 
 If the model 'Devilinci' is selected then almost any underhanded task can be 
-accomplished, however, a more specific prompt would yield better results.
+accomplished, however, a more specific prompt would yield better results. The 
+Jailbreak models also allow for specifity, these models include: God, Evil and
+Developer.
 
 After the model is selected, you can add additional malware in the dropdown menu 
 - keep in mind that adding this will mean malware is easily detected and it would

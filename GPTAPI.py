@@ -51,6 +51,7 @@ class GPTAPI:
             replies.append(reply)
             del messages[-1]
             messages.append({"role": "system", "content":reply})
+        
         return replies
 
     def davinci_gen(prompt):
@@ -99,5 +100,5 @@ class GPTAPI:
             replies.append(reply)
             del messages[-1]
             messages.append({"role": "system", "content":reply})
-                                                                                                                                                                                                                            
+                                                                                                                                                                                          
         return replies

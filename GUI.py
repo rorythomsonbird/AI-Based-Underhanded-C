@@ -7,7 +7,6 @@ import os
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
 from tkinter import simpledialog
-titlecolour = '#800000'
 buttoncolour = '#6a0622'
 framecolour = '#ebc6c6'
 menucolour = '#f2d9d9' 
@@ -17,7 +16,7 @@ class GUI:
     
 
     @classmethod
-    def sendprompt(cls,randomgen,insertnuminp,inserttypeinp,listbox,files,allfiles): 
+    def sendprompt(cls,randomgen,insertnuminp,inserttypeinp,listbox,files,allfiles): #Send benign code generation prompt and create new samples
         inputnum = insertnuminp.get("1.0",'end-1c') #1.0 refers to the first line character zero (line.character),
         #end-1c means read to end of text then remove unwanted newline char
         inputtype = inserttypeinp.get("1.0",'end-1c')
@@ -25,7 +24,7 @@ class GUI:
         
         
         try:
-            number = int(inputnum)
+            number = int(inputnum)#Transform into Integer
             goodinp = True
         except Exception:
             showerror("Warning", "Please enter a valid number of generated files")
@@ -36,33 +35,33 @@ class GUI:
         
             showinfo("Info", "Generating code... \nPress OK and wait for next popup")
         
-            genfiles = randomgen.gencode(number, inputtype)
-            if randomgen.error == 1 or genfiles==[]:
+            genfiles = randomgen.gencode(number, inputtype)#Send prompt
+            if randomgen.error == 1 or genfiles==[]:#Checks if there was an error in generating the code
                 showerror("Code Generation error", "There was an error generating code.\n"+
                           "Please ensure your prompt was benign and try again.")
                 randomgen.error = 0
             else:
                 showinfo("Info", "Code generated!")
-            cls.newset(listbox,files,allfiles)
+            cls.newset(listbox,files,allfiles)#Set ListBox to show new files
     
     @classmethod
-    def malboy(cls, workbox,malinp):
+    def malboy(cls, workbox,malinp): #MalBoy function to alter benign code into underhanded code
         prompt = malinp.get("1.0",'end-1c')
         workitems = []
         workbox.selection_set(0, "end")
         for i in workbox.curselection():
-            workitems.append(workbox.get(i))
+            workitems.append(workbox.get(i))#Transform ListBox contents into a List
         try:
-            replies = MalGen.MalGen.malboy(workitems,prompt)
+            replies = MalGen.MalGen.malboy(workitems,prompt)#Send prompt
             codemade = False
             
             tempreplies = []
-            for i in range (1,len(replies)):
+            for i in range (1,len(replies)):#Check if code generated
                 if "```" in replies[i]:
                     codemade = True
                     tempreplies.append(replies[i])
             showinfo("MalBoy Success Rate","Success rate: "+str(len(tempreplies))+" of "+str(len(replies)-1)
-                     +"\n"+str((len(tempreplies)/(len(replies)-1))*100)+"% success")
+                     +"\n"+str((len(tempreplies)/(len(replies)-1))*100)+"% success")#Calculate success rate
             if codemade == True:
                 return tempreplies
             else:
@@ -72,40 +71,40 @@ class GUI:
 
     
     @classmethod
-    def devilinci(cls, workbox,malinp):
+    def devilinci(cls, workbox,malinp):#Devilinci method of altering benign code into underhanded code
         prompt = malinp.get("1.0",'end-1c')
         workitems = []
         workbox.selection_set(0, "end")
         for i in workbox.curselection():
-            workitems.append(workbox.get(i))
+            workitems.append(workbox.get(i))#Transform ListBox contents into List
         try:
-            reply = MalGen.MalGen.devilinci(workitems,prompt)
+            reply = MalGen.MalGen.devilinci(workitems,prompt)#Send prompt
          
             if "```" in reply:
                 return reply
             else:
-                reply = reply.replace("Code:","Code:\n```c")
+                reply = reply.replace("Code:","Code:\n```c")#Remove unnecessary headers
                 reply = reply.replace("Directions:","```\ncDirections:")
                 return reply                                                            
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
     @classmethod
-    def compile(cls,randomgen,listbox):
+    def compile(cls,randomgen,listbox):#Sends code to be compiled
         if listbox.curselection()==():
             showerror("Error","Please select a file.")
         for i in listbox.curselection():
             showinfo("Info", "Compiling "+listbox.get(i)+"...")
-            if randomgen.compilecode("Samples/"+listbox.get(i)) == 1:
+            if randomgen.compilecode("Samples/"+listbox.get(i)) == 1:#Compile function called with selected file
                 showinfo("Info", "Compiled!")
             else:
                 showerror("Warning", "Could not compile. please compile manually.")
     
     @classmethod
-    def detail(cls,donebutton,popup,popuptk,result,malcheck,detailbutton):
+    def detail(cls,donebutton,popup,popuptk,result,malcheck,detailbutton):#Transform popup to show more detail, from MalwareCheck popup
         result.destroy()
-        detailbutton.destroy()
+        detailbutton.destroy()#Destroy irrelevant features of old popup
         donebutton.destroy()
-        result = tkinter.Label(popup,wraplength=400,bg=framecolour,text=malcheck)
+        result = tkinter.Label(popup,wraplength=400,bg=framecolour,text=malcheck)#New label for detail with information as text
         result.pack()
         donebutton = tkinter.Button(popup,text="Done",fg = '#ffffff',bg=buttoncolour,command=lambda:popuptk.destroy())
         donebutton.pack()
@@ -113,17 +112,17 @@ class GUI:
         
 
     @classmethod
-    def check(cls,listbox):
+    def check(cls,listbox):#MalwareCheck popup
         if listbox.curselection()==():
             showerror("Error","Please select a file.")
         for i in listbox.curselection():
             popuptk = tkinter.Toplevel()
-            popup = tkinter.Frame(popuptk,height=300,width=300,bg=framecolour)
+            popup = tkinter.Frame(popuptk,height=300,width=300,bg=framecolour)#Create popup
             popuptk.resizable(False, False)
             popup.pack()
             popuptk.wm_title("Result")
-            malcheck = MalwareCheck.check("Samples/"+listbox.get(i))
-            if "Yes" in malcheck:
+            malcheck = MalwareCheck.check("Samples/"+listbox.get(i))#Call MalwareCheck
+            if "Yes" in malcheck:#Shows relevant information, not full information
                 checkword = "Malicious intent detected.\nFail."
             else:
                 checkword = "No malicious intent detected.\nSuccess!"
@@ -137,57 +136,57 @@ class GUI:
             detailbutton.pack()
 
     @classmethod
-    def jailbreakmod(cls,malbox,jailbreak,malinp):
-        prompt = malinp.get("1.0",'end-1c')
+    def jailbreakmod(cls,malbox,jailbreak,malinp):#Sends jailbreak model use information
+        prompt = malinp.get("1.0",'end-1c')#Transform TextBox information to String
         malitems = []
         malbox.selection_set(0, "end")
         for i in malbox.curselection():
-            malitems.append(malbox.get(i))
+            malitems.append(malbox.get(i))#Gets selected filenames
         try:
-            reply = MalGen.MalGen.jailbreak(jailbreak, prompt, malitems)[-1] 
-            if "```" in reply:
+            reply = MalGen.MalGen.jailbreak(jailbreak, prompt, malitems)[-1] #Send prompt to Jailbreak
+            if "```" in reply:#Checks if code
                 return reply
             else:
-                reply = reply.replace("Code:","Code:\n```c")
+                reply = reply.replace("Code:","Code:\n```c")#Remove headers
                 reply = reply.replace("Directions:","```\ncDirections:")
                 return reply                                                            
         except Exception:
             showerror("Error communicating","Error communicating with LLM.\nPlease ensure a valid internet connection.")
 
     @classmethod
-    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal,checkjailint,jailbreak):
-        curr_mal = curr_mal.get()
+    def go(cls,finbox,malbox,malinp,checkdevint,checkmalint,curr_mal,checkjailint,jailbreak):#Container function for selected models
+        curr_mal = curr_mal.get()#Transforms information as Strings/Integers
         jailbreak = jailbreak.get()
         checkdevint = checkdevint.get()
         checkmalint = checkmalint.get()
         checkjailint = checkjailint.get()
-        curr_mal = str.lower(curr_mal)
-        if curr_mal == "directory encryption":
+        curr_mal = str.lower(curr_mal)#Makes all options lowercase for easy lookup
+        if curr_mal == "directory encryption":#Check which additional malware has been selected and changes them to correct format
             curr_mal = "direncer"
         if curr_mal == "none":
             curr_mal = ""
         showinfo("Info", "Beginning underhanded activities...\nPress OK and wait.")
-        if checkjailint+checkdevint+checkmalint > 1:
+        if checkjailint+checkdevint+checkmalint > 1:#Checks if too many CheckBoxes have been selected
             showerror("Warning", "Please only select a maximum of one LLM")
-        elif checkmalint == 1:
-            replies = cls.malboy(malbox, malinp)
+        elif checkmalint == 1:#Checks if MalBoy selected
+            replies = cls.malboy(malbox, malinp)#Call MalBoy function
             lastreply = replies[len(replies)-1].split("```")
-            if replies == "":
+            if replies == "":#Check for failure
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
             else:
-                if curr_mal == "":
+                if curr_mal == "":#Checks what additional malware has been selected
                     data = "```c"+lastreply[1]+"```"
                 else:
-                    data = MalGen.MalGen.malinj(curr_mal,lastreply[1][1:])
+                    data = MalGen.MalGen.malinj(curr_mal,lastreply[1][1:])#Calls Malware Injection function
                     data = "```c"+data+"```"
-                cls.createfile(["x",data],finbox)
-                showinfo("Code information", lastreply[2])
-        elif checkdevint == 1:
-            reply = cls.devilinci(malbox, malinp)
-            if reply == "":
+                cls.createfile(["x",data],finbox)#Creates new file
+                showinfo("Code information", lastreply[2])#Display directions
+        elif checkdevint == 1:#Checks if Devilinci selected
+            reply = cls.devilinci(malbox, malinp)#Call Devilinci
+            if reply == "":#Error check
                 showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
             else:
-                replysplit = reply.split("```")
+                replysplit = reply.split("```")#Retrieve code
                 if curr_mal == "":
                     try:
                         data = replysplit[1]
@@ -196,81 +195,81 @@ class GUI:
                         showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
                 else:
                     try:
-                        data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
+                        data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])#Call malware injection
                         data = "```c"+data+"```"
                     except:
                         showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
-                cls.createfile(["x",data],finbox)
+                cls.createfile(["x",data],finbox)#Create new file
                 if replysplit[2] == "":
                     replysplit[2] = "No instructions."
-                showinfo("Code information", replysplit[2])
-        elif checkjailint==1:
+                showinfo("Code information", replysplit[2])#Display directions
+        elif checkjailint==1:#Checks if jailbreak selected
             if jailbreak == "":
                 showerror("Fail", "Please select a jailbreak model.")
             else:
-                reply = cls.jailbreakmod(malbox,jailbreak,malinp)
+                reply = cls.jailbreakmod(malbox,jailbreak,malinp)#Call jailbreak function
                 if reply == "":
                     showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
                 else:
                     try:
-                        replysplit = reply.split("```")
+                        replysplit = reply.split("```")#Checks for code
                         if curr_mal == "":
                             data = replysplit[1]
                             data = "```"+data+"```"
                         else:
-                            data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])
+                            data = MalGen.MalGen.malinj(curr_mal,replysplit[1][1:])#Calls malware injection
                             data = "```c"+data+"```"
                     
     
-                        cls.createfile(["x",data],finbox)
+                        cls.createfile(["x",data],finbox)#Create file
                         if replysplit[2] == "":
                             replysplit[2] = "No instructions."
-                        showinfo("Code information", replysplit[2])
+                        showinfo("Code information", replysplit[2])#Show instructions
                     except:
                         showerror("Fail", "Failure to complete. \nTry again - may require change of wording.")
         else:
-            if curr_mal == "":
+            if curr_mal == "":#Checks if nothing is selected
                 showerror("Fail", "Please select an underhanded model or select a malicious snippet to inject.")
             else:
                 malitems = []
                 malbox.selection_set(0, "end")
-                for i in malbox.curselection():
+                for i in malbox.curselection():#Gets files
                     malitems.append(malbox.get(i))
                 for file in malitems:
                     filestr = MalGen.MalGen.filetostring("Samples/"+file)
-                    data = MalGen.MalGen.malinj(curr_mal,filestr)
-                    cls.createfile(["x","```c"+data+"```"],finbox)
+                    data = MalGen.MalGen.malinj(curr_mal,filestr)#Call malware injection
+                    cls.createfile(["x","```c"+data+"```"],finbox)#Create new file
             
     @classmethod     
-    def createfile(cls,data,finbox):
-        genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")
-        MalGen.MalGen.savefile(data,genfilename)
-        finbox.insert(tkinter.END,genfilename+".c")
+    def createfile(cls,data,finbox):#Creates a new file
+        genfilename = simpledialog.askstring(title="Name File",prompt="Enter name of new file:")#Prompt for name of new file
+        MalGen.MalGen.savefile(data,genfilename)#Send data and name to savefile function
+        finbox.insert(tkinter.END,genfilename+".c")#Adds to finished ListBox
         showinfo("File Status", genfilename+" saved!")
 
     @classmethod
-    def initialize(cls):
+    def initialise(cls):#Initialise the GUI
         
-        cls.gui = tkinter.Tk()
+        cls.gui = tkinter.Tk()#Make window
         cls.gui.title("Malware Generator")
         cls.gui.resizable(False, False)
 
     @classmethod
-    def read(cls,randomgen,debug,listbox):
-        if listbox.curselection()==():
+    def read(cls,randomgen,debug,listbox):#Opens text editor
+        if listbox.curselection()==():#Checks if a file has been selected
             showerror("Error","Please select a file.")
         for i in listbox.curselection():
-            readfile = open("Samples/"+listbox.get(i))
+            readfile = open("Samples/"+listbox.get(i))#Retrieves data
 
-            popup = tkinter.Tk()
+            popup = tkinter.Tk()#Makes a new window
             popup.geometry("655x793")
             popup.resizable(False, False)
             readframe = tkinter.Frame(popup, bg=framecolour,width=250,height=400)
             readframe.pack(fill=tkinter.BOTH, expand=True)
             popup.wm_title(listbox.get(i))
-            text = tkinter.Text(readframe,bg=menucolour,height=31,width=58,font=(5))
+            text = tkinter.Text(readframe,bg=menucolour,height=31,width=58,font=(5))#Adds relevant widgets
             text.grid(row=0, column=0)
-            text.insert(tkinter.END,readfile.read())
+            text.insert(tkinter.END,readfile.read())#Adds data to the editable TextBox
              
             scrollbar = tkinter.Scrollbar(readframe,bg=menucolour,orient=tkinter.VERTICAL)
             scrollbar.grid(row=0, column=1, sticky=tkinter.NS)
@@ -291,17 +290,17 @@ class GUI:
             popup.mainloop()
     
     @classmethod
-    def saveread(cls,text,file):
+    def saveread(cls,text,file):#Saves changes in text editor
         filesave = open("Samples/"+file,"w")
         filesave.write(text.get("1.0",'end-1c'))
         filesave.close()
         showinfo("Save","Changes saved!")
 
     @classmethod
-    def debug(cls,text,randomgen,file,curr):
+    def debug(cls,text,randomgen,file,curr):#Automatically debugs file
         showinfo("Debug","Debugging... Please click ok to continue")
         try:
-            debugged = randomgen.debug(file)
+            debugged = randomgen.debug(file)#Sends debug the filename to debug
         except Exception:
             showerror("Error","Could not connect to GPTAPI, please check your connection and")
         newdebfile = open("Samples/"+file,"w")
@@ -317,28 +316,28 @@ class GUI:
     
     
     @classmethod
-    def refreshlist(cls,listbox,files,allfiles):
+    def refreshlist(cls,listbox,files,allfiles):#Refreshes first ListBox
         
         files.clear()
-        if allfiles == 1:
+        if allfiles == 1:#Shows all files in directory
             for path in os.listdir("Samples"): 
                 files.append(path)
         else:
-            files = RandomCGen.genfiles
+            files = RandomCGen.genfiles#Shows newly generated files
         listbox.delete(0,tkinter.END)
         for item in files:
-            listbox.insert(tkinter.END,item)
+            listbox.insert(tkinter.END,item)#Adds file names to ListBox
     @classmethod
-    def allset(cls,listbox,files,allfiles):
+    def allset(cls,listbox,files,allfiles):#Set the files in ListBox to entire directory
         allfiles = 1
-        cls.refreshlist(listbox,files,allfiles)
+        cls.refreshlist(listbox,files,allfiles)#Calls ListBox to be refreshed
     @classmethod
-    def newset(cls,listbox,files,allfiles):
+    def newset(cls,listbox,files,allfiles):#Set the files in ListBox to newly generated files
         allfiles = 0
-        cls.refreshlist(listbox,files,allfiles)
+        cls.refreshlist(listbox,files,allfiles)#Calls ListBox to be refreshed
 
     @classmethod
-    def transfer(cls,malbox,listbox):
+    def transfer(cls,malbox,listbox):#Moves files from ListBox to another ListBox
         if listbox.curselection()==():
             showerror("Error","Please select a file.")
         for i in listbox.curselection():
@@ -346,7 +345,7 @@ class GUI:
             malbox.insert(tkinter.END,filename)
 
     @classmethod
-    def rem(cls,malbox):
+    def rem(cls,malbox):#Removes files from ListBox
         if malbox.curselection()==():
             showerror("Error","Please select a file.")
         for i in malbox.curselection():
@@ -354,14 +353,14 @@ class GUI:
             malbox.delete(malbox.get(0, tkinter.END).index(filename))
 
     @classmethod
-    def help(cls):
-        helpscreen = tkinter.Tk()
+    def help(cls):#Shows an instructional popup
+        helpscreen = tkinter.Tk()#Make new window
         helpscreen.resizable(False, False)
         helpframe = tkinter.Frame(helpscreen, bg=framecolour,width=500,height=500)
         helpframe.pack()
         helpscreen.wm_title("Help")
 
-        canvas = tkinter.Canvas(helpframe, bg=framecolour,width=420, height=500,borderwidth=30)
+        canvas = tkinter.Canvas(helpframe, bg=framecolour,width=420, height=500,borderwidth=30)#Insert widgets
         canvas.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True,ipadx=15, ipady=15)
         helptitle = tkinter.Label(canvas, anchor="w",bg=framecolour,height=2,width=20,text = "Instructions")
         helptitle.config(font=("Sans", 20))
@@ -370,7 +369,7 @@ class GUI:
         scrollbar = tkinter.Scrollbar(helpframe, bg=menucolour,command=canvas.yview)
         scrollbar.pack(side=tkinter.LEFT, fill=tkinter.Y)
 
-        helpinfo = MalGen.MalGen.filetostring("Help.txt")
+        helpinfo = MalGen.MalGen.filetostring("Help.txt")#Gets instructions from Help.txt
         helptext = tkinter.Label(canvas, bg=framecolour,text = helpinfo,width=300)
         helptext.config(justify="left",anchor="w",font=("Sans", 10))
         helptext.place(x=40,y=70)
@@ -382,24 +381,24 @@ class GUI:
         canvas.config(scrollregion=canvas.bbox("all"))
     
     @classmethod
-    def obfuscate(cls,finbox):
+    def obfuscate(cls,finbox):#Obfuscates code
         
-        if finbox.curselection()==():
+        if finbox.curselection()==():#Checks if a file has been selected
             showerror("Error","Please select a file.")
         for i in finbox.curselection():
             showinfo("Info","Obfuscating....\nPress OK to continue.")
             try:
-                MalGen.MalGen.obfuscate(finbox.get(i))
+                MalGen.MalGen.obfuscate(finbox.get(i))#Sends code to obfuscate function
                 showinfo("Info","Code has been obfuscated successfully.\nName: Obfuscated"+finbox.get(i))
-                finbox.insert(tkinter.END,"Obfuscated"+finbox.get(i))
+                finbox.insert(tkinter.END,"Obfuscated"+finbox.get(i))#Adds new file to ListBox
 
             except Exception:
                 showerror("Error","Error obfuscating, check connection.")
 
     @classmethod
-    def run(cls):
-        cls.initialize()
-        randomgen = RandomCGen.RandomCGen()
+    def run(cls):#The main function for this class
+        cls.initialise()
+        randomgen = RandomCGen.RandomCGen()#Create singleton randomgen
         frame = tkinter.Frame(cls.gui, bg=framecolour,width=800,height=500)
         frame.pack_propagate(0)
         frame.pack()
