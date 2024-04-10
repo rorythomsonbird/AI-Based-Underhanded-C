@@ -1,5 +1,4 @@
 import openai
-import os
 class GPTAPI:
     openai.api_key = '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' #API key
 

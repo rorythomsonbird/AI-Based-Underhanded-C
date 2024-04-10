@@ -1,4 +1,3 @@
-import os
 from GPTAPI import GPTAPI
 class MalGen:
     def malboy(files,malprompt): #Utilise neutral seeming prompts to avoid detection from 

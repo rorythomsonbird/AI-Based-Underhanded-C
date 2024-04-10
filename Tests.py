@@ -1,7 +1,6 @@
 from GPTAPI import GPTAPI 
 from MalwareCheck import MalwareCheck
 from MalGen import MalGen
-from GUI import GUI
 import RandomCGen
 import os
 import re
